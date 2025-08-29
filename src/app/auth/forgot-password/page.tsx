@@ -5,10 +5,10 @@ import Link from 'next/link';
 import { Form, TextInput, Button, TurnstileCaptcha } from '@/components';
 import type { TurnstileRef } from '@/components/Turnstile';
 import { createClient } from '@/lib/supabase';
-import { useState, useRef } from 'react';
+import { useState, useRef, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-export default function ResetPasswordPage() {
+function ForgotPasswordForm() {
   const [error, setError] = useState<string | null>(null);
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const [captchaError, setCaptchaError] = useState<string | null>(null);
@@ -174,5 +174,13 @@ export default function ResetPasswordPage() {
         </p>
       </div>
     </div>
+  );
+}
+
+export default function ForgotPasswordPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ForgotPasswordForm />
+    </Suspense>
   );
 }

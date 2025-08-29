@@ -5,10 +5,10 @@ import Link from 'next/link';
 import { Form, PasswordInput, Button, TurnstileCaptcha } from '@/components';
 import type { TurnstileRef } from '@/components/Turnstile';
 import { createClient } from '@/lib/supabase';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-export default function UpdatePasswordPage() {
+function UpdatePasswordForm() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
@@ -79,7 +79,6 @@ export default function UpdatePasswordPage() {
       const supabase = createClient();
       const { error } = await supabase.auth.updateUser({
         password: value.password,
-        options: { captchaToken },
       });
 
       if (error) {
@@ -226,5 +225,13 @@ export default function UpdatePasswordPage() {
         </p>
       </div>
     </div>
+  );
+}
+
+export default function UpdatePasswordPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <UpdatePasswordForm />
+    </Suspense>
   );
 }

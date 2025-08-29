@@ -11,10 +11,10 @@ import {
 } from '@/components';
 import type { TurnstileRef } from '@/components/Turnstile';
 import { useAuth } from '@/lib/auth-context';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-export default function SignUpPage() {
+function SignUpForm() {
   const { signUp, loading: authLoading, user } = useAuth();
   const [error, setError] = useState<string | null>(null);
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
@@ -212,5 +212,13 @@ export default function SignUpPage() {
         </p>
       </div>
     </div>
+  );
+}
+
+export default function SignUpPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SignUpForm />
+    </Suspense>
   );
 }
