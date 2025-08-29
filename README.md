@@ -39,6 +39,7 @@ npm run format:check # Check Prettier formatting
 
 - [📚 Setup Guide](./docs/setup.md) - Installation and configuration
 - [🔐 Authentication](./docs/authentication.md) - Supabase setup and usage
+- [📧 Auth Confirmation](./docs/auth-confirmation.md) - Email confirmation setup
 - [🏗️ Architecture](./docs/architecture.md) - Project structure and components
 - [🚀 Deployment](./docs/deployment.md) - Production deployment guide
 
@@ -48,7 +49,16 @@ npm run format:check # Check Prettier formatting
 src/
 ├── app/                 # Next.js App Router
 │   ├── layout.tsx      # Root layout with AuthProvider
-│   ├── page.tsx        # Login page
+│   ├── page.tsx        # Main page (redirects to auth or dashboard)
+│   ├── auth/           # Authentication pages
+│   │   ├── login/    # Login page
+│   │   ├── sign-up/    # Registration page
+│   │   ├── sign-up-success/ # Success page after registration
+│   │   ├── forgot-password/ # Password reset request
+│   │   ├── forgot-password-success/ # Success page after password reset request
+│   │   ├── update-password/ # Password update
+│   │   ├── confirm/    # Email confirmation handler
+│   │   └── error/      # Error page for auth failures
 │   ├── dashboard/      # Protected dashboard page
 │   ├── globals.scss    # Global styles (SCSS)
 │   └── middleware.ts   # Authentication middleware
@@ -58,6 +68,7 @@ src/
 │   └── Turnstile/      # CAPTCHA component
 ├── lib/               # Utility functions
 │   ├── supabase.ts    # Supabase client configuration
+│   ├── supabase-server.ts # Server-side Supabase client
 │   ├── auth.ts        # Authentication utilities
 │   └── auth-context.tsx # React context for auth state
 └── types/             # TypeScript type definitions

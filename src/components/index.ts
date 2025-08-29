@@ -6,5 +6,5 @@ export {
   useFormContext,
   useForm,
 } from './Form';
-export { Button } from './Button';
+export { Button, ButtonLink } from './Button';
 export { TurnstileCaptcha } from './Turnstile';

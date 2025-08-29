@@ -1,0 +1,230 @@
+'use client';
+
+import Image from 'next/image';
+import Link from 'next/link';
+import { Form, PasswordInput, Button, TurnstileCaptcha } from '@/components';
+import type { TurnstileRef } from '@/components/Turnstile';
+import { createClient } from '@/lib/supabase';
+import { useState, useEffect, useRef } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+
+export default function UpdatePasswordPage() {
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const [captchaError, setCaptchaError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const turnstileRef = useRef<TurnstileRef>(null);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const next = searchParams.get('next') ?? '/dashboard';
+
+  useEffect(() => {
+    // Check if user is authenticated
+    const checkAuth = async () => {
+      const supabase = createClient();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (!user) {
+        router.push(`/auth/login?next=${next}`);
+      }
+    };
+    checkAuth();
+  }, [router, next]);
+
+  const handleCaptchaVerify = (token: string) => {
+    setCaptchaToken(token);
+    setCaptchaError(null);
+  };
+
+  const handleCaptchaError = () => {
+    setCaptchaError('CAPTCHA verification failed. Please try again.');
+    setCaptchaToken(null);
+  };
+
+  const handleCaptchaExpire = () => {
+    setCaptchaToken(null);
+    setCaptchaError('CAPTCHA expired. Please verify again.');
+  };
+
+  const resetCaptcha = () => {
+    turnstileRef.current?.reset();
+    setCaptchaToken(null);
+    setCaptchaError(null);
+  };
+
+  const handleFormSubmit = async (value: {
+    password: string;
+    confirmPassword: string;
+  }) => {
+    setError(null);
+    setSuccess(null);
+    setCaptchaError(null);
+    setLoading(true);
+
+    if (value.password !== value.confirmPassword) {
+      setError('Passwords do not match');
+      setLoading(false);
+      return;
+    }
+
+    if (!captchaToken) {
+      setCaptchaError('Please complete the CAPTCHA verification.');
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const supabase = createClient();
+      const { error } = await supabase.auth.updateUser({
+        password: value.password,
+        options: { captchaToken },
+      });
+
+      if (error) {
+        setError(error.message);
+        resetCaptcha();
+      } else {
+        setSuccess('Password updated successfully! Redirecting...');
+        resetCaptcha();
+        setTimeout(() => {
+          router.push(next);
+        }, 2000);
+      }
+    } catch {
+      setError('An unexpected error occurred');
+      resetCaptcha();
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="flex min-h-screen flex-col justify-center px-4 py-12 sm:px-6 lg:px-8">
+      <div className="sm:mx-auto sm:w-full sm:max-w-md">
+        {/* Logo */}
+        <div className="flex justify-center">
+          <div className="relative h-16 w-full">
+            <Image src="/logo.svg" alt="Opin" fill={true} priority />
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="rounded-lg border border-gray-200 bg-white px-6 py-8">
+          <Form
+            defaultValues={{
+              password: '',
+              confirmPassword: '',
+            }}
+            onSubmit={handleFormSubmit}
+            className="space-y-6"
+            title="Update your password"
+            subtitle="Enter your new password below"
+          >
+            {/* Password Field */}
+            <PasswordInput
+              name="password"
+              label="New Password"
+              placeholder="Enter your new password"
+              validators={{
+                onChange: ({ value }: { value: string }) => {
+                  if (!value) return 'Password is required';
+                  if (value.length < 8) {
+                    return 'Password must be at least 8 characters long';
+                  }
+                  return undefined;
+                },
+              }}
+            />
+
+            {/* Confirm Password Field */}
+            <PasswordInput
+              name="confirmPassword"
+              label="Confirm New Password"
+              placeholder="Confirm your new password"
+              validators={{
+                onChange: ({ value }: { value: string }) => {
+                  if (!value) return 'Please confirm your password';
+                  return undefined;
+                },
+              }}
+            />
+
+            {/* CAPTCHA Component */}
+            <div className="flex">
+              <TurnstileCaptcha
+                ref={turnstileRef}
+                onVerify={handleCaptchaVerify}
+                onError={handleCaptchaError}
+                onExpire={handleCaptchaExpire}
+                className="mt-0"
+              />
+            </div>
+
+            {/* Success Message */}
+            {success && (
+              <div className="rounded-md bg-green-50 p-4">
+                <div className="mt-0 flex">
+                  <div className="text-sm text-green-700">
+                    <p>{success}</p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Error Messages */}
+            {(error || captchaError) && (
+              <div className="rounded-md bg-red-50 p-4">
+                <div className="mt-0 flex">
+                  <div className="text-sm text-red-700">
+                    <p>
+                      {error
+                        ? `Password update didn't work. ${error}`
+                        : `We couldn't verify you're human. Try again.`}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Submit Button */}
+            <Form.Subscribe
+              selector={(state: {
+                canSubmit: boolean;
+                isSubmitting: boolean;
+              }) => [state.canSubmit, state.isSubmitting]}
+            >
+              {([canSubmit, submitting]: [boolean, boolean]) => (
+                <Button
+                  type="submit"
+                  disabled={!canSubmit || loading || !!captchaError}
+                  loading={submitting || loading}
+                  fullWidth
+                >
+                  {submitting || loading
+                    ? 'Updating password...'
+                    : 'Update password'}
+                </Button>
+              )}
+            </Form.Subscribe>
+          </Form>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <div className="mt-8 text-center">
+        <p className="text-sm text-gray-600">
+          Remember your password?{' '}
+          <Link
+            href={`/auth/login${next !== '/dashboard' ? `?next=${next}` : ''}`}
+            className="font-semibold text-gray-900 hover:text-gray-700"
+          >
+            Sign in
+          </Link>
+        </p>
+      </div>
+    </div>
+  );
+}
