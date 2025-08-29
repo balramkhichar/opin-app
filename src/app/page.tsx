@@ -1,9 +1,72 @@
 'use client';
 
 import Image from 'next/image';
-import { Form, TextInput, PasswordInput, Button } from '@/components';
+import {
+  Form,
+  TextInput,
+  PasswordInput,
+  Button,
+  TurnstileCaptcha,
+} from '@/components';
+import type { TurnstileRef } from '@/components/Turnstile';
+import { useAuth } from '@/lib/auth-context';
+import { useState, useEffect, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {
+  const { signIn, loading: authLoading, user } = useAuth();
+  const [error, setError] = useState<string | null>(null);
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const [captchaError, setCaptchaError] = useState<string | null>(null);
+  const turnstileRef = useRef<TurnstileRef>(null);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (user) {
+      router.push('/dashboard');
+    }
+  }, [user, router]);
+
+  const handleCaptchaVerify = (token: string) => {
+    setCaptchaToken(token);
+    setCaptchaError(null);
+  };
+
+  const handleCaptchaError = () => {
+    setCaptchaError('CAPTCHA verification failed. Please try again.');
+    setCaptchaToken(null);
+  };
+
+  const handleCaptchaExpire = () => {
+    setCaptchaToken(null);
+    setCaptchaError('CAPTCHA expired. Please verify again.');
+  };
+
+  const resetCaptcha = () => {
+    turnstileRef.current?.reset();
+    setCaptchaToken(null);
+    setCaptchaError(null);
+  };
+
+  const handleFormSubmit = async (value: {
+    email: string;
+    password: string;
+  }) => {
+    setError(null);
+    setCaptchaError(null);
+
+    if (!captchaToken) {
+      setCaptchaError('Please complete the CAPTCHA verification.');
+      return;
+    }
+
+    const result = await signIn(value.email, value.password, captchaToken);
+    if (!result.success) {
+      setError(result.error || 'Sign in failed');
+      resetCaptcha();
+    }
+  };
+
   return (
     <div className="flex min-h-screen flex-col justify-center px-4 py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -22,11 +85,7 @@ export default function LoginPage() {
               email: '',
               password: '',
             }}
-            onSubmit={async value => {
-              // Simulate API call
-              await new Promise(resolve => setTimeout(resolve, 1000));
-              console.log('Form submitted:', value);
-            }}
+            onSubmit={handleFormSubmit}
             className="space-y-6"
             title="Welcome back"
             subtitle="Sign in to your account to continue"
@@ -56,6 +115,32 @@ export default function LoginPage() {
               placeholder="Enter your password"
             />
 
+            {/* CAPTCHA Component */}
+            <div className="flex">
+              <TurnstileCaptcha
+                ref={turnstileRef}
+                onVerify={handleCaptchaVerify}
+                onError={handleCaptchaError}
+                onExpire={handleCaptchaExpire}
+                className="mt-0"
+              />
+            </div>
+
+            {/* Error Messages */}
+            {(error || captchaError) && (
+              <div className="rounded-md bg-red-50 p-4">
+                <div className="mt-0 flex">
+                  <div className="text-sm text-red-700">
+                    <p>
+                      {error
+                        ? `Sign-in didn't work. Double-check your details and retry.`
+                        : `We couldn't verify you're human. Try again.`}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+
             {/* Submit Button */}
             <Form.Subscribe
               selector={(state: {
@@ -66,11 +151,11 @@ export default function LoginPage() {
               {([canSubmit, submitting]: [boolean, boolean]) => (
                 <Button
                   type="submit"
-                  disabled={!canSubmit}
-                  loading={submitting}
+                  disabled={!canSubmit || authLoading || !!captchaError}
+                  loading={submitting || authLoading}
                   fullWidth
                 >
-                  {submitting ? 'Signing in...' : 'Sign in'}
+                  {submitting || authLoading ? 'Signing in...' : 'Sign in'}
                 </Button>
               )}
             </Form.Subscribe>

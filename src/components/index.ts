@@ -7,3 +7,4 @@ export {
   useForm,
 } from './Form';
 export { Button } from './Button';
+export { TurnstileCaptcha } from './Turnstile';

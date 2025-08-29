@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Lato, Montserrat } from 'next/font/google';
 import './globals.scss';
+import { AuthProvider } from '@/lib/auth-context';
 
 // Configure Lato font
 const lato = Lato({
@@ -60,7 +61,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${lato.variable} ${montserrat.variable}`}>
-      <body>{children}</body>
+      <body>
+        <AuthProvider>{children}</AuthProvider>
+      </body>
     </html>
   );
 }

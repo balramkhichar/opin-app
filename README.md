@@ -2,65 +2,26 @@
 
 AI-powered platform for analyzing NPS and CSAT surveys with actionable insights.
 
+## Quick Start
+
+1. **Setup**: Follow the [Setup Guide](./docs/setup.md) to get started
+2. **Authentication**: Configure Supabase using the [Authentication Guide](./docs/authentication.md)
+3. **Deploy**: Use the [Deployment Guide](./docs/deployment.md) to deploy to production
+
 ## Tech Stack
 
 - **Framework**: Next.js 15 with App Router
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS v4 + SCSS
+- **Authentication & Database**: Supabase
+- **Form Handling**: TanStack React Form
+- **CAPTCHA Protection**: Cloudflare Turnstile
+- **Environment Loading**: @next/env
 - **Code Quality**: ESLint + Prettier
 - **Git Hooks**: Husky + lint-staged
 - **Deployment**: Vercel
 
-## Getting Started
-
-### Prerequisites
-
-- Node.js 18+
-- npm, yarn, pnpm, or bun
-
-### Installation
-
-1. Clone the repository:
-
-```bash
-git clone <your-repo-url>
-cd opin-app
-```
-
-2. Install dependencies:
-
-```bash
-npm install
-```
-
-3. Start the development server:
-
-```bash
-npm run dev
-```
-
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-## Development Workflow
-
-### Code Quality Tools
-
-- **ESLint**: Run `npm run lint` to check for code quality issues
-- **Prettier**: Run `npm run format` to format all files (includes Tailwind CSS class sorting)
-- **Auto-fix**: Run `npm run lint:fix` to automatically fix linting issues
-- **SCSS Support**: Configured for proper SCSS formatting and syntax
-
-### Pre-commit Hooks
-
-The project uses Husky and lint-staged to automatically:
-
-- Run ESLint on staged files
-- Format code with Prettier
-- Prevent commits with linting errors
-
-This ensures consistent code quality across the project.
-
-### Available Scripts
+## Available Scripts
 
 ```bash
 npm run dev          # Start development server
@@ -72,52 +33,41 @@ npm run format       # Format with Prettier
 npm run format:check # Check Prettier formatting
 ```
 
+## Documentation
+
+📚 **Complete documentation is available in the [docs](./docs/) folder:**
+
+- [📚 Setup Guide](./docs/setup.md) - Installation and configuration
+- [🔐 Authentication](./docs/authentication.md) - Supabase setup and usage
+- [🏗️ Architecture](./docs/architecture.md) - Project structure and components
+- [🚀 Deployment](./docs/deployment.md) - Production deployment guide
+
 ## Project Structure
 
 ```
 src/
 ├── app/                 # Next.js App Router
-│   ├── layout.tsx      # Root layout
-│   ├── page.tsx        # Home page
+│   ├── layout.tsx      # Root layout with AuthProvider
+│   ├── page.tsx        # Login page
+│   ├── dashboard/      # Protected dashboard page
 │   ├── globals.scss    # Global styles (SCSS)
-│   └── styles/         # Additional styles
+│   └── middleware.ts   # Authentication middleware
 ├── components/         # Reusable components
+│   ├── Button/         # Button component
+│   ├── Form/           # Form components
+│   └── Turnstile/      # CAPTCHA component
 ├── lib/               # Utility functions
+│   ├── supabase.ts    # Supabase client configuration
+│   ├── auth.ts        # Authentication utilities
+│   └── auth-context.tsx # React context for auth state
 └── types/             # TypeScript type definitions
 ```
 
-## Deployment
+## Getting Help
 
-### Deploy on Vercel
+If you encounter issues:
 
-This project is optimized for deployment on Vercel. Here are the steps to deploy:
-
-#### Option 1: Deploy via Vercel CLI
-
-1. Install Vercel CLI: `npm i -g vercel`
-2. Run `vercel` in your project directory
-3. Follow the prompts to connect your GitHub repository
-
-#### Option 2: Deploy via Vercel Dashboard
-
-1. Push your code to a GitHub repository
-2. Go to [vercel.com](https://vercel.com) and sign in
-3. Click "New Project" and import your repository
-4. Vercel will automatically detect it's a Next.js project and configure the build settings
-
-### Project Configuration
-
-- ✅ TypeScript support
-- ✅ Tailwind CSS v4 for styling
-- ✅ SCSS support with proper formatting
-- ✅ ESLint for code quality
-- ✅ Prettier for code formatting (with Tailwind CSS class sorting)
-- ✅ Pre-commit hooks with lint-staged
-- ✅ App Router (Next.js 15+)
-- ✅ Optimized for Vercel deployment with `vercel.json`
-
-The project includes a `vercel.json` configuration file that optimizes:
-
-- Build and development commands
-- Function timeout settings
-- Deployment regions
+1. Check the troubleshooting sections in the [Setup Guide](./docs/setup.md)
+2. Review the [Authentication Guide](./docs/authentication.md) for Supabase issues
+3. Ensure your environment variables are correctly configured
+4. Verify your Supabase project settings
