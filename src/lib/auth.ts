@@ -4,7 +4,7 @@ import type { User } from '@supabase/supabase-js';
 export interface AuthResponse {
   success: boolean;
   error?: string;
-  user?: User;
+  user?: User | null;
 }
 
 export async function signInWithEmail(

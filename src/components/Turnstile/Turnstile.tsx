@@ -2,7 +2,7 @@
 import { forwardRef, useImperativeHandle, useRef } from 'react';
 import { Turnstile, TurnstileInstance } from '@marsidev/react-turnstile';
 
-interface TurnstileProps {
+export interface TurnstileProps {
   onVerify: (token: string) => void;
   onError?: (error: string) => void;
   onExpire?: () => void;

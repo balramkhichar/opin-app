@@ -51,10 +51,7 @@ export function Form({
         {(title || subtitle) && (
           <div className="mb-6">
             {title && (
-              <h6
-                className="text-xl font-semibold text-gray-900"
-                id="form-title"
-              >
+              <h6 className="text-gray-900" id="form-title">
                 {title}
               </h6>
             )}
