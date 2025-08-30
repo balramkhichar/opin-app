@@ -1,7 +1,13 @@
 'use client';
 
 import Link from 'next/link';
-import { Form, TextInput, Button, TurnstileCaptcha } from '@/components';
+import {
+  Form,
+  TextInput,
+  Button,
+  TurnstileCaptcha,
+  Loading,
+} from '@/components';
 import type { TurnstileRef } from '@/components/Turnstile';
 import { createClient } from '@/lib/supabase';
 import { useState, useRef, Suspense } from 'react';
@@ -164,7 +170,7 @@ function ForgotPasswordForm() {
 
 export default function ForgotPasswordPage() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Loading>Loading...</Loading>}>
       <ForgotPasswordForm />
     </Suspense>
   );

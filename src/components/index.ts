@@ -8,3 +8,4 @@ export {
 } from './Form';
 export { Button, ButtonLink } from './Button';
 export { TurnstileCaptcha } from './Turnstile';
+export { Loading } from './Loading';

@@ -7,6 +7,7 @@ import {
   PasswordInput,
   Button,
   TurnstileCaptcha,
+  Loading,
 } from '@/components';
 import type { TurnstileRef } from '@/components/Turnstile';
 import { useAuth } from '@/lib/auth-context';
@@ -243,7 +244,7 @@ function SignUpForm() {
 
 export default function SignUpPage() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Loading>Loading...</Loading>}>
       <SignUpForm />
     </Suspense>
   );

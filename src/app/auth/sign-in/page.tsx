@@ -7,11 +7,13 @@ import {
   PasswordInput,
   Button,
   TurnstileCaptcha,
+  Loading,
 } from '@/components';
 import type { TurnstileRef } from '@/components/Turnstile';
 import { useAuth } from '@/lib/auth-context';
 import { useState, useEffect, useRef, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+
 function SignInForm() {
   const { signIn, loading: authLoading, user } = useAuth();
   const [error, setError] = useState<string | null>(null);
@@ -164,7 +166,7 @@ function SignInForm() {
 
 export default function SignInPage() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Loading>Loading...</Loading>}>
       <SignInForm />
     </Suspense>
   );

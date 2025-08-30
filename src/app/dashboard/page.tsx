@@ -2,17 +2,31 @@
 
 import { useAuth } from '@/lib/auth-context';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { Button } from '@/components/Button';
 
 export default function DashboardPage() {
-  const { user, loading } = useAuth();
+  const { user, loading, signOut } = useAuth();
   const router = useRouter();
+  const [logoutLoading, setLogoutLoading] = useState(false);
 
   useEffect(() => {
     if (!loading && !user) {
       router.push('/');
     }
   }, [user, loading, router]);
+
+  const handleLogout = async () => {
+    setLogoutLoading(true);
+    const result = await signOut();
+    setLogoutLoading(false);
+
+    if (result.success) {
+      router.push('/');
+    } else {
+      console.error('Logout failed:', result.error);
+    }
+  };
 
   if (loading) {
     return (
@@ -31,7 +45,16 @@ export default function DashboardPage() {
 
   return (
     <div className="flex min-h-screen items-center justify-center">
-      <h1 className="text-gray-900">Hello World</h1>
+      <div className="text-center">
+        <h1 className="mb-8 text-gray-900">Hello World</h1>
+        <Button
+          variant="outline"
+          onClick={handleLogout}
+          loading={logoutLoading}
+        >
+          Logout
+        </Button>
+      </div>
     </div>
   );
 }
