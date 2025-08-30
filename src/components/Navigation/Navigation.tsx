@@ -51,8 +51,10 @@ function NavigationItemComponent({
       aria-label={item.label}
       onClick={onItemClick}
     >
-      <Icon name={item.icon} size="md" />
-      <span>{item.label}</span>
+      <div className="flex items-center space-x-3">
+        <Icon name={item.icon} size="md" />
+        <span>{item.label}</span>
+      </div>
     </Link>
   );
 }
