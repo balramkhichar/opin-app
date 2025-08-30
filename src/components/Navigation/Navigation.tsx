@@ -26,7 +26,7 @@ function NavigationItemComponent({
   onItemClick?: () => void;
 }) {
   const commonClasses =
-    'flex items-center space-x-3 p-3 text-black hover:bg-gray-50 rounded-lg transition-colors cursor-pointer';
+    'flex items-center space-x-3 p-3 rounded-lg transition-colors cursor-pointer';
 
   if (item.onClick) {
     return (
@@ -37,6 +37,15 @@ function NavigationItemComponent({
         }}
         className={`${commonClasses} w-full text-left`}
         aria-label={item.label}
+        style={{
+          color: 'var(--color-foreground)',
+        }}
+        onMouseEnter={e => {
+          e.currentTarget.style.backgroundColor = 'var(--color-accent)';
+        }}
+        onMouseLeave={e => {
+          e.currentTarget.style.backgroundColor = 'transparent';
+        }}
       >
         <Icon name={item.icon} size="md" />
         <span>{item.label}</span>
@@ -50,6 +59,15 @@ function NavigationItemComponent({
       className={commonClasses}
       aria-label={item.label}
       onClick={onItemClick}
+      style={{
+        color: 'var(--color-foreground)',
+      }}
+      onMouseEnter={e => {
+        e.currentTarget.style.backgroundColor = 'var(--color-accent)';
+      }}
+      onMouseLeave={e => {
+        e.currentTarget.style.backgroundColor = 'transparent';
+      }}
     >
       <div className="flex items-center space-x-3">
         <Icon name={item.icon} size="md" />
@@ -75,9 +93,18 @@ export default function Navigation({
   };
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div
+      className="flex h-screen"
+      style={{ backgroundColor: 'var(--color-background)' }}
+    >
       {/* Mobile Header */}
-      <div className="fixed top-0 right-0 left-0 z-60 border-b border-gray-200 bg-white px-4 py-3 md:hidden">
+      <div
+        className="fixed top-0 right-0 left-0 z-60 border-b px-4 py-3 md:hidden"
+        style={{
+          backgroundColor: 'var(--color-card)',
+          borderColor: 'var(--color-border)',
+        }}
+      >
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <Image
@@ -90,8 +117,19 @@ export default function Navigation({
           </div>
           <button
             onClick={toggleMobileMenu}
-            className="rounded-lg p-2 text-gray-600 transition-colors hover:bg-gray-100 hover:text-gray-900"
+            className="rounded-lg p-2 transition-colors"
             aria-label="Toggle navigation menu"
+            style={{
+              color: 'var(--color-muted-foreground)',
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.backgroundColor = 'var(--color-accent)';
+              e.currentTarget.style.color = 'var(--color-accent-foreground)';
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.backgroundColor = 'transparent';
+              e.currentTarget.style.color = 'var(--color-muted-foreground)';
+            }}
           >
             <Icon name={isMobileMenuOpen ? 'close' : 'menu'} size="md" />
           </button>
@@ -101,18 +139,26 @@ export default function Navigation({
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
         <div
-          className="fixed inset-0 z-40 bg-gray-900/10 md:hidden"
+          className="fixed inset-0 z-40 md:hidden"
           onClick={closeMobileMenu}
+          style={{
+            backgroundColor: 'var(--color-background)',
+            opacity: 0.1,
+          }}
         />
       )}
 
       {/* Mobile Menu Dropdown */}
       <div
-        className={`fixed top-16 right-0 left-0 z-50 transform border-b border-gray-200 bg-white transition-all duration-300 ease-in-out md:hidden ${
+        className={`fixed top-16 right-0 left-0 z-50 transform border-b transition-all duration-300 ease-in-out md:hidden ${
           isMobileMenuOpen
             ? 'translate-y-0 opacity-100'
             : 'pointer-events-none -translate-y-full opacity-0'
         }`}
+        style={{
+          backgroundColor: 'var(--color-card)',
+          borderColor: 'var(--color-border)',
+        }}
       >
         <div className="max-h-96 overflow-y-auto">
           {/* Mobile Navigation Items */}
@@ -129,7 +175,10 @@ export default function Navigation({
           {/* Mobile Bottom Navigation */}
           {bottomNavigationItems.length > 0 && (
             <>
-              <div className="mx-4 border-t border-gray-200"></div>
+              <div
+                className="mx-4 border-t"
+                style={{ borderColor: 'var(--color-border)' }}
+              ></div>
               <nav
                 className="space-y-1 px-4 py-4"
                 aria-label="Secondary navigation"
@@ -148,7 +197,13 @@ export default function Navigation({
       </div>
 
       {/* Desktop Sidebar */}
-      <div className="hidden h-full w-52 flex-col border-r border-gray-200 bg-white md:flex">
+      <div
+        className="hidden h-full w-52 flex-col border-r md:flex"
+        style={{
+          backgroundColor: 'var(--color-card)',
+          borderColor: 'var(--color-border)',
+        }}
+      >
         {/* Branding */}
         <div className="px-8 py-6">
           <div className="flex items-center space-x-3">

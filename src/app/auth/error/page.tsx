@@ -6,11 +6,16 @@ export const dynamic = 'force-dynamic';
 export default function AuthErrorPage() {
   return (
     <div>
-      <h3 className="mb-4 text-gray-900">Something went wrong</h3>
-      <p className="mb-8 text-gray-600">
+      <h3 className="mb-4" style={{ color: 'var(--color-foreground)' }}>
+        Something went wrong
+      </h3>
+      <p className="mb-8" style={{ color: 'var(--color-muted-foreground)' }}>
         There was an issue with your authentication. This could be due to:
       </p>
-      <ul className="mb-8 space-y-2 text-left text-gray-600">
+      <ul
+        className="mb-8 space-y-2 text-left"
+        style={{ color: 'var(--color-muted-foreground)' }}
+      >
         <li>• Invalid or expired confirmation link</li>
         <li>• Email confirmation already completed</li>
         <li>• Network connectivity issues</li>

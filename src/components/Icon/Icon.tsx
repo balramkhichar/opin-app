@@ -1,40 +1,62 @@
 'use client';
 
-import Image from 'next/image';
+import React from 'react';
+import {
+  MenuIcon,
+  UserIcon,
+  CheckIcon,
+  CloseIcon,
+  LogInIcon,
+  LogOutIcon,
+  MailIcon,
+  HomeIcon,
+  EyeIcon,
+  EyeOffIcon,
+  SettingsIcon,
+} from './icons';
 
 interface IconProps {
   name: string;
   size?: 'sm' | 'md' | 'lg' | 'xl';
   className?: string;
-  alt?: string;
+  color?: string;
 }
 
 const sizeMap = {
-  sm: { width: 16, height: 16, className: 'w-4 h-4' },
-  md: { width: 20, height: 20, className: 'w-5 h-5' },
-  lg: { width: 24, height: 24, className: 'w-6 h-6' },
-  xl: { width: 32, height: 32, className: 'w-8 h-8' },
+  sm: 16,
+  md: 20,
+  lg: 24,
+  xl: 32,
+};
+
+const iconComponents = {
+  menu: MenuIcon,
+  user: UserIcon,
+  check: CheckIcon,
+  close: CloseIcon,
+  logIn: LogInIcon,
+  logOut: LogOutIcon,
+  mail: MailIcon,
+  home: HomeIcon,
+  eye: EyeIcon,
+  eyeOff: EyeOffIcon,
+  settings: SettingsIcon,
 };
 
 export function Icon({
   name,
   size = 'md',
   className = '',
-  alt = '',
+  color = 'currentColor',
 }: IconProps) {
-  const sizeConfig = sizeMap[size];
-  const iconPath = `/icons/${name}.svg`;
+  const IconComponent = iconComponents[name as keyof typeof iconComponents];
 
-  const combinedClassName = `${sizeConfig.className} ${className}`.trim();
+  if (!IconComponent) {
+    console.warn(`Icon "${name}" not found`);
+    return null;
+  }
 
   return (
-    <Image
-      src={iconPath}
-      alt={alt}
-      width={sizeConfig.width}
-      height={sizeConfig.height}
-      className={combinedClassName}
-      aria-hidden={!alt}
-    />
+    <IconComponent size={sizeMap[size]} className={className} color={color} />
   );
 }

@@ -1,6 +1,13 @@
 'use client';
-import { forwardRef, useImperativeHandle, useRef } from 'react';
+import {
+  forwardRef,
+  useImperativeHandle,
+  useRef,
+  useEffect,
+  useState,
+} from 'react';
 import { Turnstile, TurnstileInstance } from '@marsidev/react-turnstile';
+import { useTheme } from 'next-themes';
 
 export interface TurnstileProps {
   onVerify: (token: string) => void;
@@ -16,6 +23,12 @@ export interface TurnstileRef {
 export const TurnstileCaptcha = forwardRef<TurnstileRef, TurnstileProps>(
   ({ onVerify, onError, onExpire, className = '' }, ref) => {
     const turnstileRef = useRef<TurnstileInstance>(null);
+    const { resolvedTheme } = useTheme();
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+      setMounted(true);
+    }, []);
 
     const handleVerify = (token: string) => {
       onVerify(token);
@@ -39,6 +52,9 @@ export const TurnstileCaptcha = forwardRef<TurnstileRef, TurnstileProps>(
       reset,
     }));
 
+    // Use default theme until component is mounted to prevent hydration mismatch
+    const theme = mounted && resolvedTheme === 'dark' ? 'dark' : 'light';
+
     return (
       <div className={`turnstile-container ${className}`}>
         <Turnstile
@@ -48,7 +64,7 @@ export const TurnstileCaptcha = forwardRef<TurnstileRef, TurnstileProps>(
           onError={handleError}
           onExpire={handleExpire}
           options={{
-            theme: 'light',
+            theme,
             size: 'normal',
           }}
         />

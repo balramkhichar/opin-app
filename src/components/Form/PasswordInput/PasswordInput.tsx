@@ -72,10 +72,19 @@ export function PasswordInput({
               aria-pressed={showPassword}
               aria-describedby={descriptionId}
               id={toggleId}
-              className="absolute inset-y-0 right-0 flex cursor-pointer items-center pr-3 text-gray-400 transition-colors duration-200 hover:text-gray-600"
+              className="absolute inset-y-0 right-0 flex cursor-pointer items-center pr-3 transition-colors duration-200"
+              style={{
+                color: 'var(--color-muted-foreground)',
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.color = 'var(--color-foreground)';
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.color = 'var(--color-muted-foreground)';
+              }}
             >
               <Icon
-                name={showPassword ? 'eye' : 'eye-off'}
+                name={showPassword ? 'eye' : 'eyeOff'}
                 size="md"
                 className="h-5 w-5"
               />

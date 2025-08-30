@@ -27,7 +27,7 @@ const bottomNavigationItems = [
     href: '/profile',
   },
   {
-    icon: 'log-out',
+    icon: 'logOut',
     label: 'Log out',
     onClick: handleLogout,
   },
@@ -95,7 +95,7 @@ export default function DashboardLayout({
 
   const bottomNavigationItems = [
     { icon: 'user', label: 'Profile', href: '/profile' },
-    { icon: 'log-out', label: 'Log out', onClick: handleLogout },
+    { icon: 'logOut', label: 'Log out', onClick: handleLogout },
   ];
 
   return (
