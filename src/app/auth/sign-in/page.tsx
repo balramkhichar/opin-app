@@ -119,9 +119,15 @@ function SignInForm() {
 
       {/* Error Messages */}
       {(error || captchaError) && (
-        <div className="rounded-md bg-red-50 p-4">
+        <div
+          className="rounded-md p-4"
+          style={{ backgroundColor: 'var(--color-destructive)' }}
+        >
           <div className="mt-0 flex">
-            <div className="text-sm text-red-700">
+            <div
+              className="text-sm"
+              style={{ color: 'var(--color-primary-foreground)' }}
+            >
               <p>
                 {error
                   ? `Sign-in didn't work. Double-check your details and retry.`
@@ -152,13 +158,23 @@ function SignInForm() {
       </Form.Subscribe>
 
       {/* Terms and Privacy Policy */}
-      <div className="text-center text-xs text-gray-600">
+      <div
+        className="text-center text-xs"
+        style={{ color: 'var(--color-muted-foreground)' }}
+      >
         By signing in, you agree to the{' '}
         <Link
           href="https://www.getopin.com/terms"
           target="_blank"
           rel="noopener noreferrer"
-          className="underline hover:text-gray-900"
+          className="underline"
+          style={{ color: 'var(--color-foreground)' }}
+          onMouseEnter={e => {
+            e.currentTarget.style.color = 'var(--color-muted-foreground)';
+          }}
+          onMouseLeave={e => {
+            e.currentTarget.style.color = 'var(--color-foreground)';
+          }}
         >
           Terms of use
         </Link>{' '}
@@ -167,7 +183,14 @@ function SignInForm() {
           href="https://www.getopin.com/privacy"
           target="_blank"
           rel="noopener noreferrer"
-          className="underline hover:text-gray-900"
+          className="underline"
+          style={{ color: 'var(--color-foreground)' }}
+          onMouseEnter={e => {
+            e.currentTarget.style.color = 'var(--color-muted-foreground)';
+          }}
+          onMouseLeave={e => {
+            e.currentTarget.style.color = 'var(--color-foreground)';
+          }}
         >
           Privacy Policy
         </Link>
@@ -178,7 +201,14 @@ function SignInForm() {
       <div className="text-center">
         <Link
           href={`/auth/forgot-password${next !== '/dashboard' ? `?next=${next}` : ''}`}
-          className="text-sm text-gray-600 hover:text-gray-900"
+          className="text-sm"
+          style={{ color: 'var(--color-muted-foreground)' }}
+          onMouseEnter={e => {
+            e.currentTarget.style.color = 'var(--color-foreground)';
+          }}
+          onMouseLeave={e => {
+            e.currentTarget.style.color = 'var(--color-muted-foreground)';
+          }}
         >
           Forgot your password?
         </Link>

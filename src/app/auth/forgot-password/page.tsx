@@ -117,9 +117,15 @@ function ForgotPasswordForm() {
 
         {/* Error Messages */}
         {(error || captchaError) && (
-          <div className="rounded-md bg-red-50 p-4">
+          <div
+            className="rounded-md p-4"
+            style={{ backgroundColor: 'var(--color-destructive)' }}
+          >
             <div className="mt-0 flex">
-              <div className="text-sm text-red-700">
+              <div
+                className="text-sm"
+                style={{ color: 'var(--color-primary-foreground)' }}
+              >
                 <p>
                   {error
                     ? `Password reset didn't work. ${error}`
@@ -154,11 +160,21 @@ function ForgotPasswordForm() {
 
       {/* Footer */}
       <div className="mt-8 text-center">
-        <p className="text-sm text-gray-600">
+        <p
+          className="text-sm"
+          style={{ color: 'var(--color-muted-foreground)' }}
+        >
           Remember your password?{' '}
           <Link
             href={`/auth/sign-in${next !== '/dashboard' ? `?next=${next}` : ''}`}
-            className="font-semibold text-gray-900 hover:text-gray-700"
+            className="font-semibold"
+            style={{ color: 'var(--color-foreground)' }}
+            onMouseEnter={e => {
+              e.currentTarget.style.color = 'var(--color-muted-foreground)';
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.color = 'var(--color-foreground)';
+            }}
           >
             Sign in
           </Link>

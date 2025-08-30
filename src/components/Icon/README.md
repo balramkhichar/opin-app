@@ -16,18 +16,18 @@ import { Icon } from '@/components';
 // With custom styling
 <Icon name="mail" className="text-blue-500" />
 
-// With alt text for accessibility
-<Icon name="check" alt="Success indicator" />
+// With custom color
+<Icon name="check" color="green" />
 ```
 
 ## Props
 
-| Prop        | Type                           | Default      | Description                        |
-| ----------- | ------------------------------ | ------------ | ---------------------------------- |
-| `name`      | `string`                       | **required** | Icon name (without .svg extension) |
-| `size`      | `'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'`       | Icon size                          |
-| `className` | `string`                       | `''`         | Additional CSS classes             |
-| `alt`       | `string`                       | `''`         | Alt text for accessibility         |
+| Prop        | Type                           | Default          | Description                        |
+| ----------- | ------------------------------ | ---------------- | ---------------------------------- |
+| `name`      | `string`                       | **required**     | Icon name (without .svg extension) |
+| `size`      | `'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'`           | Icon size                          |
+| `className` | `string`                       | `''`             | Additional CSS classes             |
+| `color`     | `string`                       | `'currentColor'` | Icon color                         |
 
 ## Size Mapping
 
@@ -52,13 +52,13 @@ public/
     mail.svg
     check.svg
     eye.svg
-    eye-off.svg
+    eyeOff.svg
     close.svg
     ...
 ```
 
 ## Accessibility
 
-- Icons are automatically marked as `aria-hidden="true"` when no alt text is provided
-- When alt text is provided, the icon becomes accessible to screen readers
-- Always provide meaningful alt text for icons that convey information
+- Icons are rendered as SVG elements and inherit the current text color by default
+- Use the `color` prop to customize icon colors
+- Icons are decorative by default and should be accompanied by text labels for accessibility

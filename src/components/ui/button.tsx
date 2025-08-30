@@ -60,7 +60,7 @@ function Button({
       aria-live="polite"
       {...props}
     >
-      <span>
+      <span className="inline-flex items-center gap-2 truncate">
         {loading && (
           <svg
             className="h-4 w-4 shrink-0 animate-spin"

@@ -191,9 +191,15 @@ function SignUpForm() {
 
         {/* Error Messages */}
         {(error || captchaError) && (
-          <div className="rounded-md bg-red-50 p-4">
+          <div
+            className="rounded-md p-4"
+            style={{ backgroundColor: 'var(--color-destructive)' }}
+          >
             <div className="mt-0 flex">
-              <div className="text-sm text-red-700">
+              <div
+                className="text-sm"
+                style={{ color: 'var(--color-primary-foreground)' }}
+              >
                 <p>
                   {error
                     ? `Sign-up didn't work. ${error}`
@@ -226,13 +232,23 @@ function SignUpForm() {
         </Form.Subscribe>
 
         {/* Terms and Privacy Policy */}
-        <div className="text-center text-xs text-gray-600">
-          By creating an account, you agree to the{' '}
+        <div
+          className="text-center text-xs"
+          style={{ color: 'var(--color-muted-foreground)' }}
+        >
+          By signing up, you agree to the{' '}
           <Link
             href="https://www.getopin.com/terms"
             target="_blank"
             rel="noopener noreferrer"
-            className="underline hover:text-gray-900"
+            className="underline"
+            style={{ color: 'var(--color-foreground)' }}
+            onMouseEnter={e => {
+              e.currentTarget.style.color = 'var(--color-muted-foreground)';
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.color = 'var(--color-foreground)';
+            }}
           >
             Terms of use
           </Link>{' '}
@@ -241,26 +257,43 @@ function SignUpForm() {
             href="https://www.getopin.com/privacy"
             target="_blank"
             rel="noopener noreferrer"
-            className="underline hover:text-gray-900"
+            className="underline"
+            style={{ color: 'var(--color-foreground)' }}
+            onMouseEnter={e => {
+              e.currentTarget.style.color = 'var(--color-muted-foreground)';
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.color = 'var(--color-foreground)';
+            }}
           >
             Privacy Policy
           </Link>
           .
         </div>
-      </Form>
 
-      {/* Footer */}
-      <div className="mt-8 text-center">
-        <p className="text-sm text-gray-600">
-          Already have an account?{' '}
-          <Link
-            href={`/auth/sign-in${next !== '/dashboard' ? `?next=${next}` : ''}`}
-            className="font-semibold text-gray-900 hover:text-gray-700"
+        {/* Footer */}
+        <div className="mt-8 text-center">
+          <p
+            className="text-sm"
+            style={{ color: 'var(--color-muted-foreground)' }}
           >
-            Sign in
-          </Link>
-        </p>
-      </div>
+            Already have an account?{' '}
+            <Link
+              href={`/auth/sign-in${next !== '/dashboard' ? `?next=${next}` : ''}`}
+              className="font-semibold"
+              style={{ color: 'var(--color-foreground)' }}
+              onMouseEnter={e => {
+                e.currentTarget.style.color = 'var(--color-muted-foreground)';
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.color = 'var(--color-foreground)';
+              }}
+            >
+              Sign in
+            </Link>
+          </p>
+        </div>
+      </Form>
     </>
   );
 }
