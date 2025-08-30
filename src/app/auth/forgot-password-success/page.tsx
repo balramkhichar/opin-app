@@ -8,7 +8,7 @@ export default function ForgotPasswordSuccessPage() {
     <div className="text-center">
       <div
         className="mx-auto flex h-12 w-12 items-center justify-center rounded-full"
-        style={{ backgroundColor: 'var(--color-primary)' }}
+        style={{ backgroundColor: 'var(--color-accent)' }}
       >
         <Icon name="mail" size="lg" />
       </div>

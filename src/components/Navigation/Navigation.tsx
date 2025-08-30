@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useTheme } from 'next-themes';
 import { Icon } from '../Icon';
 
 interface NavigationItem {
@@ -83,6 +84,16 @@ export default function Navigation({
   bottomNavigationItems = [],
 }: NavigationProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Use default logo until component is mounted to prevent hydration mismatch
+  const logoSrc =
+    mounted && resolvedTheme === 'dark' ? '/logo-light.svg' : '/logo.svg';
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -108,7 +119,7 @@ export default function Navigation({
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <Image
-              src="/logo.svg"
+              src={logoSrc}
               alt="Logo"
               width={48}
               height={24}
@@ -208,7 +219,7 @@ export default function Navigation({
         <div className="px-8 py-6">
           <div className="flex items-center space-x-3">
             <Image
-              src="/logo.svg"
+              src={logoSrc}
               alt="Logo"
               width={64}
               height={32}
