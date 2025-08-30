@@ -14,8 +14,7 @@ interface FormProps {
 }
 
 // Create a context to hold the form instance
-// Using any here because TanStack Form's generic types are extremely complex
-// and would require 20+ type parameters to properly type
+// Using any for the form context to avoid complex TanStack Form type issues
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const FormContext = createContext<any>(null);
 
@@ -69,7 +68,8 @@ export function Form({
 }
 
 // Hook to access form instance
-export function useFormContext() {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function useFormContext(): any {
   const form = useContext(FormContext);
   if (!form) {
     throw new Error('useFormContext must be used within a Form component');
@@ -78,7 +78,6 @@ export function useFormContext() {
 }
 
 // Form.Field component
-// Using any for props because TanStack Form's FieldComponentProps requires complex generics
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 Form.Field = function Field(props: any) {
   const form = useFormContext();
@@ -86,7 +85,6 @@ Form.Field = function Field(props: any) {
 };
 
 // Form.Subscribe component
-// Using any for props because TanStack Form's SubscribeComponentProps requires complex generics
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 Form.Subscribe = function Subscribe(props: any) {
   const form = useFormContext();

@@ -11,18 +11,15 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   fullWidth?: boolean;
 }
 
-export function Button({
-  children,
-  variant = 'primary',
-  size = 'md',
-  loading = false,
-  fullWidth = false,
-  className = '',
-  disabled,
-  ...props
-}: ButtonProps) {
+// Shared button styles utility
+export const getButtonClasses = (
+  variant: 'primary' | 'secondary' | 'outline' = 'primary',
+  size: 'sm' | 'md' | 'lg' = 'md',
+  fullWidth: boolean = false,
+  className: string = ''
+) => {
   const baseClasses =
-    'inline-flex items-center justify-center font-semibold rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed';
+    'inline-flex items-center justify-center font-semibold rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all duration-200';
 
   const variantClasses = {
     primary:
@@ -41,7 +38,7 @@ export function Button({
 
   const widthClass = fullWidth ? 'w-full' : '';
 
-  const classes = [
+  return [
     baseClasses,
     variantClasses[variant],
     sizeClasses[size],
@@ -50,6 +47,21 @@ export function Button({
   ]
     .filter(Boolean)
     .join(' ');
+};
+
+export function Button({
+  children,
+  variant = 'primary',
+  size = 'md',
+  loading = false,
+  fullWidth = false,
+  className = '',
+  disabled,
+  ...props
+}: ButtonProps) {
+  const classes =
+    getButtonClasses(variant, size, fullWidth, className) +
+    ' cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed';
 
   return (
     <button

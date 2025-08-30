@@ -1,10 +1,10 @@
 'use client';
 
 import { AnyFieldApi } from '@tanstack/react-form';
-import Image from 'next/image';
 import { useState } from 'react';
 import { FormField } from '../FormField';
 import { useFormContext } from '../Form';
+import { Icon } from '../../Icon';
 import type { FormValues } from '@/types/form';
 
 interface PasswordInputProps {
@@ -52,39 +52,42 @@ export function PasswordInput({
 
   return (
     <form.Field name={name} validators={fieldValidators}>
-      {(field: AnyFieldApi) => (
-        <FormField
-          field={field}
-          label={label}
-          type={showPassword ? 'text' : 'password'}
-          placeholder={placeholder}
-          className={className}
-          autoComplete="current-password"
-        >
-          <button
-            type="button"
-            onClick={handleTogglePassword}
-            aria-label={showPassword ? 'Hide password' : 'Show password'}
-            aria-pressed={showPassword}
-            aria-describedby={`${field.name}-toggle-description`}
-            className="absolute inset-y-0 right-0 flex cursor-pointer items-center pr-3 text-gray-400 transition-colors duration-200 hover:text-gray-600"
+      {(field: AnyFieldApi) => {
+        const toggleId = `${field.name}-toggle`;
+        const descriptionId = `${field.name}-toggle-description`;
+
+        return (
+          <FormField
+            field={field}
+            label={label}
+            type={showPassword ? 'text' : 'password'}
+            placeholder={placeholder}
+            className={className}
+            autoComplete="current-password"
           >
-            <Image
-              src={showPassword ? '/icons/eye.svg' : '/icons/eye-off.svg'}
-              alt=""
-              width={20}
-              height={20}
-              className="h-5 w-5"
-              aria-hidden="true"
-            />
-            <span id={`${field.name}-toggle-description`} className="sr-only">
-              {showPassword
-                ? 'Click to hide password'
-                : 'Click to show password'}
-            </span>
-          </button>
-        </FormField>
-      )}
+            <button
+              type="button"
+              onClick={handleTogglePassword}
+              aria-label={showPassword ? 'Hide password' : 'Show password'}
+              aria-pressed={showPassword}
+              aria-describedby={descriptionId}
+              id={toggleId}
+              className="absolute inset-y-0 right-0 flex cursor-pointer items-center pr-3 text-gray-400 transition-colors duration-200 hover:text-gray-600"
+            >
+              <Icon
+                name={showPassword ? 'eye' : 'eye-off'}
+                size="md"
+                className="h-5 w-5"
+              />
+              <span id={descriptionId} className="sr-only">
+                {showPassword
+                  ? 'Click to hide password'
+                  : 'Click to show password'}
+              </span>
+            </button>
+          </FormField>
+        );
+      }}
     </form.Field>
   );
 }

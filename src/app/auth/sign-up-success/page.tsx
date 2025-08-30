@@ -1,19 +1,12 @@
 'use client';
 
-import Image from 'next/image';
-import { ButtonLink } from '@/components';
+import { ButtonLink, Icon } from '@/components';
 
 export default function SignUpSuccessPage() {
   return (
     <div className="text-center">
       <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
-        <Image
-          src="/icons/check.svg"
-          alt="Check mark"
-          width={24}
-          height={24}
-          className="h-6 w-6"
-        />
+        <Icon name="check" size="lg" alt="Check mark" />
       </div>
       <h3 className="mt-4 text-gray-900">Check your email</h3>
       <p className="mt-2 text-sm text-gray-600">

@@ -58,5 +58,3 @@ export const TurnstileCaptcha = forwardRef<TurnstileRef, TurnstileProps>(
 );
 
 TurnstileCaptcha.displayName = 'TurnstileCaptcha';
-
-export default TurnstileCaptcha;

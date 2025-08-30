@@ -22,19 +22,3 @@ export type FormValidators = {
     onSubmit?: FieldValidator<FormValues[K]>;
   };
 };
-
-// Type for field props - using any to avoid complex generic types
-export type FieldProps = {
-  name: string;
-  validators?: FormValidators[string];
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  children: (field: any) => React.ReactNode;
-};
-
-// Type for subscribe props - using any to avoid complex generic types
-export type SubscribeProps = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  selector?: (state: any) => any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  children: (state: any) => React.ReactNode;
-};
