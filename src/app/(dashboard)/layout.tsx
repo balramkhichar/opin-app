@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import { createServerSupabaseClient } from '@/lib/supabase-server';
 import { redirect } from 'next/navigation';
-import Navigation from '@/components/Navigation';
+import { DashboardWrapper } from './DashboardWrapper';
 
 export default async function DashboardLayout({
   children,
@@ -17,28 +17,22 @@ export default async function DashboardLayout({
     redirect('/auth/sign-in');
   }
 
+  const navigationItems = [
+    { icon: 'home', label: 'Dashboard', href: '/dashboard' },
+    { icon: 'settings', label: 'Projects', href: '/projects' },
+  ];
+
+  const bottomNavigationItems = [
+    { icon: 'user', label: 'Profile', href: '/profile' },
+  ];
+
   return (
-    <Navigation
-      navigationItems={[
-        { icon: 'home', label: 'Dashboard', href: '/dashboard' },
-        { icon: 'settings', label: 'Projects', href: '/projects' },
-      ]}
-      bottomNavigationItems={[
-        { icon: 'user', label: 'Profile', href: '/profile' },
-        {
-          icon: 'logOut',
-          label: 'Sign Out',
-          onClick: async () => {
-            'use server';
-            const supabase = await createServerSupabaseClient();
-            await supabase.auth.signOut();
-            redirect('/');
-          },
-        },
-      ]}
+    <DashboardWrapper
+      navigationItems={navigationItems}
+      bottomNavigationItems={bottomNavigationItems}
     >
       <Suspense fallback={<Loading />}>{children}</Suspense>
-    </Navigation>
+    </DashboardWrapper>
   );
 }
 
