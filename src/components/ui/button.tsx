@@ -60,7 +60,7 @@ function Button({
       aria-live="polite"
       {...props}
     >
-      <>
+      <span>
         {loading && (
           <svg
             className="h-4 w-4 shrink-0 animate-spin"
@@ -90,7 +90,7 @@ function Button({
         >
           {children}
         </span>
-      </>
+      </span>
     </Comp>
   );
 }
