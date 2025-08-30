@@ -51,7 +51,7 @@ src/
 │   ├── layout.tsx      # Root layout with AuthProvider
 │   ├── page.tsx        # Main page (redirects to auth or dashboard)
 │   ├── auth/           # Authentication pages
-│   │   ├── login/    # Login page
+│   │   ├── sign-in/  # Sign-in page
 │   │   ├── sign-up/    # Registration page
 │   │   ├── sign-up-success/ # Success page after registration
 │   │   ├── forgot-password/ # Password reset request

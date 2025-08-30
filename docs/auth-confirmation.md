@@ -11,7 +11,7 @@ The auth confirmation flow allows users to verify their email address after sign
 The application now includes a complete auth flow with the following pages:
 
 - `/` - Main page (redirects to auth or dashboard)
-- `/auth/login` - User login page
+- `/auth/sign-in` - User sign-in page
 - `/auth/sign-up` - User registration page
 - `/auth/sign-up-success` - Success page after registration
 - `/auth/forgot-password` - Password reset request page
@@ -92,7 +92,7 @@ The reset password success page (`/auth/reset-password-success`) includes:
 - Confirmation message about password reset email
 - Link back to sign-in page
 
-The login page (`/auth/login`) includes:
+The sign-in page (`/auth/sign-in`) includes:
 
 - Email and password fields
 - CAPTCHA protection

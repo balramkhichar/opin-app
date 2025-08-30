@@ -4,7 +4,7 @@ The Opin application uses Supabase for authentication, providing a secure and sc
 
 ## Features
 
-- **User Login**: Secure email/password authentication
+- **User Sign-in**: Secure email/password authentication
 - **Session Management**: Automatic session handling with middleware
 - **Protected Routes**: Dashboard access requires authentication
 - **Logout**: Secure session termination
@@ -27,7 +27,7 @@ const { user, loading, signIn, signOut } = useAuth();
 
 ### Protected Routes
 
-The dashboard page (`/dashboard`) is protected and only accessible to authenticated users. Unauthenticated users are automatically redirected to the login page.
+The dashboard page (`/dashboard`) is protected and only accessible to authenticated users. Unauthenticated users are automatically redirected to the sign-in page.
 
 ### Middleware
 
@@ -54,7 +54,7 @@ TURNSTILE_SECRET_KEY=your_turnstile_secret_key
 
 ### 1. Create a Supabase Project
 
-1. Go to [supabase.com](https://supabase.com) and sign up/login
+1. Go to [supabase.com](https://supabase.com) and sign up/sign in
 2. Create a new project
 3. Wait for the project to be set up (this may take a few minutes)
 
@@ -97,7 +97,7 @@ To enable CAPTCHA protection for additional security:
    TURNSTILE_SECRET_KEY=your_secret_key
    ```
 
-The application will automatically include CAPTCHA verification on the login form when these environment variables are configured.
+The application will automatically include CAPTCHA verification on the sign-in form when these environment variables are configured.
 
 ## Usage Examples
 
@@ -146,6 +146,6 @@ const { signOut } = useAuth();
 
 const handleSignOut = async () => {
   await signOut();
-  // User will be redirected to login page
+  // User will be redirected to sign-in page
 };
 ```

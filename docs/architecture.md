@@ -20,7 +20,7 @@ This document describes the architecture and structure of the Opin application.
 src/
 ├── app/                 # Next.js App Router
 │   ├── layout.tsx      # Root layout with AuthProvider
-│   ├── page.tsx        # Login page
+│   ├── page.tsx        # Sign-in page
 │   ├── dashboard/      # Protected dashboard page
 │   ├── globals.scss    # Global styles (SCSS)
 │   └── middleware.ts   # Authentication middleware
@@ -78,7 +78,7 @@ Components are organized with a modular structure:
 
 ### Authentication Flow
 
-1. User enters credentials on login page
+1. User enters credentials on sign-in page
 2. Form validation occurs client-side
 3. Credentials sent to Supabase via auth context
 4. Supabase validates and returns session

@@ -16,7 +16,9 @@ interface AuthContextType {
   signUp: (
     email: string,
     password: string,
-    captchaToken?: string
+    captchaToken?: string,
+    first_name?: string,
+    last_name?: string
   ) => Promise<{ success: boolean; error?: string }>;
   signOut: () => Promise<{ success: boolean; error?: string }>;
 }
@@ -79,13 +81,31 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const signUp = async (
     email: string,
     password: string,
-    captchaToken?: string
+    captchaToken?: string,
+    first_name?: string,
+    last_name?: string
   ) => {
     try {
+      const options: {
+        captchaToken?: string;
+        data?: { first_name: string; last_name: string };
+      } = {};
+
+      if (captchaToken) {
+        options.captchaToken = captchaToken;
+      }
+
+      if (first_name || last_name) {
+        options.data = {
+          first_name: first_name || '',
+          last_name: last_name || '',
+        };
+      }
+
       const { error } = await supabase.auth.signUp({
         email,
         password,
-        options: captchaToken ? { captchaToken } : undefined,
+        options: Object.keys(options).length > 0 ? options : undefined,
       });
 
       if (error) {
