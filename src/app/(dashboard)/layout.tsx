@@ -32,7 +32,7 @@ export default async function DashboardLayout({
             'use server';
             const supabase = await createServerSupabaseClient();
             await supabase.auth.signOut();
-            redirect('/auth/sign-in');
+            redirect('/');
           },
         },
       ]}
