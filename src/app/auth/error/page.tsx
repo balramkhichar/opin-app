@@ -1,4 +1,7 @@
-import { ButtonLink } from '@/components';
+import Link from 'next/link';
+import { Button } from '@/components';
+
+export const dynamic = 'force-dynamic';
 
 export default function AuthErrorPage() {
   return (
@@ -14,9 +17,9 @@ export default function AuthErrorPage() {
         <li>• Invalid or expired password reset link</li>
       </ul>
       <div className="space-y-4">
-        <ButtonLink href="/" fullWidth>
-          Return to Home
-        </ButtonLink>
+        <Button asChild className="w-full">
+          <Link href="/">Return to Home</Link>
+        </Button>
       </div>
     </div>
   );

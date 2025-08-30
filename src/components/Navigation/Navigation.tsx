@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Icon } from '../Icon';
 
 interface NavigationItem {
@@ -19,11 +20,9 @@ interface NavigationProps {
 
 function NavigationItemComponent({
   item,
-  index,
   onItemClick,
 }: {
   item: NavigationItem;
-  index: number;
   onItemClick?: () => void;
 }) {
   const commonClasses =
@@ -52,8 +51,10 @@ function NavigationItemComponent({
       aria-label={item.label}
       onClick={onItemClick}
     >
-      <Icon name={item.icon} size="md" />
-      <span>{item.label}</span>
+      <div className="flex items-center space-x-3">
+        <Icon name={item.icon} size="md" />
+        <span>{item.label}</span>
+      </div>
     </Link>
   );
 }
@@ -79,7 +80,13 @@ export default function Navigation({
       <div className="fixed top-0 right-0 left-0 z-60 border-b border-gray-200 bg-white px-4 py-3 md:hidden">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <img src="/logo.svg" alt="Logo" className="h-6 w-12" />
+            <Image
+              src="/logo.svg"
+              alt="Logo"
+              width={48}
+              height={24}
+              className="h-6 w-12"
+            />
           </div>
           <button
             onClick={toggleMobileMenu}
@@ -114,7 +121,6 @@ export default function Navigation({
               <NavigationItemComponent
                 key={`mobile-nav-${index}`}
                 item={item}
-                index={index}
                 onItemClick={closeMobileMenu}
               />
             ))}
@@ -132,7 +138,6 @@ export default function Navigation({
                   <NavigationItemComponent
                     key={`mobile-bottom-nav-${index}`}
                     item={item}
-                    index={index}
                     onItemClick={closeMobileMenu}
                   />
                 ))}
@@ -147,18 +152,20 @@ export default function Navigation({
         {/* Branding */}
         <div className="px-8 py-6">
           <div className="flex items-center space-x-3">
-            <img src="/logo.svg" alt="Logo" className="h-8 w-16" />
+            <Image
+              src="/logo.svg"
+              alt="Logo"
+              width={64}
+              height={32}
+              className="h-8 w-16"
+            />
           </div>
         </div>
 
         {/* Main Navigation */}
         <nav className="flex-1 space-y-1 px-4" aria-label="Main navigation">
           {navigationItems.map((item, index) => (
-            <NavigationItemComponent
-              key={`desktop-nav-${index}`}
-              item={item}
-              index={index}
-            />
+            <NavigationItemComponent key={`desktop-nav-${index}`} item={item} />
           ))}
         </nav>
 
@@ -168,7 +175,6 @@ export default function Navigation({
             <NavigationItemComponent
               key={`desktop-bottom-nav-${index}`}
               item={item}
-              index={index}
             />
           ))}
         </nav>

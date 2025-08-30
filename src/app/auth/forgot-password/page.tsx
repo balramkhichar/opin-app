@@ -142,7 +142,7 @@ function ForgotPasswordForm() {
               type="submit"
               disabled={!canSubmit || loading || !!captchaError}
               loading={submitting || loading}
-              fullWidth
+              className="w-full"
             >
               {submitting || loading
                 ? 'Sending reset link...'

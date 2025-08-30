@@ -144,7 +144,7 @@ function SignInForm() {
             type="submit"
             disabled={!canSubmit || authLoading || !!captchaError}
             loading={submitting || authLoading}
-            fullWidth
+            className="w-full"
           >
             {submitting || authLoading ? 'Signing in...' : 'Sign in'}
           </Button>

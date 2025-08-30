@@ -2,6 +2,10 @@ import type { Metadata } from 'next';
 import { Lato, Montserrat } from 'next/font/google';
 import './globals.scss';
 import { AuthProvider } from '@/lib/auth-context';
+import { ThemeProvider } from '@/components/theme-provider';
+
+// Force all pages to be dynamic
+export const dynamic = 'force-dynamic';
 
 // Configure Lato font
 const lato = Lato({
@@ -60,9 +64,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${lato.variable} ${montserrat.variable}`}>
+    <html
+      lang="en"
+      className={`${lato.variable} ${montserrat.variable}`}
+      suppressHydrationWarning
+    >
       <body>
-        <AuthProvider>{children}</AuthProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem={false}
+          disableTransitionOnChange
+        >
+          <AuthProvider>{children}</AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

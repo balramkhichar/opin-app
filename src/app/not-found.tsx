@@ -1,5 +1,5 @@
-import Link from 'next/link';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Button } from '@/components';
 
 export default function NotFound() {
@@ -34,11 +34,9 @@ export default function NotFound() {
             </p>
           </div>
           <div className="space-y-4">
-            <Link href="/" className="block">
-              <Button variant="primary" size="md" fullWidth>
-                Return to Home
-              </Button>
-            </Link>
+            <Button asChild variant="default" size="default" className="w-full">
+              <Link href="/">Return to Home</Link>
+            </Button>
           </div>
         </div>
       </div>

@@ -1,6 +1,7 @@
 'use client';
 
-import { ButtonLink, Icon } from '@/components';
+import Link from 'next/link';
+import { Button, Icon } from '@/components';
 
 export default function SignUpSuccessPage() {
   return (
@@ -13,9 +14,9 @@ export default function SignUpSuccessPage() {
         We&apos;ve sent you a confirmation link to complete your registration.
       </p>
       <div className="mt-6 space-y-4">
-        <ButtonLink href="/auth/sign-in" fullWidth>
-          Back to sign in
-        </ButtonLink>
+        <Button asChild className="w-full">
+          <Link href="/auth/sign-in">Back to sign in</Link>
+        </Button>
       </div>
     </div>
   );

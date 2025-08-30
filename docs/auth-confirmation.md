@@ -257,5 +257,30 @@ You can customize the email templates in Supabase dashboard under **Authenticati
 All auth pages use the same styling components and can be customized by modifying:
 
 - `src/components/Form/` - Form components
-- `src/components/Button/` - Button components
+- `src/components/ui/button.tsx` - Button component
 - `src/app/globals.scss` - Global styles
+
+## Project Structure
+
+The authentication confirmation system is integrated into the main application structure:
+
+```
+src/
+├── app/
+│   ├── auth/
+│   │   ├── confirm/
+│   │   │   └── route.ts          # Email confirmation API route
+│   │   └── error/
+│   │       ├── layout.tsx        # Error page layout
+│   │       └── page.tsx          # Error page component
+├── components/
+│   ├── Form/                     # Form components
+│   ├── ui/                       # UI components (Button, etc.)
+│   └── Icon/                     # Icon components
+├── lib/
+│   ├── supabase.ts              # Supabase client
+│   ├── supabase-server.ts       # Server-side Supabase client
+│   └── auth.ts                  # Authentication utilities
+└── types/
+    └── form.ts                  # Form type definitions
+```
