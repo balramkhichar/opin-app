@@ -9,14 +9,14 @@ This directory contains form-related components built on top of TanStack Form th
 A wrapper component that provides TanStack Form functionality with consistent styling.
 
 ```tsx
-import { Form } from '@/components';
+import { Form } from "@/components";
 
 <Form
   defaultValues={{
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   }}
-  onSubmit={async values => {
+  onSubmit={async (values) => {
     // Handle form submission
     console.log(values);
   }}
@@ -31,21 +31,21 @@ import { Form } from '@/components';
 A base form field component with built-in validation display. This is the foundation for all form inputs.
 
 ```tsx
-import { Form, FormField } from '@/components';
+import { Form, FormField } from "@/components";
 
 <Form.Field
   name="email"
   validators={{
     onChange: ({ value }) => {
-      if (!value) return 'Email is required';
+      if (!value) return "Email is required";
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-        return 'Please enter a valid email address';
+        return "Please enter a valid email address";
       }
       return undefined;
     },
   }}
 >
-  {field => (
+  {(field) => (
     <FormField
       field={field}
       label="Email"
@@ -61,7 +61,7 @@ import { Form, FormField } from '@/components';
 A specialized text input component for text-based fields (text, email, number, tel, url). Automatically wraps Form.Field for convenience.
 
 ```tsx
-import { Form, TextInput } from '@/components';
+import { Form, TextInput } from "@/components";
 
 <TextInput
   name="email"
@@ -70,9 +70,9 @@ import { Form, TextInput } from '@/components';
   placeholder="Enter your email"
   validators={{
     onChange: ({ value }) => {
-      if (!value) return 'Email is required';
+      if (!value) return "Email is required";
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-        return 'Please enter a valid email address';
+        return "Please enter a valid email address";
       }
       return undefined;
     },
@@ -85,7 +85,7 @@ import { Form, TextInput } from '@/components';
 A specialized password input field with show/hide toggle functionality. Automatically wraps Form.Field for convenience.
 
 ```tsx
-import { Form, PasswordInput } from '@/components';
+import { Form, PasswordInput } from "@/components";
 
 const [showPassword, setShowPassword] = useState(false);
 
@@ -97,9 +97,9 @@ const [showPassword, setShowPassword] = useState(false);
   onTogglePassword={() => setShowPassword(!showPassword)}
   validators={{
     onChange: ({ value }) => {
-      if (!value) return 'Password is required';
+      if (!value) return "Password is required";
       if (value.length < 6) {
-        return 'Password must be at least 6 characters';
+        return "Password must be at least 6 characters";
       }
       return undefined;
     },
@@ -124,7 +124,7 @@ const [showPassword, setShowPassword] = useState(false);
 For advanced use cases, you can access the form instance directly:
 
 ```tsx
-import { Form, useFormContext } from '@/components';
+import { Form, useFormContext } from "@/components";
 
 function CustomField() {
   const form = useFormContext();
@@ -132,8 +132,8 @@ function CustomField() {
   return (
     <div>
       <input
-        value={form.getFieldValue('customField')}
-        onChange={e => form.setFieldValue('customField', e.target.value)}
+        value={form.getFieldValue("customField")}
+        onChange={(e) => form.setFieldValue("customField", e.target.value)}
       />
     </div>
   );
@@ -145,10 +145,10 @@ function CustomField() {
 Subscribe to form state changes:
 
 ```tsx
-<Form.Subscribe selector={state => [state.canSubmit, state.isSubmitting]}>
+<Form.Subscribe selector={(state) => [state.canSubmit, state.isSubmitting]}>
   {([canSubmit, submitting]) => (
     <button disabled={!canSubmit}>
-      {submitting ? 'Submitting...' : 'Submit'}
+      {submitting ? "Submitting..." : "Submit"}
     </button>
   )}
 </Form.Subscribe>

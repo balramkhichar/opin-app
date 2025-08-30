@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import { AnyFieldApi } from '@tanstack/react-form';
-import { FormField } from '../FormField';
-import { useFormContext } from '../Form';
-import type { FormValues } from '@/types/form';
+import { AnyFieldApi } from "@tanstack/react-form";
+import { FormField } from "../FormField";
+import { useFormContext } from "../Form";
+import type { FormValues } from "@/types/form";
 
 interface TextInputProps {
   name: keyof FormValues;
   label: string;
-  type?: 'text' | 'email' | 'number' | 'tel' | 'url';
+  type?: "text" | "email" | "number" | "tel" | "url";
   placeholder?: string;
   className?: string;
   autoComplete?: string;
@@ -20,9 +20,9 @@ interface TextInputProps {
 export function TextInput({
   name,
   label,
-  type = 'text',
+  type = "text",
   placeholder,
-  className = '',
+  className = "",
   autoComplete,
   validators,
 }: TextInputProps) {

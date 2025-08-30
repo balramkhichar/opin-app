@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useForm } from '@tanstack/react-form';
-import { ReactNode, createContext, useContext } from 'react';
-import type { FormValues } from '@/types/form';
+import { useForm } from "@tanstack/react-form";
+import { ReactNode, createContext, useContext } from "react";
+import type { FormValues } from "@/types/form";
 
 interface FormProps {
   children: ReactNode;
@@ -20,7 +20,7 @@ const FormContext = createContext<any>(null);
 
 export function Form({
   children,
-  className = '',
+  className = "",
   defaultValues,
   onSubmit,
   title,
@@ -38,13 +38,13 @@ export function Form({
   return (
     <FormContext.Provider value={form}>
       <form
-        onSubmit={e => {
+        onSubmit={(e) => {
           e.preventDefault();
           e.stopPropagation();
           form.handleSubmit();
         }}
         className={className}
-        aria-label={title || 'Form'}
+        aria-label={title || "Form"}
         noValidate
       >
         {(title || subtitle) && (
@@ -72,7 +72,7 @@ export function Form({
 export function useFormContext(): any {
   const form = useContext(FormContext);
   if (!form) {
-    throw new Error('useFormContext must be used within a Form component');
+    throw new Error("useFormContext must be used within a Form component");
   }
   return form;
 }

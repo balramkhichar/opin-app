@@ -1,17 +1,17 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
+import Link from "next/link";
 import {
   Form,
   TextInput,
   Button,
   TurnstileCaptcha,
   Loading,
-} from '@/components';
-import type { TurnstileRef } from '@/components/Turnstile';
-import { createClient } from '@/lib/supabase';
-import { useState, useRef, Suspense } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+} from "@/components";
+import type { TurnstileRef } from "@/components/Turnstile";
+import { createClient } from "@/lib/supabase";
+import { useState, useRef, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 function ForgotPasswordForm() {
   const [error, setError] = useState<string | null>(null);
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
@@ -20,7 +20,7 @@ function ForgotPasswordForm() {
   const turnstileRef = useRef<TurnstileRef>(null);
   const router = useRouter();
   const searchParams = useSearchParams();
-  const next = searchParams.get('next') ?? '/dashboard';
+  const next = searchParams.get("next") ?? "/dashboard";
 
   const handleCaptchaVerify = (token: string) => {
     setCaptchaToken(token);
@@ -28,13 +28,13 @@ function ForgotPasswordForm() {
   };
 
   const handleCaptchaError = () => {
-    setCaptchaError('CAPTCHA verification failed. Please try again.');
+    setCaptchaError("CAPTCHA verification failed. Please try again.");
     setCaptchaToken(null);
   };
 
   const handleCaptchaExpire = () => {
     setCaptchaToken(null);
-    setCaptchaError('CAPTCHA expired. Please verify again.');
+    setCaptchaError("CAPTCHA expired. Please verify again.");
   };
 
   const resetCaptcha = () => {
@@ -49,7 +49,7 @@ function ForgotPasswordForm() {
     setLoading(true);
 
     if (!captchaToken) {
-      setCaptchaError('Please complete the CAPTCHA verification.');
+      setCaptchaError("Please complete the CAPTCHA verification.");
       setLoading(false);
       return;
     }
@@ -65,10 +65,10 @@ function ForgotPasswordForm() {
         setError(error.message);
         resetCaptcha();
       } else {
-        router.push('/auth/forgot-password-success');
+        router.push("/auth/forgot-password-success");
       }
     } catch {
-      setError('An unexpected error occurred');
+      setError("An unexpected error occurred");
       resetCaptcha();
     } finally {
       setLoading(false);
@@ -79,7 +79,7 @@ function ForgotPasswordForm() {
     <>
       <Form
         defaultValues={{
-          email: '',
+          email: "",
         }}
         onSubmit={handleFormSubmit}
         className="space-y-6"
@@ -95,9 +95,9 @@ function ForgotPasswordForm() {
           autoComplete="email"
           validators={{
             onChange: ({ value }: { value: string }) => {
-              if (!value) return 'Email is required';
+              if (!value) return "Email is required";
               if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-                return 'Please enter a valid email address';
+                return "Please enter a valid email address";
               }
               return undefined;
             },
@@ -142,11 +142,11 @@ function ForgotPasswordForm() {
               type="submit"
               disabled={!canSubmit || loading || !!captchaError}
               loading={submitting || loading}
-              fullWidth
+              className="w-full"
             >
               {submitting || loading
-                ? 'Sending reset link...'
-                : 'Send reset link'}
+                ? "Sending reset link..."
+                : "Send reset link"}
             </Button>
           )}
         </Form.Subscribe>
@@ -155,9 +155,9 @@ function ForgotPasswordForm() {
       {/* Footer */}
       <div className="mt-8 text-center">
         <p className="text-sm text-gray-600">
-          Remember your password?{' '}
+          Remember your password?{" "}
           <Link
-            href={`/auth/sign-in${next !== '/dashboard' ? `?next=${next}` : ''}`}
+            href={`/auth/sign-in${next !== "/dashboard" ? `?next=${next}` : ""}`}
             className="font-semibold text-gray-900 hover:text-gray-700"
           >
             Sign in

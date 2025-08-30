@@ -30,9 +30,9 @@ The application includes a route handler at `/auth/confirm` that processes email
 // src/app/auth/confirm/route.ts
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
-  const token_hash = searchParams.get('token_hash');
-  const type = searchParams.get('type') as EmailOtpType | null;
-  const next = searchParams.get('next') ?? '/dashboard';
+  const token_hash = searchParams.get("token_hash");
+  const type = searchParams.get("type") as EmailOtpType | null;
+  const next = searchParams.get("next") ?? "/dashboard";
 
   if (token_hash && type) {
     const supabase = await createServerSupabaseClient();
@@ -44,7 +44,7 @@ export async function GET(request: NextRequest) {
       redirect(next);
     }
   }
-  redirect('/error');
+  redirect("/error");
 }
 ```
 
@@ -237,7 +237,7 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 To change where users are redirected after confirmation, modify the `next` parameter in the route handler:
 
 ```typescript
-const next = searchParams.get('next') ?? '/dashboard'; // Change this default
+const next = searchParams.get("next") ?? "/dashboard"; // Change this default
 ```
 
 ### Custom Error Messages

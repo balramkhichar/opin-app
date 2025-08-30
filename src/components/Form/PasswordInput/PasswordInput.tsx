@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { AnyFieldApi } from '@tanstack/react-form';
-import { useState } from 'react';
-import { FormField } from '../FormField';
-import { useFormContext } from '../Form';
-import { Icon } from '../../Icon';
-import type { FormValues } from '@/types/form';
+import { AnyFieldApi } from "@tanstack/react-form";
+import { useState } from "react";
+import { FormField } from "../FormField";
+import { useFormContext } from "../Form";
+import { Icon } from "../../Icon";
+import type { FormValues } from "@/types/form";
 
 interface PasswordInputProps {
   name: keyof FormValues;
@@ -20,14 +20,14 @@ interface PasswordInputProps {
 // Default password validator
 const defaultPasswordValidator = {
   onChange: ({ value }: { value: string }) => {
-    if (!value) return 'Password is required';
+    if (!value) return "Password is required";
     if (value.length < 8) {
-      return 'Password must be at least 8 characters';
+      return "Password must be at least 8 characters";
     }
     // Check for at least 1 special character
     const specialCharRegex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
     if (!specialCharRegex.test(value)) {
-      return 'Password must contain at least 1 special character';
+      return "Password must contain at least 1 special character";
     }
     return undefined;
   },
@@ -37,7 +37,7 @@ export function PasswordInput({
   name,
   label,
   placeholder,
-  className = '',
+  className = "",
   validators,
 }: PasswordInputProps) {
   const form = useFormContext();
@@ -60,7 +60,7 @@ export function PasswordInput({
           <FormField
             field={field}
             label={label}
-            type={showPassword ? 'text' : 'password'}
+            type={showPassword ? "text" : "password"}
             placeholder={placeholder}
             className={className}
             autoComplete="current-password"
@@ -68,21 +68,21 @@ export function PasswordInput({
             <button
               type="button"
               onClick={handleTogglePassword}
-              aria-label={showPassword ? 'Hide password' : 'Show password'}
+              aria-label={showPassword ? "Hide password" : "Show password"}
               aria-pressed={showPassword}
               aria-describedby={descriptionId}
               id={toggleId}
               className="absolute inset-y-0 right-0 flex cursor-pointer items-center pr-3 text-gray-400 transition-colors duration-200 hover:text-gray-600"
             >
               <Icon
-                name={showPassword ? 'eye' : 'eye-off'}
+                name={showPassword ? "eye" : "eye-off"}
                 size="md"
                 className="h-5 w-5"
               />
               <span id={descriptionId} className="sr-only">
                 {showPassword
-                  ? 'Click to hide password'
-                  : 'Click to show password'}
+                  ? "Click to hide password"
+                  : "Click to show password"}
               </span>
             </button>
           </FormField>

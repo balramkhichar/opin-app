@@ -1,27 +1,27 @@
-'use client';
+"use client";
 
-import { ReactNode } from 'react';
+import { ReactNode } from "react";
 
 interface LoadingProps {
   children?: ReactNode;
-  size?: 'sm' | 'md' | 'lg';
+  size?: "sm" | "md" | "lg";
   className?: string;
 }
 
 export function Loading({
   children,
-  size = 'md',
-  className = '',
+  size = "md",
+  className = "",
 }: LoadingProps) {
   const sizeClasses = {
-    sm: 'h-4 w-4',
-    md: 'h-6 w-6',
-    lg: 'h-8 w-8',
+    sm: "h-4 w-4",
+    md: "h-6 w-6",
+    lg: "h-8 w-8",
   };
 
-  const containerClasses = ['flex items-center justify-center', className]
+  const containerClasses = ["flex items-center justify-center", className]
     .filter(Boolean)
-    .join(' ');
+    .join(" ");
 
   return (
     <div className={containerClasses}>

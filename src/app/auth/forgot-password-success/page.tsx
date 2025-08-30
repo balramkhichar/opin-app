@@ -1,6 +1,7 @@
-'use client';
+"use client";
 
-import { ButtonLink, Icon } from '@/components';
+import Link from "next/link";
+import { Button, Icon } from "@/components";
 
 export default function ResetPasswordSuccessPage() {
   return (
@@ -13,9 +14,9 @@ export default function ResetPasswordSuccessPage() {
         We&apos;ve sent you a password reset link to your email address.
       </p>
       <div className="mt-6 space-y-4">
-        <ButtonLink href="/auth/sign-in" fullWidth>
-          Back to sign in
-        </ButtonLink>
+        <Button asChild className="w-full">
+          <Link href="/auth/sign-in">Back to sign in</Link>
+        </Button>
       </div>
     </div>
   );

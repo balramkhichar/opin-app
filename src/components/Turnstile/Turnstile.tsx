@@ -1,6 +1,6 @@
-'use client';
-import { forwardRef, useImperativeHandle, useRef } from 'react';
-import { Turnstile, TurnstileInstance } from '@marsidev/react-turnstile';
+"use client";
+import { forwardRef, useImperativeHandle, useRef } from "react";
+import { Turnstile, TurnstileInstance } from "@marsidev/react-turnstile";
 
 export interface TurnstileProps {
   onVerify: (token: string) => void;
@@ -14,7 +14,7 @@ export interface TurnstileRef {
 }
 
 export const TurnstileCaptcha = forwardRef<TurnstileRef, TurnstileProps>(
-  ({ onVerify, onError, onExpire, className = '' }, ref) => {
+  ({ onVerify, onError, onExpire, className = "" }, ref) => {
     const turnstileRef = useRef<TurnstileInstance>(null);
 
     const handleVerify = (token: string) => {
@@ -48,13 +48,13 @@ export const TurnstileCaptcha = forwardRef<TurnstileRef, TurnstileProps>(
           onError={handleError}
           onExpire={handleExpire}
           options={{
-            theme: 'light',
-            size: 'normal',
+            theme: "light",
+            size: "normal",
           }}
         />
       </div>
     );
-  }
+  },
 );
 
-TurnstileCaptcha.displayName = 'TurnstileCaptcha';
+TurnstileCaptcha.displayName = "TurnstileCaptcha";

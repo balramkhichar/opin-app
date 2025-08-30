@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import Navigation from '@/components/Navigation';
-import { useAuth } from '@/lib/auth-context';
-import { useRouter } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import Navigation from "@/components/Navigation";
+import { useAuth } from "@/lib/auth-context";
+import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 
 export default function DashboardLayout({
   children,
@@ -16,7 +16,7 @@ export default function DashboardLayout({
 
   useEffect(() => {
     if (!loading && !user) {
-      router.push('/');
+      router.push("/");
     }
   }, [user, loading, router]);
 
@@ -41,34 +41,34 @@ export default function DashboardLayout({
     setLogoutLoading(false);
 
     if (result.success) {
-      router.push('/');
+      router.push("/");
     } else {
-      console.error('Logout failed:', result.error);
+      console.error("Logout failed:", result.error);
     }
   };
 
   const navigationItems = [
     {
-      icon: 'home',
-      label: 'Home',
-      href: '/dashboard',
+      icon: "home",
+      label: "Home",
+      href: "/dashboard",
     },
     {
-      icon: 'settings',
-      label: 'Projects',
-      href: '/projects',
+      icon: "settings",
+      label: "Projects",
+      href: "/projects",
     },
   ];
 
   const bottomNavigationItems = [
     {
-      icon: 'user',
-      label: 'Profile',
-      href: '/profile',
+      icon: "user",
+      label: "Profile",
+      href: "/profile",
     },
     {
-      icon: 'log-out',
-      label: logoutLoading ? 'Logging out...' : 'Log out',
+      icon: "log-out",
+      label: logoutLoading ? "Logging out..." : "Log out",
       onClick: handleLogout,
     },
   ];

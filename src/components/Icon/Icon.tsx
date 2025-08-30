@@ -1,28 +1,28 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import { ReactNode } from 'react';
+import Image from "next/image";
+import { ReactNode } from "react";
 
 interface IconProps {
   name: string;
-  size?: 'sm' | 'md' | 'lg' | 'xl';
+  size?: "sm" | "md" | "lg" | "xl";
   className?: string;
   alt?: string;
   children?: ReactNode;
 }
 
 const sizeMap = {
-  sm: { width: 16, height: 16, className: 'w-4 h-4' },
-  md: { width: 20, height: 20, className: 'w-5 h-5' },
-  lg: { width: 24, height: 24, className: 'w-6 h-6' },
-  xl: { width: 32, height: 32, className: 'w-8 h-8' },
+  sm: { width: 16, height: 16, className: "w-4 h-4" },
+  md: { width: 20, height: 20, className: "w-5 h-5" },
+  lg: { width: 24, height: 24, className: "w-6 h-6" },
+  xl: { width: 32, height: 32, className: "w-8 h-8" },
 };
 
 export function Icon({
   name,
-  size = 'md',
-  className = '',
-  alt = '',
+  size = "md",
+  className = "",
+  alt = "",
   children,
 }: IconProps) {
   const sizeConfig = sizeMap[size];

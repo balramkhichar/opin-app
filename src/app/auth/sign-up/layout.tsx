@@ -1,7 +1,7 @@
-import type { Metadata } from 'next';
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: 'Opin | Sign Up',
+  title: "Opin | Sign Up",
 };
 
 export default function SignUpLayout({

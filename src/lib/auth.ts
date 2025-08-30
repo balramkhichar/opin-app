@@ -1,5 +1,5 @@
-import { createClient } from './supabase';
-import type { User } from '@supabase/supabase-js';
+import { createClient } from "./supabase";
+import type { User } from "@supabase/supabase-js";
 
 export interface AuthResponse {
   success: boolean;
@@ -10,7 +10,7 @@ export interface AuthResponse {
 export async function signInWithEmail(
   email: string,
   password: string,
-  captchaToken?: string
+  captchaToken?: string,
 ): Promise<AuthResponse> {
   try {
     const supabase = createClient();
@@ -34,14 +34,14 @@ export async function signInWithEmail(
   } catch {
     return {
       success: false,
-      error: 'An unexpected error occurred',
+      error: "An unexpected error occurred",
     };
   }
 }
 
 export async function signUpWithEmail(
   email: string,
-  password: string
+  password: string,
 ): Promise<AuthResponse> {
   try {
     const supabase = createClient();
@@ -64,7 +64,7 @@ export async function signUpWithEmail(
   } catch {
     return {
       success: false,
-      error: 'An unexpected error occurred',
+      error: "An unexpected error occurred",
     };
   }
 }
@@ -87,7 +87,7 @@ export async function signOut(): Promise<AuthResponse> {
   } catch {
     return {
       success: false,
-      error: 'An unexpected error occurred',
+      error: "An unexpected error occurred",
     };
   }
 }

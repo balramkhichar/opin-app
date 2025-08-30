@@ -104,7 +104,7 @@ The application will automatically include CAPTCHA verification on the sign-in f
 ### Sign In
 
 ```typescript
-import { useAuth } from '@/lib/auth-context';
+import { useAuth } from "@/lib/auth-context";
 
 const { signIn } = useAuth();
 
@@ -140,7 +140,7 @@ if (user) {
 ### Sign Out
 
 ```typescript
-import { useAuth } from '@/lib/auth-context';
+import { useAuth } from "@/lib/auth-context";
 
 const { signOut } = useAuth();
 
