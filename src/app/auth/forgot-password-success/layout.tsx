@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Opin | Password Reset Sent",
+  title: 'Opin | Password Reset Sent',
 };
 
 export default function ForgotPasswordSuccessLayout({

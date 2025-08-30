@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { createContext, useContext, useEffect, useState } from "react";
-import { createClient } from "./supabase";
-import type { User, Session } from "@supabase/supabase-js";
+import { createContext, useContext, useEffect, useState } from 'react';
+import { createClient } from './supabase';
+import type { User, Session } from '@supabase/supabase-js';
 
 interface AuthContextType {
   user: User | null;
@@ -11,14 +11,14 @@ interface AuthContextType {
   signIn: (
     email: string,
     password: string,
-    captchaToken?: string,
+    captchaToken?: string
   ) => Promise<{ success: boolean; error?: string }>;
   signUp: (
     email: string,
     password: string,
     captchaToken?: string,
     first_name?: string,
-    last_name?: string,
+    last_name?: string
   ) => Promise<{ success: boolean; error?: string }>;
   signOut: () => Promise<{ success: boolean; error?: string }>;
 }
@@ -59,7 +59,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const signIn = async (
     email: string,
     password: string,
-    captchaToken?: string,
+    captchaToken?: string
   ) => {
     try {
       const { error } = await supabase.auth.signInWithPassword({
@@ -74,7 +74,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       return { success: true };
     } catch {
-      return { success: false, error: "An unexpected error occurred" };
+      return { success: false, error: 'An unexpected error occurred' };
     }
   };
 
@@ -83,7 +83,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     password: string,
     captchaToken?: string,
     first_name?: string,
-    last_name?: string,
+    last_name?: string
   ) => {
     try {
       const options: {
@@ -97,8 +97,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       if (first_name || last_name) {
         options.data = {
-          first_name: first_name || "",
-          last_name: last_name || "",
+          first_name: first_name || '',
+          last_name: last_name || '',
         };
       }
 
@@ -114,7 +114,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       return { success: true };
     } catch {
-      return { success: false, error: "An unexpected error occurred" };
+      return { success: false, error: 'An unexpected error occurred' };
     }
   };
 
@@ -128,7 +128,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       return { success: true };
     } catch {
-      return { success: false, error: "An unexpected error occurred" };
+      return { success: false, error: 'An unexpected error occurred' };
     }
   };
 
@@ -147,7 +147,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 export function useAuth() {
   const context = useContext(AuthContext);
   if (context === undefined) {
-    throw new Error("useAuth must be used within an AuthProvider");
+    throw new Error('useAuth must be used within an AuthProvider');
   }
   return context;
 }

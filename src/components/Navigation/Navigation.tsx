@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import Link from "next/link";
-import { Icon } from "../Icon";
+import React, { useState } from 'react';
+import Link from 'next/link';
+import { Icon } from '../Icon';
 
 interface NavigationItem {
   icon: string; // Icon name without .svg extension
@@ -27,7 +27,7 @@ function NavigationItemComponent({
   onItemClick?: () => void;
 }) {
   const commonClasses =
-    "flex items-center space-x-3 p-3 text-black hover:bg-gray-50 rounded-lg transition-colors cursor-pointer";
+    'flex items-center space-x-3 p-3 text-black hover:bg-gray-50 rounded-lg transition-colors cursor-pointer';
 
   if (item.onClick) {
     return (
@@ -47,7 +47,7 @@ function NavigationItemComponent({
 
   return (
     <Link
-      href={item.href || "#"}
+      href={item.href || '#'}
       className={commonClasses}
       aria-label={item.label}
       onClick={onItemClick}
@@ -86,7 +86,7 @@ export default function Navigation({
             className="rounded-lg p-2 text-gray-600 transition-colors hover:bg-gray-100 hover:text-gray-900"
             aria-label="Toggle navigation menu"
           >
-            <Icon name={isMobileMenuOpen ? "close" : "menu"} size="md" />
+            <Icon name={isMobileMenuOpen ? 'close' : 'menu'} size="md" />
           </button>
         </div>
       </div>
@@ -103,8 +103,8 @@ export default function Navigation({
       <div
         className={`fixed top-16 right-0 left-0 z-50 transform border-b border-gray-200 bg-white transition-all duration-300 ease-in-out md:hidden ${
           isMobileMenuOpen
-            ? "translate-y-0 opacity-100"
-            : "pointer-events-none -translate-y-full opacity-0"
+            ? 'translate-y-0 opacity-100'
+            : 'pointer-events-none -translate-y-full opacity-0'
         }`}
       >
         <div className="max-h-96 overflow-y-auto">

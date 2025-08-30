@@ -1,7 +1,7 @@
-import Link from "next/link";
-import { Button } from "@/components";
+import Link from 'next/link';
+import { Button } from '@/components';
 
-export const dynamic = "force-dynamic";
+export const dynamic = 'force-dynamic';
 
 export default function AuthErrorPage() {
   return (

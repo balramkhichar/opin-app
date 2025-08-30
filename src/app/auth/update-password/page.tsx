@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import Link from "next/link";
+import Link from 'next/link';
 import {
   Form,
   PasswordInput,
   Button,
   TurnstileCaptcha,
   Loading,
-} from "@/components";
-import type { TurnstileRef } from "@/components/Turnstile";
-import { createClient } from "@/lib/supabase";
-import { useState, useEffect, useRef, Suspense } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+} from '@/components';
+import type { TurnstileRef } from '@/components/Turnstile';
+import { createClient } from '@/lib/supabase';
+import { useState, useEffect, useRef, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 function UpdatePasswordForm() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
@@ -21,7 +21,7 @@ function UpdatePasswordForm() {
   const turnstileRef = useRef<TurnstileRef>(null);
   const router = useRouter();
   const searchParams = useSearchParams();
-  const next = searchParams.get("next") ?? "/dashboard";
+  const next = searchParams.get('next') ?? '/dashboard';
 
   useEffect(() => {
     // Check if user is authenticated
@@ -43,13 +43,13 @@ function UpdatePasswordForm() {
   };
 
   const handleCaptchaError = () => {
-    setCaptchaError("CAPTCHA verification failed. Please try again.");
+    setCaptchaError('CAPTCHA verification failed. Please try again.');
     setCaptchaToken(null);
   };
 
   const handleCaptchaExpire = () => {
     setCaptchaToken(null);
-    setCaptchaError("CAPTCHA expired. Please verify again.");
+    setCaptchaError('CAPTCHA expired. Please verify again.');
   };
 
   const resetCaptcha = () => {
@@ -68,13 +68,13 @@ function UpdatePasswordForm() {
     setLoading(true);
 
     if (value.password !== value.confirmPassword) {
-      setError("Passwords do not match");
+      setError('Passwords do not match');
       setLoading(false);
       return;
     }
 
     if (!captchaToken) {
-      setCaptchaError("Please complete the CAPTCHA verification.");
+      setCaptchaError('Please complete the CAPTCHA verification.');
       setLoading(false);
       return;
     }
@@ -89,14 +89,14 @@ function UpdatePasswordForm() {
         setError(error.message);
         resetCaptcha();
       } else {
-        setSuccess("Password updated successfully! Redirecting...");
+        setSuccess('Password updated successfully! Redirecting...');
         resetCaptcha();
         setTimeout(() => {
           router.push(next);
         }, 2000);
       }
     } catch {
-      setError("An unexpected error occurred");
+      setError('An unexpected error occurred');
       resetCaptcha();
     } finally {
       setLoading(false);
@@ -107,8 +107,8 @@ function UpdatePasswordForm() {
     <>
       <Form
         defaultValues={{
-          password: "",
-          confirmPassword: "",
+          password: '',
+          confirmPassword: '',
         }}
         onSubmit={handleFormSubmit}
         className="space-y-6"
@@ -122,9 +122,9 @@ function UpdatePasswordForm() {
           placeholder="Enter your new password"
           validators={{
             onChange: ({ value }: { value: string }) => {
-              if (!value) return "Password is required";
+              if (!value) return 'Password is required';
               if (value.length < 8) {
-                return "Password must be at least 8 characters long";
+                return 'Password must be at least 8 characters long';
               }
               return undefined;
             },
@@ -138,7 +138,7 @@ function UpdatePasswordForm() {
           placeholder="Confirm your new password"
           validators={{
             onChange: ({ value }: { value: string }) => {
-              if (!value) return "Please confirm your password";
+              if (!value) return 'Please confirm your password';
               return undefined;
             },
           }}
@@ -196,8 +196,8 @@ function UpdatePasswordForm() {
               className="w-full"
             >
               {submitting || loading
-                ? "Updating password..."
-                : "Update password"}
+                ? 'Updating password...'
+                : 'Update password'}
             </Button>
           )}
         </Form.Subscribe>
@@ -206,9 +206,9 @@ function UpdatePasswordForm() {
       {/* Footer */}
       <div className="mt-8 text-center">
         <p className="text-sm text-gray-600">
-          Remember your password?{" "}
+          Remember your password?{' '}
           <Link
-            href={`/auth/sign-in${next !== "/dashboard" ? `?next=${next}` : ""}`}
+            href={`/auth/sign-in${next !== '/dashboard' ? `?next=${next}` : ''}`}
             className="font-semibold text-gray-900 hover:text-gray-700"
           >
             Sign in

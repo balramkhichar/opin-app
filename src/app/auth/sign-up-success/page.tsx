@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { Button, Icon } from "@/components";
+import Link from 'next/link';
+import { Button, Icon } from '@/components';
 
 export default function SignUpSuccessPage() {
   return (

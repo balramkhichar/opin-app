@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import Link from "next/link";
+import Link from 'next/link';
 import {
   Form,
   TextInput,
@@ -8,11 +8,11 @@ import {
   Button,
   TurnstileCaptcha,
   Loading,
-} from "@/components";
-import type { TurnstileRef } from "@/components/Turnstile";
-import { useAuth } from "@/lib/auth-context";
-import { useState, useEffect, useRef, Suspense } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+} from '@/components';
+import type { TurnstileRef } from '@/components/Turnstile';
+import { useAuth } from '@/lib/auth-context';
+import { useState, useEffect, useRef, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 function SignInForm() {
   const { signIn, loading: authLoading, user } = useAuth();
@@ -22,7 +22,7 @@ function SignInForm() {
   const turnstileRef = useRef<TurnstileRef>(null);
   const router = useRouter();
   const searchParams = useSearchParams();
-  const next = searchParams.get("next") ?? "/dashboard";
+  const next = searchParams.get('next') ?? '/dashboard';
 
   useEffect(() => {
     if (user) {
@@ -36,13 +36,13 @@ function SignInForm() {
   };
 
   const handleCaptchaError = () => {
-    setCaptchaError("CAPTCHA verification failed. Please try again.");
+    setCaptchaError('CAPTCHA verification failed. Please try again.');
     setCaptchaToken(null);
   };
 
   const handleCaptchaExpire = () => {
     setCaptchaToken(null);
-    setCaptchaError("CAPTCHA expired. Please verify again.");
+    setCaptchaError('CAPTCHA expired. Please verify again.');
   };
 
   const resetCaptcha = () => {
@@ -59,13 +59,13 @@ function SignInForm() {
     setCaptchaError(null);
 
     if (!captchaToken) {
-      setCaptchaError("Please complete the CAPTCHA verification.");
+      setCaptchaError('Please complete the CAPTCHA verification.');
       return;
     }
 
     const result = await signIn(value.email, value.password, captchaToken);
     if (!result.success) {
-      setError(result.error || "Sign in failed");
+      setError(result.error || 'Sign in failed');
       resetCaptcha();
     }
   };
@@ -73,8 +73,8 @@ function SignInForm() {
   return (
     <Form
       defaultValues={{
-        email: "",
-        password: "",
+        email: '',
+        password: '',
       }}
       onSubmit={handleFormSubmit}
       className="space-y-6"
@@ -90,9 +90,9 @@ function SignInForm() {
         autoComplete="email"
         validators={{
           onChange: ({ value }: { value: string }) => {
-            if (!value) return "Email is required";
+            if (!value) return 'Email is required';
             if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-              return "Please enter a valid email address";
+              return 'Please enter a valid email address';
             }
             return undefined;
           },
@@ -146,14 +146,14 @@ function SignInForm() {
             loading={submitting || authLoading}
             className="w-full"
           >
-            {submitting || authLoading ? "Signing in..." : "Sign in"}
+            {submitting || authLoading ? 'Signing in...' : 'Sign in'}
           </Button>
         )}
       </Form.Subscribe>
 
       {/* Terms and Privacy Policy */}
       <div className="text-center text-xs text-gray-600">
-        By signing in, you agree to the{" "}
+        By signing in, you agree to the{' '}
         <Link
           href="https://www.getopin.com/terms"
           target="_blank"
@@ -161,8 +161,8 @@ function SignInForm() {
           className="underline hover:text-gray-900"
         >
           Terms of use
-        </Link>{" "}
-        and{" "}
+        </Link>{' '}
+        and{' '}
         <Link
           href="https://www.getopin.com/privacy"
           target="_blank"
@@ -177,7 +177,7 @@ function SignInForm() {
       {/* Forgot Password Link */}
       <div className="text-center">
         <Link
-          href={`/auth/forgot-password${next !== "/dashboard" ? `?next=${next}` : ""}`}
+          href={`/auth/forgot-password${next !== '/dashboard' ? `?next=${next}` : ''}`}
           className="text-sm text-gray-600 hover:text-gray-900"
         >
           Forgot your password?

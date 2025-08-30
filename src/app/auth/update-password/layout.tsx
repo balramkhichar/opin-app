@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Opin | Update Password",
+  title: 'Opin | Update Password',
 };
 
 export default function UpdatePasswordLayout({

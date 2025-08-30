@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import Link from "next/link";
+import Link from 'next/link';
 import {
   Form,
   TextInput,
@@ -8,11 +8,11 @@ import {
   Button,
   TurnstileCaptcha,
   Loading,
-} from "@/components";
-import type { TurnstileRef } from "@/components/Turnstile";
-import { useAuth } from "@/lib/auth-context";
-import { useState, useEffect, useRef, Suspense } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+} from '@/components';
+import type { TurnstileRef } from '@/components/Turnstile';
+import { useAuth } from '@/lib/auth-context';
+import { useState, useEffect, useRef, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 function SignUpForm() {
   const { signUp, loading: authLoading, user } = useAuth();
   const [error, setError] = useState<string | null>(null);
@@ -21,7 +21,7 @@ function SignUpForm() {
   const turnstileRef = useRef<TurnstileRef>(null);
   const router = useRouter();
   const searchParams = useSearchParams();
-  const next = searchParams.get("next") ?? "/dashboard";
+  const next = searchParams.get('next') ?? '/dashboard';
 
   useEffect(() => {
     if (user) {
@@ -35,13 +35,13 @@ function SignUpForm() {
   };
 
   const handleCaptchaError = () => {
-    setCaptchaError("CAPTCHA verification failed. Please try again.");
+    setCaptchaError('CAPTCHA verification failed. Please try again.');
     setCaptchaToken(null);
   };
 
   const handleCaptchaExpire = () => {
     setCaptchaToken(null);
-    setCaptchaError("CAPTCHA expired. Please verify again.");
+    setCaptchaError('CAPTCHA expired. Please verify again.');
   };
 
   const resetCaptcha = () => {
@@ -61,12 +61,12 @@ function SignUpForm() {
     setCaptchaError(null);
 
     if (value.password !== value.confirmPassword) {
-      setError("Passwords do not match");
+      setError('Passwords do not match');
       return;
     }
 
     if (!captchaToken) {
-      setCaptchaError("Please complete the CAPTCHA verification.");
+      setCaptchaError('Please complete the CAPTCHA verification.');
       return;
     }
 
@@ -75,12 +75,12 @@ function SignUpForm() {
       value.password,
       captchaToken,
       value.first_name,
-      value.last_name,
+      value.last_name
     );
     if (result.success) {
-      router.push("/auth/sign-up-success");
+      router.push('/auth/sign-up-success');
     } else {
-      setError(result.error || "Sign up failed");
+      setError(result.error || 'Sign up failed');
       resetCaptcha();
     }
   };
@@ -89,11 +89,11 @@ function SignUpForm() {
     <>
       <Form
         defaultValues={{
-          first_name: "",
-          last_name: "",
-          email: "",
-          password: "",
-          confirmPassword: "",
+          first_name: '',
+          last_name: '',
+          email: '',
+          password: '',
+          confirmPassword: '',
         }}
         onSubmit={handleFormSubmit}
         className="space-y-6"
@@ -110,7 +110,7 @@ function SignUpForm() {
             autoComplete="given-name"
             validators={{
               onChange: ({ value }: { value: string }) => {
-                if (!value) return "First name is required";
+                if (!value) return 'First name is required';
                 return undefined;
               },
             }}
@@ -124,7 +124,7 @@ function SignUpForm() {
             autoComplete="family-name"
             validators={{
               onChange: ({ value }: { value: string }) => {
-                if (!value) return "Last name is required";
+                if (!value) return 'Last name is required';
                 return undefined;
               },
             }}
@@ -140,9 +140,9 @@ function SignUpForm() {
           autoComplete="email"
           validators={{
             onChange: ({ value }: { value: string }) => {
-              if (!value) return "Email is required";
+              if (!value) return 'Email is required';
               if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-                return "Please enter a valid email address";
+                return 'Please enter a valid email address';
               }
               return undefined;
             },
@@ -156,9 +156,9 @@ function SignUpForm() {
           placeholder="Create a password"
           validators={{
             onChange: ({ value }: { value: string }) => {
-              if (!value) return "Password is required";
+              if (!value) return 'Password is required';
               if (value.length < 8) {
-                return "Password must be at least 8 characters long";
+                return 'Password must be at least 8 characters long';
               }
               return undefined;
             },
@@ -172,7 +172,7 @@ function SignUpForm() {
           placeholder="Confirm your password"
           validators={{
             onChange: ({ value }: { value: string }) => {
-              if (!value) return "Please confirm your password";
+              if (!value) return 'Please confirm your password';
               return undefined;
             },
           }}
@@ -219,15 +219,15 @@ function SignUpForm() {
               className="w-full"
             >
               {submitting || authLoading
-                ? "Creating account..."
-                : "Create account"}
+                ? 'Creating account...'
+                : 'Create account'}
             </Button>
           )}
         </Form.Subscribe>
 
         {/* Terms and Privacy Policy */}
         <div className="text-center text-xs text-gray-600">
-          By creating an account, you agree to the{" "}
+          By creating an account, you agree to the{' '}
           <Link
             href="https://www.getopin.com/terms"
             target="_blank"
@@ -235,8 +235,8 @@ function SignUpForm() {
             className="underline hover:text-gray-900"
           >
             Terms of use
-          </Link>{" "}
-          and{" "}
+          </Link>{' '}
+          and{' '}
           <Link
             href="https://www.getopin.com/privacy"
             target="_blank"
@@ -252,9 +252,9 @@ function SignUpForm() {
       {/* Footer */}
       <div className="mt-8 text-center">
         <p className="text-sm text-gray-600">
-          Already have an account?{" "}
+          Already have an account?{' '}
           <Link
-            href={`/auth/sign-in${next !== "/dashboard" ? `?next=${next}` : ""}`}
+            href={`/auth/sign-in${next !== '/dashboard' ? `?next=${next}` : ''}`}
             className="font-semibold text-gray-900 hover:text-gray-700"
           >
             Sign in

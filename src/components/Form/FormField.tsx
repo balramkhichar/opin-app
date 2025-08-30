@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { AnyFieldApi } from "@tanstack/react-form";
-import { ReactNode } from "react";
+import { AnyFieldApi } from '@tanstack/react-form';
+import { ReactNode } from 'react';
 
 interface FormFieldProps {
   field: AnyFieldApi;
   label: string;
-  type?: "text" | "email" | "password" | "number" | "tel" | "url";
+  type?: 'text' | 'email' | 'password' | 'number' | 'tel' | 'url';
   placeholder?: string;
   children?: ReactNode;
   className?: string;
@@ -16,10 +16,10 @@ interface FormFieldProps {
 export function FormField({
   field,
   label,
-  type = "text",
+  type = 'text',
   placeholder,
   children,
-  className = "",
+  className = '',
   autoComplete,
 }: FormFieldProps) {
   const hasError =
@@ -41,7 +41,7 @@ export function FormField({
           type={type}
           value={field.state.value}
           onBlur={field.handleBlur}
-          onChange={(e) => field.handleChange(e.target.value)}
+          onChange={e => field.handleChange(e.target.value)}
           placeholder={placeholder}
           autoComplete={autoComplete}
           aria-invalid={hasError}
@@ -52,7 +52,7 @@ export function FormField({
       </div>
       {hasError && (
         <p id={errorId} className="mt-1 text-sm text-red-600" role="alert">
-          {field.state.meta.errors.join(", ")}
+          {field.state.meta.errors.join(', ')}
         </p>
       )}
     </div>
