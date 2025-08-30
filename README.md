@@ -50,8 +50,13 @@ src/
 ├── app/                 # Next.js App Router
 │   ├── layout.tsx      # Root layout with AuthProvider
 │   ├── page.tsx        # Main page (redirects to auth or dashboard)
+│   ├── (dashboard)/    # Protected dashboard routes
+│   │   ├── layout.tsx  # Dashboard layout with navigation
+│   │   ├── dashboard/  # Dashboard home page
+│   │   ├── profile/    # User profile page
+│   │   └── projects/   # Projects page
 │   ├── auth/           # Authentication pages
-│   │   ├── sign-in/  # Sign-in page
+│   │   ├── sign-in/    # Sign-in page
 │   │   ├── sign-up/    # Registration page
 │   │   ├── sign-up-success/ # Success page after registration
 │   │   ├── forgot-password/ # Password reset request
@@ -59,18 +64,22 @@ src/
 │   │   ├── update-password/ # Password update
 │   │   ├── confirm/    # Email confirmation handler
 │   │   └── error/      # Error page for auth failures
-│   ├── dashboard/      # Protected dashboard page
 │   ├── globals.scss    # Global styles (SCSS)
 │   └── middleware.ts   # Authentication middleware
 ├── components/         # Reusable components
-│   ├── Button/         # Button component
-│   ├── Form/           # Form components
-│   └── Turnstile/      # CAPTCHA component
+│   ├── Form/           # Form components (TanStack Form)
+│   ├── ui/             # UI components (Button, etc.)
+│   ├── Icon/           # Icon component
+│   ├── Navigation/     # Navigation component
+│   ├── Loading/        # Loading components
+│   ├── Turnstile/      # CAPTCHA component (TurnstileCaptcha)
+│   └── index.ts        # Component exports
 ├── lib/               # Utility functions
 │   ├── supabase.ts    # Supabase client configuration
 │   ├── supabase-server.ts # Server-side Supabase client
 │   ├── auth.ts        # Authentication utilities
-│   └── auth-context.tsx # React context for auth state
+│   ├── auth-context.tsx # React context for auth state
+│   └── utils.ts       # Utility functions
 └── types/             # TypeScript type definitions
 ```
 

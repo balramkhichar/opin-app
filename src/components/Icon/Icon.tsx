@@ -1,14 +1,12 @@
 'use client';
 
 import Image from 'next/image';
-import { ReactNode } from 'react';
 
 interface IconProps {
   name: string;
   size?: 'sm' | 'md' | 'lg' | 'xl';
   className?: string;
   alt?: string;
-  children?: ReactNode;
 }
 
 const sizeMap = {
@@ -23,7 +21,6 @@ export function Icon({
   size = 'md',
   className = '',
   alt = '',
-  children,
 }: IconProps) {
   const sizeConfig = sizeMap[size];
   const iconPath = `/icons/${name}.svg`;
