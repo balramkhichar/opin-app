@@ -151,6 +151,29 @@ function SignInForm() {
         )}
       </Form.Subscribe>
 
+      {/* Terms and Privacy Policy */}
+      <div className="text-center text-xs text-gray-600">
+        By signing in, you agree to the{' '}
+        <Link
+          href="https://www.getopin.com/terms"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline hover:text-gray-900"
+        >
+          Terms of use
+        </Link>{' '}
+        and{' '}
+        <Link
+          href="https://www.getopin.com/privacy"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline hover:text-gray-900"
+        >
+          Privacy Policy
+        </Link>
+        .
+      </div>
+
       {/* Forgot Password Link */}
       <div className="text-center">
         <Link
