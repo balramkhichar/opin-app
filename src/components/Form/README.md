@@ -110,11 +110,29 @@ import { Form, PasswordInput } from '@/components';
 - **Type-safe**: Built with TypeScript for better developer experience
 - **Consistent styling**: Uses shadcn/ui design system for consistent theming
 - **Validation**: Built-in validation display with error messages
+- **Debounced Validation**: Built-in debounced validation (500ms delay) to prevent showing errors while typing
 - **Accessibility**: Proper labels, focus states, and keyboard navigation
 - **Reusable**: Can be used across different forms in the application
 - **Modular**: Separate components for different input types
 - **Simplified API**: TextInput and PasswordInput automatically wrap Form.Field
 - **Theme Support**: Full dark mode and theme switching support through shadcn/ui
+
+## Debounced Validation
+
+The form components now include debounced validation by default to improve user experience by preventing validation errors from appearing immediately as users type. This is especially useful for complex validation rules or when you want to give users time to complete their input.
+
+### How it works
+
+- **Default behavior**: Validation errors are delayed by 500ms after the user stops typing
+- **Error clearing**: Errors are cleared immediately when validation passes or when the field is not touched
+- **Built-in**: No configuration needed - debounced validation is enabled by default
+
+### Benefits
+
+- **Better UX**: Users don't see errors while actively typing
+- **Reduced visual noise**: Prevents error messages from flashing during input
+- **Automatic**: Works out of the box without any additional configuration
+- **Performance**: Reduces unnecessary validation calls during rapid typing
 
 ## shadcn/ui Integration
 

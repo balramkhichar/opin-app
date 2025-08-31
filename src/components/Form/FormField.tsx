@@ -1,7 +1,7 @@
 'use client';
 
 import { AnyFieldApi } from '@tanstack/react-form';
-import { ReactNode } from 'react';
+import { ReactNode, useEffect, useRef, useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { cn } from '@/lib/utils';
@@ -25,8 +25,45 @@ export function FormField({
   className = '',
   autoComplete,
 }: FormFieldProps) {
-  const hasError =
-    field.state.meta.isTouched && field.state.meta.errors.length > 0;
+  const debounceDelay = 500; // Default debounce delay
+  const [debouncedErrors, setDebouncedErrors] = useState<string[]>([]);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(
+    undefined
+  );
+
+  // Handle debounced validation
+  useEffect(() => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+
+    // Only debounce if the field has been touched and has errors
+    if (field.state.meta.isTouched && field.state.meta.errors.length > 0) {
+      timeoutRef.current = setTimeout(() => {
+        setDebouncedErrors(field.state.meta.errors);
+      }, debounceDelay);
+    } else {
+      // Clear errors immediately if no errors or not touched
+      setDebouncedErrors([]);
+    }
+
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, [field.state.meta.errors, field.state.meta.isTouched, debounceDelay]);
+
+  // Clear timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
+
+  const hasError = field.state.meta.isTouched && debouncedErrors.length > 0;
   const errorId = `${field.name}-error`;
 
   return (
@@ -61,7 +98,7 @@ export function FormField({
           className="text-destructive text-sm font-medium"
           role="alert"
         >
-          {field.state.meta.errors.join(', ')}
+          {debouncedErrors.join(', ')}
         </p>
       )}
     </div>
