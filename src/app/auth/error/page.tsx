@@ -14,8 +14,8 @@ export default function AuthErrorPage() {
   return (
     <Card>
       <CardHeader className="text-center">
-        <div className="bg-destructive mx-auto flex h-12 w-12 items-center justify-center rounded-full">
-          <Icon name="close" size="lg" />
+        <div className="bg-accent mx-auto flex h-12 w-12 items-center justify-center rounded-full">
+          <Icon name="close" size="lg" className="text-destructive" />
         </div>
         <CardTitle>Something went wrong</CardTitle>
         <CardDescription>
