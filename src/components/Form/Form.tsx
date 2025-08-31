@@ -50,19 +50,14 @@ export function Form({
         {(title || subtitle) && (
           <div className="mb-6">
             {title && (
-              <h6
-                className=""
-                id="form-title"
-                style={{ color: 'var(--color-foreground)' }}
-              >
+              <h6 className="" id="form-title">
                 {title}
               </h6>
             )}
             {subtitle && (
               <p
-                className="mt-1 text-sm"
+                className="text-muted-foreground mt-1 text-sm"
                 id="form-subtitle"
-                style={{ color: 'var(--color-muted-foreground)' }}
               >
                 {subtitle}
               </p>

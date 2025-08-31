@@ -44,9 +44,7 @@ function Loading() {
           className="mx-auto h-12 w-12 animate-spin rounded-full border-b-2"
           style={{ borderColor: 'var(--color-foreground)' }}
         ></div>
-        <p className="mt-4" style={{ color: 'var(--color-muted-foreground)' }}>
-          Loading...
-        </p>
+        <p className="text-muted-foreground mt-4">Loading...</p>
       </div>
     </div>
   );

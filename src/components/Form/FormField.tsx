@@ -28,11 +28,7 @@ export function FormField({
 
   return (
     <div className={className}>
-      <label
-        htmlFor={field.name}
-        className="mb-2 block text-sm font-semibold"
-        style={{ color: 'var(--color-foreground)' }}
-      >
+      <label htmlFor={field.name} className="mb-2 block text-sm font-semibold">
         {label}
       </label>
       <div className="relative">
@@ -69,12 +65,7 @@ export function FormField({
         {children}
       </div>
       {hasError && (
-        <p
-          id={errorId}
-          className="mt-1 text-sm"
-          role="alert"
-          style={{ color: 'var(--color-destructive)' }}
-        >
+        <p id={errorId} className="text-destructive mt-1 text-sm" role="alert">
           {field.state.meta.errors.join(', ')}
         </p>
       )}

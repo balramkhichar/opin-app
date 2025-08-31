@@ -49,13 +49,8 @@ export default function NotFound() {
             </div>
           </div>
           <div className="mb-6">
-            <h3 className="mt-4" style={{ color: 'var(--color-foreground)' }}>
-              Oops! You hit a dead end.
-            </h3>
-            <p
-              className="mt-2"
-              style={{ color: 'var(--color-muted-foreground)' }}
-            >
+            <h3 className="mt-4">Oops! You hit a dead end.</h3>
+            <p className="text-muted-foreground mt-2">
               Let&apos;s help you get back on the right path.
             </p>
           </div>

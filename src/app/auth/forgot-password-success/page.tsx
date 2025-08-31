@@ -12,13 +12,8 @@ export default function ForgotPasswordSuccessPage() {
       >
         <Icon name="mail" size="lg" />
       </div>
-      <h3 className="mt-4" style={{ color: 'var(--color-foreground)' }}>
-        Check your email
-      </h3>
-      <p
-        className="mt-2 text-sm"
-        style={{ color: 'var(--color-muted-foreground)' }}
-      >
+      <h3 className="mt-4">Check your email</h3>
+      <p className="text-muted-foreground mt-2 text-sm">
         We&apos;ve sent you a password reset link. Please check your email and
         follow the instructions to reset your password.
       </p>
