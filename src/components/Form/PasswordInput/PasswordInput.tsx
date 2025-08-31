@@ -11,7 +11,7 @@ import type { FormValues } from '@/types/form';
 
 interface PasswordInputProps {
   name: keyof FormValues;
-  label: string;
+  label?: React.ReactNode;
   placeholder?: string;
   className?: string;
   // Using any for validators because TanStack Form's validator types are complex
@@ -77,8 +77,10 @@ export function PasswordInput({
               aria-describedby={descriptionId}
               id={toggleId}
               className={cn(
-                'absolute inset-y-0 right-0 h-auto w-auto rounded-l-none border-l',
-                'hover:bg-accent hover:text-accent-foreground'
+                'absolute inset-y-0 right-0 h-9 w-9 rounded-r-md border-0',
+                'hover:bg-accent/50 hover:text-accent-foreground',
+                'focus:bg-accent/50 focus:text-accent-foreground',
+                'text-muted-foreground'
               )}
             >
               <Icon

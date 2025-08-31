@@ -1,7 +1,6 @@
 'use client';
 
-import Link from 'next/link';
-import { Button, Icon } from '@/components';
+import { Button, Icon, Link } from '@/components';
 import {
   Card,
   CardHeader,
@@ -28,9 +27,9 @@ export default function ForgotPasswordSuccessPage() {
       </CardHeader>
 
       <CardFooter className="flex-col space-y-4">
-        <Button asChild className="w-full">
-          <Link href="/auth/sign-in">Back to sign in</Link>
-        </Button>
+        <Link href="/auth/sign-in" className="w-full">
+          <Button className="w-full">Back to sign in</Button>
+        </Link>
       </CardFooter>
     </Card>
   );

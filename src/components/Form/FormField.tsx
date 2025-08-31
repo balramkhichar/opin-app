@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils';
 
 interface FormFieldProps {
   field: AnyFieldApi;
-  label: string;
+  label?: ReactNode;
   type?: 'text' | 'email' | 'password' | 'number' | 'tel' | 'url';
   placeholder?: string;
   children?: ReactNode;
@@ -31,9 +31,14 @@ export function FormField({
 
   return (
     <div className={cn('space-y-2', className)}>
-      <Label htmlFor={field.name} className="text-sm font-medium">
-        {label}
-      </Label>
+      {label &&
+        (typeof label === 'string' ? (
+          <Label htmlFor={field.name} className="text-sm font-medium">
+            {label}
+          </Label>
+        ) : (
+          label
+        ))}
       <div className="relative">
         <Input
           id={field.name}
@@ -46,6 +51,7 @@ export function FormField({
           autoComplete={autoComplete}
           aria-invalid={hasError}
           aria-describedby={hasError ? errorId : undefined}
+          className={cn(children && 'pr-10')}
         />
         {children}
       </div>

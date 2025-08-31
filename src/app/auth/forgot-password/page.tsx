@@ -1,12 +1,12 @@
 'use client';
 
-import Link from 'next/link';
 import {
   Form,
   TextInput,
   Button,
   TurnstileCaptcha,
   Loading,
+  Link,
 } from '@/components';
 import {
   Card,
@@ -176,21 +176,11 @@ function ForgotPasswordForm() {
       </CardContent>
 
       <CardFooter className="flex-col space-y-4">
-        <p
-          className="text-sm"
-          style={{ color: 'var(--color-muted-foreground)' }}
-        >
+        <p>
           Remember your password?{' '}
           <Link
             href={`/auth/sign-in${next !== '/dashboard' ? `?next=${next}` : ''}`}
             className="font-semibold"
-            style={{ color: 'var(--color-foreground)' }}
-            onMouseEnter={e => {
-              e.currentTarget.style.color = 'var(--color-muted-foreground)';
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.color = 'var(--color-foreground)';
-            }}
           >
             Sign in
           </Link>

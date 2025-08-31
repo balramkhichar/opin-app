@@ -1,5 +1,4 @@
-import Link from 'next/link';
-import { Button, Icon } from '@/components';
+import { Button, Icon, Link } from '@/components';
 import {
   Card,
   CardHeader,
@@ -37,9 +36,9 @@ export default function AuthErrorPage() {
       </CardContent>
 
       <CardFooter className="flex-col space-y-4">
-        <Button asChild className="w-full">
-          <Link href="/">Return to Home</Link>
-        </Button>
+        <Link href="/" className="w-full">
+          <Button className="w-full">Return to Home</Button>
+        </Link>
       </CardFooter>
     </Card>
   );

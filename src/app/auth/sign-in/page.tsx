@@ -1,14 +1,14 @@
 'use client';
 
-import Link from 'next/link';
 import {
   Form,
   TextInput,
   PasswordInput,
-  Button,
   TurnstileCaptcha,
   Loading,
+  Link,
 } from '@/components';
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardHeader,
@@ -115,8 +115,22 @@ function SignInForm() {
           {/* Password Field */}
           <PasswordInput
             name="password"
-            label="Password"
             placeholder="Enter your password"
+            label={
+              <div className="flex items-center justify-between">
+                <label
+                  htmlFor="password"
+                  className="text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  Password
+                </label>
+                <Link
+                  href={`/auth/forgot-password${next !== '/dashboard' ? `?next=${next}` : ''}`}
+                >
+                  Forgot your password?
+                </Link>
+              </div>
+            }
           />
 
           {/* CAPTCHA Component */}
@@ -171,39 +185,22 @@ function SignInForm() {
           </Form.Subscribe>
 
           {/* Terms and Privacy Policy */}
-          <div
-            className="text-center text-xs"
-            style={{ color: 'var(--color-muted-foreground)' }}
-          >
-            By signing in, you agree to the{' '}
+          <div className="text-center text-sm">
+            By signing in, you agree to the
             <Link
               href="https://www.getopin.com/terms"
               target="_blank"
               rel="noopener noreferrer"
-              className="underline"
-              style={{ color: 'var(--color-foreground)' }}
-              onMouseEnter={e => {
-                e.currentTarget.style.color = 'var(--color-muted-foreground)';
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.color = 'var(--color-foreground)';
-              }}
+              className="font-semibold"
             >
               Terms of use
             </Link>{' '}
-            and{' '}
+            and
             <Link
               href="https://www.getopin.com/privacy"
               target="_blank"
               rel="noopener noreferrer"
-              className="underline"
-              style={{ color: 'var(--color-foreground)' }}
-              onMouseEnter={e => {
-                e.currentTarget.style.color = 'var(--color-muted-foreground)';
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.color = 'var(--color-foreground)';
-              }}
+              className="font-semibold"
             >
               Privacy Policy
             </Link>
@@ -212,21 +209,7 @@ function SignInForm() {
         </Form>
       </CardContent>
 
-      <CardFooter className="flex-col space-y-4">
-        <Link
-          href={`/auth/forgot-password${next !== '/dashboard' ? `?next=${next}` : ''}`}
-          className="text-sm"
-          style={{ color: 'var(--color-muted-foreground)' }}
-          onMouseEnter={e => {
-            e.currentTarget.style.color = 'var(--color-foreground)';
-          }}
-          onMouseLeave={e => {
-            e.currentTarget.style.color = 'var(--color-muted-foreground)';
-          }}
-        >
-          Forgot your password?
-        </Link>
-      </CardFooter>
+      <CardFooter className="flex-col space-y-4"></CardFooter>
     </Card>
   );
 }

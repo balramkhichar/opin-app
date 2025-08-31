@@ -9,6 +9,7 @@ export {
 export { Button } from './ui/button';
 export { Input } from './ui/input';
 export { Label } from './ui/label';
+export { Link } from './Link';
 export { TurnstileCaptcha } from './Turnstile';
 export { Loading } from './Loading';
 export { Icon } from './Icon';

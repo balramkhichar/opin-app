@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import {
   Form,
   TextInput,
@@ -8,6 +7,7 @@ import {
   Button,
   TurnstileCaptcha,
   Loading,
+  Link,
 } from '@/components';
 import {
   Card,
@@ -245,39 +245,22 @@ function SignUpForm() {
           </Form.Subscribe>
 
           {/* Terms and Privacy Policy */}
-          <div
-            className="text-center text-xs"
-            style={{ color: 'var(--color-muted-foreground)' }}
-          >
-            By signing up, you agree to the{' '}
+          <div className="text-center text-sm">
+            By signing up, you agree to the
             <Link
               href="https://www.getopin.com/terms"
               target="_blank"
               rel="noopener noreferrer"
-              className="underline"
-              style={{ color: 'var(--color-foreground)' }}
-              onMouseEnter={e => {
-                e.currentTarget.style.color = 'var(--color-muted-foreground)';
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.color = 'var(--color-foreground)';
-              }}
+              className="font-semibold"
             >
               Terms of use
             </Link>{' '}
-            and{' '}
+            and
             <Link
               href="https://www.getopin.com/privacy"
               target="_blank"
               rel="noopener noreferrer"
-              className="underline"
-              style={{ color: 'var(--color-foreground)' }}
-              onMouseEnter={e => {
-                e.currentTarget.style.color = 'var(--color-muted-foreground)';
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.color = 'var(--color-foreground)';
-              }}
+              className="font-semibold"
             >
               Privacy Policy
             </Link>
@@ -287,21 +270,11 @@ function SignUpForm() {
       </CardContent>
 
       <CardFooter className="flex-col space-y-4">
-        <p
-          className="text-sm"
-          style={{ color: 'var(--color-muted-foreground)' }}
-        >
+        <p>
           Already have an account?{' '}
           <Link
             href={`/auth/sign-in${next !== '/dashboard' ? `?next=${next}` : ''}`}
             className="font-semibold"
-            style={{ color: 'var(--color-foreground)' }}
-            onMouseEnter={e => {
-              e.currentTarget.style.color = 'var(--color-muted-foreground)';
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.color = 'var(--color-foreground)';
-            }}
           >
             Sign in
           </Link>
