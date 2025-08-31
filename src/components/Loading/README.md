@@ -5,13 +5,13 @@ A reusable loading component that provides consistent loading states and spinner
 ## Usage
 
 ```tsx
-import Loading from '@/components/Loading';
+import { Loading } from '@/components';
 
 // Basic loading spinner
 <Loading />
 
 // Loading with custom text
-<Loading text="Loading your data..." />
+<Loading>Loading your data...</Loading>
 
 // Loading with custom size
 <Loading size="lg" />
@@ -22,20 +22,19 @@ import Loading from '@/components/Loading';
 
 ## Props
 
-| Prop        | Type                           | Default        | Description                 |
-| ----------- | ------------------------------ | -------------- | --------------------------- |
-| `text`      | `string`                       | `'Loading...'` | Loading text to display     |
-| `size`      | `'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'`         | Size of the loading spinner |
-| `className` | `string`                       | `''`           | Additional CSS classes      |
+| Prop        | Type                   | Default     | Description                 |
+| ----------- | ---------------------- | ----------- | --------------------------- |
+| `children`  | `ReactNode`            | `undefined` | Loading text to display     |
+| `size`      | `'sm' \| 'md' \| 'lg'` | `'md'`      | Size of the loading spinner |
+| `className` | `string`               | `''`        | Additional CSS classes      |
 
 ## Size Mapping
 
-| Size | Spinner Size | Text Size   |
+| Size | Spinner Size | CSS Classes |
 | ---- | ------------ | ----------- |
-| `sm` | 16px         | `text-sm`   |
-| `md` | 24px         | `text-base` |
-| `lg` | 32px         | `text-lg`   |
-| `xl` | 48px         | `text-xl`   |
+| `sm` | 16px         | `h-4 w-4`   |
+| `md` | 24px         | `h-6 w-6`   |
+| `lg` | 32px         | `h-8 w-8`   |
 
 ## Examples
 
@@ -60,7 +59,7 @@ function DataComponent() {
   const [loading, setLoading] = useState(true);
 
   if (loading) {
-    return <Loading text="Fetching your data..." />;
+    return <Loading>Fetching your data...</Loading>;
   }
 
   return <div>Data loaded!</div>;
@@ -77,7 +76,7 @@ function SubmitButton() {
     <Button disabled={submitting}>
       {submitting ? (
         <>
-          <Loading size="sm" text="" />
+          <Loading size="sm" />
           Submitting...
         </>
       ) : (
@@ -97,7 +96,7 @@ function DashboardLayout({ children }) {
   if (loading) {
     return (
       <div className="flex min-h-screen items-center justify-center">
-        <Loading size="lg" text="Loading dashboard..." />
+        <Loading size="lg">Loading dashboard...</Loading>
       </div>
     );
   }

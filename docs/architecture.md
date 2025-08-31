@@ -6,7 +6,7 @@ This document describes the architecture and structure of the Opin application.
 
 - **Framework**: Next.js 15 with App Router
 - **Language**: TypeScript
-- **Styling**: Tailwind CSS v4 + SCSS
+- **Styling**: Tailwind CSS v4 + CSS
 - **Authentication & Database**: Supabase
 - **Form Handling**: TanStack React Form
 - **CAPTCHA Protection**: Cloudflare Turnstile
@@ -35,7 +35,7 @@ src/
 │   │   ├── update-password/ # Password update
 │   │   ├── confirm/    # Email confirmation handler
 │   │   └── error/      # Error page for auth failures
-│   ├── globals.scss    # Global styles (SCSS)
+│   ├── globals.css     # Global styles (CSS)
 │   └── middleware.ts   # Authentication middleware
 ├── components/         # Reusable components
 │   ├── Form/           # Form components (TanStack Form)
@@ -87,10 +87,12 @@ The application uses TanStack React Form for form handling:
 The application includes a comprehensive UI component library:
 
 - **Button** (`src/components/ui/button.tsx`): Reusable button with variants and loading states
+- **Card** (`src/components/ui/card.tsx`): Card component with header, content, and footer sections
 - **Icon** (`src/components/Icon/Icon.tsx`): SVG icon component with automatic path resolution
 - **Navigation** (`src/components/Navigation/Navigation.tsx`): Sidebar navigation for dashboard
 - **Loading** (`src/components/Loading/Loading.tsx`): Loading spinner and state components
 - **TurnstileCaptcha** (`src/components/Turnstile/Turnstile.tsx`): CAPTCHA widget wrapper
+- **ThemeProvider** (`src/components/theme-provider.tsx`): Theme provider for dark/light mode support
 
 ### CAPTCHA System
 
@@ -108,6 +110,7 @@ Components are organized with a modular structure:
 - Components include their own README files for documentation
 - TypeScript interfaces for props
 - Consistent export patterns through `index.ts` files
+- Theme support through ThemeProvider for dark/light mode switching
 
 ## Data Flow
 

@@ -12,7 +12,7 @@ AI-powered platform for analyzing NPS and CSAT surveys with actionable insights.
 
 - **Framework**: Next.js 15 with App Router
 - **Language**: TypeScript
-- **Styling**: Tailwind CSS v4 + SCSS
+- **Styling**: Tailwind CSS v4 + CSS
 - **Authentication & Database**: Supabase
 - **Form Handling**: TanStack React Form
 - **CAPTCHA Protection**: Cloudflare Turnstile
@@ -29,6 +29,7 @@ npm run build        # Build for production
 npm run start        # Start production server
 npm run lint         # Run ESLint
 npm run lint:fix     # Fix ESLint issues
+npm run type-check   # Check TypeScript types
 npm run format       # Format with Prettier
 npm run format:check # Check Prettier formatting
 ```
@@ -64,7 +65,7 @@ src/
 │   │   ├── update-password/ # Password update
 │   │   ├── confirm/    # Email confirmation handler
 │   │   └── error/      # Error page for auth failures
-│   ├── globals.scss    # Global styles (SCSS)
+│   ├── globals.css     # Global styles (CSS)
 │   └── middleware.ts   # Authentication middleware
 ├── components/         # Reusable components
 │   ├── Form/           # Form components (TanStack Form)

@@ -56,9 +56,20 @@ The project uses `@next/env` to load environment variables outside of the Next.j
 
 ### How it Works
 
-1. **envConfig.ts**: Loads environment variables using `@next/env`
+1. **envConfig.ts**: Loads environment variables using `@next/env` in the root directory
 2. **Import in Files**: Import `envConfig.ts` in files that need environment variables
 3. **Automatic Loading**: Environment variables are loaded before your code runs
+4. **Build Integration**: The `envConfig.ts` file is automatically imported during the build process
+
+### Usage
+
+```typescript
+// Import at the top of files that need environment variables
+import '../envConfig'; // Adjust path as needed
+
+// Then use process.env as normal
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+```
 
 ### Environment Variable Priority
 
@@ -82,6 +93,7 @@ npm run build        # Build for production
 npm run start        # Start production server
 npm run lint         # Run ESLint
 npm run lint:fix     # Fix ESLint issues
+npm run type-check   # Check TypeScript types
 npm run format       # Format with Prettier
 npm run format:check # Check Prettier formatting
 ```
@@ -93,7 +105,8 @@ npm run format:check # Check Prettier formatting
 - **ESLint**: Run `npm run lint` to check for code quality issues
 - **Prettier**: Run `npm run format` to format all files (includes Tailwind CSS class sorting)
 - **Auto-fix**: Run `npm run lint:fix` to automatically fix linting issues
-- **SCSS Support**: Configured for proper SCSS formatting and syntax
+- **Type Checking**: Run `npm run type-check` to check TypeScript types
+- **CSS Support**: Configured for proper CSS formatting and syntax
 
 ### Pre-commit Hooks
 
@@ -109,7 +122,7 @@ This ensures consistent code quality across the project.
 
 - ✅ TypeScript support
 - ✅ Tailwind CSS v4 for styling
-- ✅ SCSS support with proper formatting
+- ✅ CSS support with proper formatting
 - ✅ ESLint for code quality
 - ✅ Prettier for code formatting (with Tailwind CSS class sorting)
 - ✅ Pre-commit hooks with lint-staged

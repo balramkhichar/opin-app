@@ -5,7 +5,7 @@ A wrapper component for Cloudflare Turnstile CAPTCHA that integrates seamlessly 
 ## Usage
 
 ```tsx
-import { Turnstile } from '@/components';
+import { TurnstileCaptcha } from '@/components';
 
 // Basic usage
 <TurnstileCaptcha
@@ -27,12 +27,12 @@ import { Turnstile } from '@/components';
 
 ## Props
 
-| Prop        | Type                      | Required | Description                                    |
-| ----------- | ------------------------- | -------- | ---------------------------------------------- |
-| `siteKey`   | `string`                  | No       | Your Turnstile site key (auto-loaded from env) |
-| `onVerify`  | `(token: string) => void` | Yes      | Callback when verification succeeds            |
-| `onError`   | `(error: string) => void` | Yes      | Callback when verification fails               |
-| `className` | `string`                  | No       | Additional CSS classes                         |
+| Prop        | Type                      | Required | Description                         |
+| ----------- | ------------------------- | -------- | ----------------------------------- |
+| `onVerify`  | `(token: string) => void` | Yes      | Callback when verification succeeds |
+| `onError`   | `(error: string) => void` | No       | Callback when verification fails    |
+| `onExpire`  | `() => void`              | No       | Callback when token expires         |
+| `className` | `string`                  | No       | Additional CSS classes              |
 
 ## Environment Variables
 
@@ -48,23 +48,20 @@ TURNSTILE_SECRET_KEY=your_turnstile_secret_key
 The Turnstile component is designed to work with Supabase authentication:
 
 ```tsx
-import { Turnstile } from '@/components';
+import { TurnstileCaptcha } from '@/components';
 import { useAuth } from '@/lib/auth-context';
 
 function SignInForm() {
   const { signIn } = useAuth();
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
 
-  const handleSignIn = async (credentials: SignInCredentials) => {
+  const handleSignIn = async (email: string, password: string) => {
     if (!turnstileToken) {
       // Show error: CAPTCHA required
       return;
     }
 
-    const result = await signIn({
-      ...credentials,
-      captchaToken: turnstileToken,
-    });
+    const result = await signIn(email, password, turnstileToken);
 
     if (result.success) {
       // Redirect to dashboard
@@ -118,6 +115,10 @@ The component provides comprehensive error handling:
         break;
     }
   }}
+  onExpire={() => {
+    console.log('Token expired, user needs to re-verify');
+    // Clear stored token
+  }}
 />
 ```
 
@@ -129,6 +130,7 @@ The component can be styled using Tailwind CSS classes:
 <TurnstileCaptcha
   onVerify={handleVerify}
   onError={handleError}
+  onExpire={handleExpire}
   className="my-6 flex justify-center"
 />
 ```
@@ -160,9 +162,40 @@ The component can be styled using Tailwind CSS classes:
 
 For development, you can enable debug mode in your Turnstile dashboard to see detailed logs.
 
+## Advanced Usage
+
+### Using the Ref
+
+The component supports a ref for programmatic control:
+
+```tsx
+import { useRef } from 'react';
+import { TurnstileCaptcha, TurnstileRef } from '@/components';
+
+function MyForm() {
+  const turnstileRef = useRef<TurnstileRef>(null);
+
+  const handleReset = () => {
+    turnstileRef.current?.reset();
+  };
+
+  return (
+    <div>
+      <TurnstileCaptcha
+        ref={turnstileRef}
+        onVerify={handleVerify}
+        onError={handleError}
+      />
+      <button onClick={handleReset}>Reset CAPTCHA</button>
+    </div>
+  );
+}
+```
+
 ## Best Practices
 
 - **User Experience**: Place CAPTCHA after form fields are filled
 - **Accessibility**: Ensure CAPTCHA doesn't block screen readers
 - **Performance**: Load CAPTCHA only when needed
 - **Fallback**: Provide alternative verification methods if needed
+- **Theme Support**: The component automatically adapts to light/dark themes
