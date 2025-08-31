@@ -181,15 +181,9 @@ function UpdatePasswordForm() {
 
           {/* Error Messages */}
           {(error || captchaError) && (
-            <div
-              className="rounded-md p-4"
-              style={{ backgroundColor: 'var(--color-destructive)' }}
-            >
+            <div className="bg-destructive rounded-md p-4">
               <div className="mt-0 flex">
-                <div
-                  className="text-sm"
-                  style={{ color: 'var(--color-primary-foreground)' }}
-                >
+                <div className="text-primary-foreground text-sm">
                   <p>
                     {error
                       ? `Password update didn't work. ${error}`

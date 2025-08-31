@@ -13,10 +13,7 @@ export default function SignUpSuccessPage() {
   return (
     <Card>
       <CardHeader className="text-center">
-        <div
-          className="mx-auto flex h-12 w-12 items-center justify-center rounded-full"
-          style={{ backgroundColor: 'var(--color-accent)' }}
-        >
+        <div className="bg-accent mx-auto flex h-12 w-12 items-center justify-center rounded-full">
           <Icon name="check" size="lg" />
         </div>
         <CardTitle>Check your email</CardTitle>

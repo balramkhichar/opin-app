@@ -14,10 +14,7 @@ export default function AuthErrorPage() {
   return (
     <Card>
       <CardHeader className="text-center">
-        <div
-          className="mx-auto flex h-12 w-12 items-center justify-center rounded-full"
-          style={{ backgroundColor: 'var(--color-destructive)' }}
-        >
+        <div className="bg-destructive mx-auto flex h-12 w-12 items-center justify-center rounded-full">
           <Icon name="close" size="lg" />
         </div>
         <CardTitle>Something went wrong</CardTitle>

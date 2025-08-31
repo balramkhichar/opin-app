@@ -40,10 +40,7 @@ function Loading() {
   return (
     <div className="flex min-h-screen items-center justify-center">
       <div className="text-center">
-        <div
-          className="mx-auto h-12 w-12 animate-spin rounded-full border-b-2"
-          style={{ borderColor: 'var(--color-foreground)' }}
-        ></div>
+        <div className="border-foreground mx-auto h-12 w-12 animate-spin rounded-full border-b-2"></div>
         <p className="text-muted-foreground mt-4">Loading...</p>
       </div>
     </div>
