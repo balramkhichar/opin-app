@@ -8,10 +8,19 @@ import {
   TurnstileCaptcha,
   Loading,
 } from '@/components';
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+} from '@/components/ui/card';
 import type { TurnstileRef } from '@/components/Turnstile';
 import { createClient } from '@/lib/supabase';
 import { useState, useEffect, useRef, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+
 function UpdatePasswordForm() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
@@ -104,113 +113,117 @@ function UpdatePasswordForm() {
   };
 
   return (
-    <>
-      <Form
-        defaultValues={{
-          password: '',
-          confirmPassword: '',
-        }}
-        onSubmit={handleFormSubmit}
-        className="space-y-6"
-        title="Update your password"
-        subtitle="Enter your new password below"
-      >
-        {/* Password Field */}
-        <PasswordInput
-          name="password"
-          label="New Password"
-          placeholder="Enter your new password"
-          validators={{
-            onChange: ({ value }: { value: string }) => {
-              if (!value) return 'Password is required';
-              if (value.length < 8) {
-                return 'Password must be at least 8 characters long';
-              }
-              return undefined;
-            },
+    <Card>
+      <CardHeader>
+        <CardTitle>Update your password</CardTitle>
+        <CardDescription>Enter your new password below</CardDescription>
+      </CardHeader>
+
+      <CardContent>
+        <Form
+          defaultValues={{
+            password: '',
+            confirmPassword: '',
           }}
-        />
-
-        {/* Confirm Password Field */}
-        <PasswordInput
-          name="confirmPassword"
-          label="Confirm New Password"
-          placeholder="Confirm your new password"
-          validators={{
-            onChange: ({ value }: { value: string }) => {
-              if (!value) return 'Please confirm your password';
-              return undefined;
-            },
-          }}
-        />
-
-        {/* CAPTCHA Component */}
-        <div className="flex">
-          <TurnstileCaptcha
-            ref={turnstileRef}
-            onVerify={handleCaptchaVerify}
-            onError={handleCaptchaError}
-            onExpire={handleCaptchaExpire}
-            className="mt-0"
-          />
-        </div>
-
-        {/* Success Message */}
-        {success && (
-          <div className="rounded-md bg-green-50 p-4">
-            <div className="mt-0 flex">
-              <div className="text-sm text-green-700">
-                <p>{success}</p>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Error Messages */}
-        {(error || captchaError) && (
-          <div
-            className="rounded-md p-4"
-            style={{ backgroundColor: 'var(--color-destructive)' }}
-          >
-            <div className="mt-0 flex">
-              <div
-                className="text-sm"
-                style={{ color: 'var(--color-primary-foreground)' }}
-              >
-                <p>
-                  {error
-                    ? `Password update didn't work. ${error}`
-                    : `We couldn't verify you're human. Try again.`}
-                </p>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Submit Button */}
-        <Form.Subscribe
-          selector={(state: { canSubmit: boolean; isSubmitting: boolean }) => [
-            state.canSubmit,
-            state.isSubmitting,
-          ]}
+          onSubmit={handleFormSubmit}
+          className="space-y-6"
         >
-          {([canSubmit, submitting]: [boolean, boolean]) => (
-            <Button
-              type="submit"
-              disabled={!canSubmit || loading || !!captchaError}
-              loading={submitting || loading}
-              className="w-full"
-            >
-              {submitting || loading
-                ? 'Updating password...'
-                : 'Update password'}
-            </Button>
-          )}
-        </Form.Subscribe>
-      </Form>
+          {/* Password Field */}
+          <PasswordInput
+            name="password"
+            label="New Password"
+            placeholder="Enter your new password"
+            validators={{
+              onChange: ({ value }: { value: string }) => {
+                if (!value) return 'Password is required';
+                if (value.length < 8) {
+                  return 'Password must be at least 8 characters long';
+                }
+                return undefined;
+              },
+            }}
+          />
 
-      {/* Footer */}
-      <div className="mt-8 text-center">
+          {/* Confirm Password Field */}
+          <PasswordInput
+            name="confirmPassword"
+            label="Confirm New Password"
+            placeholder="Confirm your new password"
+            validators={{
+              onChange: ({ value }: { value: string }) => {
+                if (!value) return 'Please confirm your password';
+                return undefined;
+              },
+            }}
+          />
+
+          {/* CAPTCHA Component */}
+          <div className="flex">
+            <TurnstileCaptcha
+              ref={turnstileRef}
+              onVerify={handleCaptchaVerify}
+              onError={handleCaptchaError}
+              onExpire={handleCaptchaExpire}
+              className="mt-0"
+            />
+          </div>
+
+          {/* Success Message */}
+          {success && (
+            <div className="rounded-md bg-green-50 p-4">
+              <div className="mt-0 flex">
+                <div className="text-sm text-green-700">
+                  <p>{success}</p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Error Messages */}
+          {(error || captchaError) && (
+            <div
+              className="rounded-md p-4"
+              style={{ backgroundColor: 'var(--color-destructive)' }}
+            >
+              <div className="mt-0 flex">
+                <div
+                  className="text-sm"
+                  style={{ color: 'var(--color-primary-foreground)' }}
+                >
+                  <p>
+                    {error
+                      ? `Password update didn't work. ${error}`
+                      : `We couldn't verify you're human. Try again.`}
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Submit Button */}
+          <Form.Subscribe
+            selector={(state: {
+              canSubmit: boolean;
+              isSubmitting: boolean;
+            }) => [state.canSubmit, state.isSubmitting]}
+          >
+            {([canSubmit, submitting]: [boolean, boolean]) => (
+              <Button
+                type="submit"
+                disabled={!canSubmit || loading || !!captchaError}
+                loading={submitting || loading}
+                className="w-full"
+              >
+                {submitting || loading
+                  ? 'Updating password...'
+                  : 'Update password'}
+              </Button>
+            )}
+          </Form.Subscribe>
+        </Form>
+      </CardContent>
+
+      <CardFooter className="flex-col space-y-4">
         <p
           className="text-sm"
           style={{ color: 'var(--color-muted-foreground)' }}
@@ -230,8 +243,8 @@ function UpdatePasswordForm() {
             Sign in
           </Link>
         </p>
-      </div>
-    </>
+      </CardFooter>
+    </Card>
   );
 }
 

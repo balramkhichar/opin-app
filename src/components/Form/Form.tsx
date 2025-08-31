@@ -9,8 +9,6 @@ interface FormProps {
   className?: string;
   defaultValues?: Partial<FormValues>;
   onSubmit?: (values: FormValues) => void | Promise<void>;
-  title?: string;
-  subtitle?: string;
 }
 
 // Create a context to hold the form instance
@@ -23,8 +21,6 @@ export function Form({
   className = '',
   defaultValues,
   onSubmit,
-  title,
-  subtitle,
 }: FormProps) {
   const form = useForm({
     defaultValues: defaultValues as FormValues,
@@ -44,26 +40,8 @@ export function Form({
           form.handleSubmit();
         }}
         className={className}
-        aria-label={title || 'Form'}
         noValidate
       >
-        {(title || subtitle) && (
-          <div className="mb-6">
-            {title && (
-              <h6 className="" id="form-title">
-                {title}
-              </h6>
-            )}
-            {subtitle && (
-              <p
-                className="text-muted-foreground mt-1 text-sm"
-                id="form-subtitle"
-              >
-                {subtitle}
-              </p>
-            )}
-          </div>
-        )}
         {children}
       </form>
     </FormContext.Provider>

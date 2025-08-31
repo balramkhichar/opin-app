@@ -32,18 +32,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
           </div>
         </div>
 
-        <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-          <div
-            className="rounded-lg border px-6 py-8"
-            style={{
-              backgroundColor: 'var(--color-card)',
-              borderColor: 'var(--color-border)',
-              color: 'var(--color-card-foreground)',
-            }}
-          >
-            {children}
-          </div>
-        </div>
+        <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">{children}</div>
       </div>
     </div>
   );

@@ -8,10 +8,19 @@ import {
   TurnstileCaptcha,
   Loading,
 } from '@/components';
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+} from '@/components/ui/card';
 import type { TurnstileRef } from '@/components/Turnstile';
 import { createClient } from '@/lib/supabase';
 import { useState, useRef, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+
 function ForgotPasswordForm() {
   const [error, setError] = useState<string | null>(null);
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
@@ -76,90 +85,97 @@ function ForgotPasswordForm() {
   };
 
   return (
-    <>
-      <Form
-        defaultValues={{
-          email: '',
-        }}
-        onSubmit={handleFormSubmit}
-        className="space-y-6"
-        title="Reset your password"
-        subtitle="Enter your email address and we'll send you a link to reset your password"
-      >
-        {/* Email Field */}
-        <TextInput
-          name="email"
-          label="Email"
-          type="email"
-          placeholder="Enter your email"
-          autoComplete="email"
-          validators={{
-            onChange: ({ value }: { value: string }) => {
-              if (!value) return 'Email is required';
-              if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-                return 'Please enter a valid email address';
-              }
-              return undefined;
-            },
+    <Card>
+      <CardHeader>
+        <CardTitle>Reset your password</CardTitle>
+        <CardDescription>
+          Enter your email address and we&apos;ll send you a link to reset your
+          password
+        </CardDescription>
+      </CardHeader>
+
+      <CardContent>
+        <Form
+          defaultValues={{
+            email: '',
           }}
-        />
-
-        {/* CAPTCHA Component */}
-        <div className="flex">
-          <TurnstileCaptcha
-            ref={turnstileRef}
-            onVerify={handleCaptchaVerify}
-            onError={handleCaptchaError}
-            onExpire={handleCaptchaExpire}
-            className="mt-0"
+          onSubmit={handleFormSubmit}
+          className="space-y-6"
+        >
+          {/* Email Field */}
+          <TextInput
+            name="email"
+            label="Email"
+            type="email"
+            placeholder="Enter your email"
+            autoComplete="email"
+            validators={{
+              onChange: ({ value }: { value: string }) => {
+                if (!value) return 'Email is required';
+                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+                  return 'Please enter a valid email address';
+                }
+                return undefined;
+              },
+            }}
           />
-        </div>
 
-        {/* Error Messages */}
-        {(error || captchaError) && (
-          <div
-            className="rounded-md p-4"
-            style={{ backgroundColor: 'var(--color-destructive)' }}
-          >
-            <div className="mt-0 flex">
-              <div
-                className="text-sm"
-                style={{ color: 'var(--color-primary-foreground)' }}
-              >
-                <p>
-                  {error
-                    ? `Password reset didn't work. ${error}`
-                    : `We couldn't verify you're human. Try again.`}
-                </p>
+          {/* CAPTCHA Component */}
+          <div className="flex">
+            <TurnstileCaptcha
+              ref={turnstileRef}
+              onVerify={handleCaptchaVerify}
+              onError={handleCaptchaError}
+              onExpire={handleCaptchaExpire}
+              className="mt-0"
+            />
+          </div>
+
+          {/* Error Messages */}
+          {(error || captchaError) && (
+            <div
+              className="rounded-md p-4"
+              style={{ backgroundColor: 'var(--color-destructive)' }}
+            >
+              <div className="mt-0 flex">
+                <div
+                  className="text-sm"
+                  style={{ color: 'var(--color-primary-foreground)' }}
+                >
+                  <p>
+                    {error
+                      ? `Password reset didn't work. ${error}`
+                      : `We couldn't verify you're human. Try again.`}
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-        )}
-
-        {/* Submit Button */}
-        <Form.Subscribe
-          selector={(state: { canSubmit: boolean; isSubmitting: boolean }) => [
-            state.canSubmit,
-            state.isSubmitting,
-          ]}
-        >
-          {([canSubmit, submitting]: [boolean, boolean]) => (
-            <Button
-              type="submit"
-              disabled={!canSubmit || loading || !!captchaError}
-              loading={submitting || loading}
-              className="w-full"
-            >
-              {submitting || loading
-                ? 'Sending reset link...'
-                : 'Send reset link'}
-            </Button>
           )}
-        </Form.Subscribe>
-      </Form>
 
-      {/* Footer */}
-      <div className="mt-8 text-center">
+          {/* Submit Button */}
+          <Form.Subscribe
+            selector={(state: {
+              canSubmit: boolean;
+              isSubmitting: boolean;
+            }) => [state.canSubmit, state.isSubmitting]}
+          >
+            {([canSubmit, submitting]: [boolean, boolean]) => (
+              <Button
+                type="submit"
+                disabled={!canSubmit || loading || !!captchaError}
+                loading={submitting || loading}
+                className="w-full"
+              >
+                {submitting || loading
+                  ? 'Sending reset link...'
+                  : 'Send reset link'}
+              </Button>
+            )}
+          </Form.Subscribe>
+        </Form>
+      </CardContent>
+
+      <CardFooter className="flex-col space-y-4">
         <p
           className="text-sm"
           style={{ color: 'var(--color-muted-foreground)' }}
@@ -179,8 +195,8 @@ function ForgotPasswordForm() {
             Sign in
           </Link>
         </p>
-      </div>
-    </>
+      </CardFooter>
+    </Card>
   );
 }
 

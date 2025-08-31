@@ -9,6 +9,14 @@ import {
   TurnstileCaptcha,
   Loading,
 } from '@/components';
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+} from '@/components/ui/card';
 import type { TurnstileRef } from '@/components/Turnstile';
 import { useAuth } from '@/lib/auth-context';
 import { useState, useEffect, useRef, Suspense } from 'react';
@@ -71,134 +79,140 @@ function SignInForm() {
   };
 
   return (
-    <Form
-      defaultValues={{
-        email: '',
-        password: '',
-      }}
-      onSubmit={handleFormSubmit}
-      className="space-y-6"
-      title="Welcome back"
-      subtitle="Sign in to your account to continue"
-    >
-      {/* Email Field */}
-      <TextInput
-        name="email"
-        label="Email"
-        type="email"
-        placeholder="Enter your email"
-        autoComplete="email"
-        validators={{
-          onChange: ({ value }: { value: string }) => {
-            if (!value) return 'Email is required';
-            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-              return 'Please enter a valid email address';
-            }
-            return undefined;
-          },
-        }}
-      />
+    <Card>
+      <CardHeader>
+        <CardTitle>Welcome back</CardTitle>
+        <CardDescription>Sign in to your account to continue</CardDescription>
+      </CardHeader>
 
-      {/* Password Field */}
-      <PasswordInput
-        name="password"
-        label="Password"
-        placeholder="Enter your password"
-      />
-
-      {/* CAPTCHA Component */}
-      <div className="flex">
-        <TurnstileCaptcha
-          ref={turnstileRef}
-          onVerify={handleCaptchaVerify}
-          onError={handleCaptchaError}
-          onExpire={handleCaptchaExpire}
-          className="mt-0"
-        />
-      </div>
-
-      {/* Error Messages */}
-      {(error || captchaError) && (
-        <div
-          className="rounded-md p-4"
-          style={{ backgroundColor: 'var(--color-destructive)' }}
+      <CardContent>
+        <Form
+          defaultValues={{
+            email: '',
+            password: '',
+          }}
+          onSubmit={handleFormSubmit}
+          className="space-y-6"
         >
-          <div className="mt-0 flex">
-            <div
-              className="text-sm"
-              style={{ color: 'var(--color-primary-foreground)' }}
-            >
-              <p>
-                {error
-                  ? `Sign-in didn't work. Double-check your details and retry.`
-                  : `We couldn't verify you're human. Try again.`}
-              </p>
-            </div>
+          {/* Email Field */}
+          <TextInput
+            name="email"
+            label="Email"
+            type="email"
+            placeholder="Enter your email"
+            autoComplete="email"
+            validators={{
+              onChange: ({ value }: { value: string }) => {
+                if (!value) return 'Email is required';
+                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+                  return 'Please enter a valid email address';
+                }
+                return undefined;
+              },
+            }}
+          />
+
+          {/* Password Field */}
+          <PasswordInput
+            name="password"
+            label="Password"
+            placeholder="Enter your password"
+          />
+
+          {/* CAPTCHA Component */}
+          <div className="flex">
+            <TurnstileCaptcha
+              ref={turnstileRef}
+              onVerify={handleCaptchaVerify}
+              onError={handleCaptchaError}
+              onExpire={handleCaptchaExpire}
+              className="mt-0"
+            />
           </div>
-        </div>
-      )}
 
-      {/* Submit Button */}
-      <Form.Subscribe
-        selector={(state: { canSubmit: boolean; isSubmitting: boolean }) => [
-          state.canSubmit,
-          state.isSubmitting,
-        ]}
-      >
-        {([canSubmit, submitting]: [boolean, boolean]) => (
-          <Button
-            type="submit"
-            disabled={!canSubmit || authLoading || !!captchaError}
-            loading={submitting || authLoading}
-            className="w-full"
+          {/* Error Messages */}
+          {(error || captchaError) && (
+            <div
+              className="rounded-md p-4"
+              style={{ backgroundColor: 'var(--color-destructive)' }}
+            >
+              <div className="mt-0 flex">
+                <div
+                  className="text-sm"
+                  style={{ color: 'var(--color-primary-foreground)' }}
+                >
+                  <p>
+                    {error
+                      ? `Sign-in didn't work. Double-check your details and retry.`
+                      : `We couldn't verify you're human. Try again.`}
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Submit Button */}
+          <Form.Subscribe
+            selector={(state: {
+              canSubmit: boolean;
+              isSubmitting: boolean;
+            }) => [state.canSubmit, state.isSubmitting]}
           >
-            {submitting || authLoading ? 'Signing in...' : 'Sign in'}
-          </Button>
-        )}
-      </Form.Subscribe>
+            {([canSubmit, submitting]: [boolean, boolean]) => (
+              <Button
+                type="submit"
+                disabled={!canSubmit || authLoading || !!captchaError}
+                loading={submitting || authLoading}
+                className="w-full"
+              >
+                {submitting || authLoading ? 'Signing in...' : 'Sign in'}
+              </Button>
+            )}
+          </Form.Subscribe>
 
-      {/* Terms and Privacy Policy */}
-      <div
-        className="text-center text-xs"
-        style={{ color: 'var(--color-muted-foreground)' }}
-      >
-        By signing in, you agree to the{' '}
-        <Link
-          href="https://www.getopin.com/terms"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="underline"
-          style={{ color: 'var(--color-foreground)' }}
-          onMouseEnter={e => {
-            e.currentTarget.style.color = 'var(--color-muted-foreground)';
-          }}
-          onMouseLeave={e => {
-            e.currentTarget.style.color = 'var(--color-foreground)';
-          }}
-        >
-          Terms of use
-        </Link>{' '}
-        and{' '}
-        <Link
-          href="https://www.getopin.com/privacy"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="underline"
-          style={{ color: 'var(--color-foreground)' }}
-          onMouseEnter={e => {
-            e.currentTarget.style.color = 'var(--color-muted-foreground)';
-          }}
-          onMouseLeave={e => {
-            e.currentTarget.style.color = 'var(--color-foreground)';
-          }}
-        >
-          Privacy Policy
-        </Link>
-        .
-      </div>
+          {/* Terms and Privacy Policy */}
+          <div
+            className="text-center text-xs"
+            style={{ color: 'var(--color-muted-foreground)' }}
+          >
+            By signing in, you agree to the{' '}
+            <Link
+              href="https://www.getopin.com/terms"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline"
+              style={{ color: 'var(--color-foreground)' }}
+              onMouseEnter={e => {
+                e.currentTarget.style.color = 'var(--color-muted-foreground)';
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.color = 'var(--color-foreground)';
+              }}
+            >
+              Terms of use
+            </Link>{' '}
+            and{' '}
+            <Link
+              href="https://www.getopin.com/privacy"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline"
+              style={{ color: 'var(--color-foreground)' }}
+              onMouseEnter={e => {
+                e.currentTarget.style.color = 'var(--color-muted-foreground)';
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.color = 'var(--color-foreground)';
+              }}
+            >
+              Privacy Policy
+            </Link>
+            .
+          </div>
+        </Form>
+      </CardContent>
 
-      {/* Forgot Password Link */}
-      <div className="text-center">
+      <CardFooter className="flex-col space-y-4">
         <Link
           href={`/auth/forgot-password${next !== '/dashboard' ? `?next=${next}` : ''}`}
           className="text-sm"
@@ -212,8 +226,8 @@ function SignInForm() {
         >
           Forgot your password?
         </Link>
-      </div>
-    </Form>
+      </CardFooter>
+    </Card>
   );
 }
 
