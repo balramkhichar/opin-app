@@ -2,6 +2,7 @@
 
 import { useForm } from '@tanstack/react-form';
 import { ReactNode, createContext, useContext } from 'react';
+import { cn } from '@/lib/utils';
 import type { FormValues } from '@/types/form';
 
 interface FormProps {
@@ -39,7 +40,7 @@ export function Form({
           e.stopPropagation();
           form.handleSubmit();
         }}
-        className={className}
+        className={cn('space-y-6', className)}
         noValidate
       >
         {children}

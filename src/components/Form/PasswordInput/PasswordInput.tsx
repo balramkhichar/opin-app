@@ -5,6 +5,8 @@ import { useState } from 'react';
 import { FormField } from '../FormField';
 import { useFormContext } from '../Form';
 import { Icon } from '../../Icon';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 import type { FormValues } from '@/types/form';
 
 interface PasswordInputProps {
@@ -65,35 +67,31 @@ export function PasswordInput({
             className={className}
             autoComplete="current-password"
           >
-            <button
+            <Button
               type="button"
+              variant="ghost"
+              size="icon"
               onClick={handleTogglePassword}
               aria-label={showPassword ? 'Hide password' : 'Show password'}
               aria-pressed={showPassword}
               aria-describedby={descriptionId}
               id={toggleId}
-              className="absolute inset-y-0 right-0 flex cursor-pointer items-center pr-3 transition-colors duration-200"
-              style={{
-                color: 'var(--color-muted-foreground)',
-              }}
-              onMouseEnter={e => {
-                e.currentTarget.style.color = 'var(--color-foreground)';
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.color = 'var(--color-muted-foreground)';
-              }}
+              className={cn(
+                'absolute inset-y-0 right-0 h-auto w-auto rounded-l-none border-l',
+                'hover:bg-accent hover:text-accent-foreground'
+              )}
             >
               <Icon
                 name={showPassword ? 'eye' : 'eyeOff'}
                 size="md"
-                className="h-5 w-5"
+                className="h-4 w-4"
               />
               <span id={descriptionId} className="sr-only">
                 {showPassword
                   ? 'Click to hide password'
                   : 'Click to show password'}
               </span>
-            </button>
+            </Button>
           </FormField>
         );
       }}

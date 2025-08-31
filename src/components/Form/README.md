@@ -1,12 +1,12 @@
 # Form Components
 
-This directory contains form-related components built on top of TanStack Form that provide consistent styling and functionality.
+This directory contains form-related components built on top of TanStack Form that provide consistent styling and functionality using shadcn/ui components.
 
 ## Components
 
 ### Form
 
-A wrapper component that provides TanStack Form functionality with consistent styling.
+A wrapper component that provides TanStack Form functionality with consistent styling using shadcn/ui design system.
 
 ```tsx
 import { Form } from '@/components';
@@ -28,7 +28,7 @@ import { Form } from '@/components';
 
 ### FormField
 
-A base form field component with built-in validation display. This is the foundation for all form inputs.
+A base form field component with built-in validation display using shadcn/ui Input and Label components. This is the foundation for all form inputs.
 
 ```tsx
 import { Form, FormField } from '@/components';
@@ -82,24 +82,20 @@ import { Form, TextInput } from '@/components';
 
 ### PasswordInput
 
-A specialized password input field with show/hide toggle functionality. Automatically wraps Form.Field for convenience.
+A specialized password input field with show/hide toggle functionality using shadcn/ui Button component. Automatically wraps Form.Field for convenience.
 
 ```tsx
 import { Form, PasswordInput } from '@/components';
-
-const [showPassword, setShowPassword] = useState(false);
 
 <PasswordInput
   name="password"
   label="Password"
   placeholder="Enter your password"
-  showPassword={showPassword}
-  onTogglePassword={() => setShowPassword(!showPassword)}
   validators={{
     onChange: ({ value }) => {
       if (!value) return 'Password is required';
-      if (value.length < 6) {
-        return 'Password must be at least 6 characters';
+      if (value.length < 8) {
+        return 'Password must be at least 8 characters';
       }
       return undefined;
     },
@@ -109,13 +105,32 @@ const [showPassword, setShowPassword] = useState(false);
 
 ## Features
 
+- **TanStack Form Integration**: Built on top of TanStack Form for powerful form management
+- **shadcn/ui Components**: Uses shadcn/ui Input, Label, and Button components for consistent design
 - **Type-safe**: Built with TypeScript for better developer experience
-- **Consistent styling**: Uses Tailwind CSS for consistent design
+- **Consistent styling**: Uses shadcn/ui design system for consistent theming
 - **Validation**: Built-in validation display with error messages
 - **Accessibility**: Proper labels, focus states, and keyboard navigation
 - **Reusable**: Can be used across different forms in the application
 - **Modular**: Separate components for different input types
 - **Simplified API**: TextInput and PasswordInput automatically wrap Form.Field
+- **Theme Support**: Full dark mode and theme switching support through shadcn/ui
+
+## shadcn/ui Integration
+
+The form components now use shadcn/ui components as their foundation:
+
+- **Input**: Uses shadcn/ui Input component with proper focus states and theming
+- **Label**: Uses shadcn/ui Label component with Radix UI primitives
+- **Button**: Password toggle uses shadcn/ui Button component with ghost variant
+- **Styling**: Leverages shadcn/ui's design tokens and CSS variables
+
+This provides:
+
+- Better focus ring management
+- Consistent theming across light/dark modes
+- Improved accessibility features
+- Better component composition
 
 ## Advanced Usage
 
@@ -152,4 +167,26 @@ Subscribe to form state changes:
     </button>
   )}
 </Form.Subscribe>
+```
+
+### Direct shadcn/ui Component Usage
+
+You can also use the shadcn/ui components directly with TanStack Form:
+
+```tsx
+import { Form, Input, Label } from '@/components';
+
+<Form.Field name="custom" validators={{...}}>
+  {field => (
+    <div className="space-y-2">
+      <Label htmlFor={field.name}>Custom Field</Label>
+      <Input
+        id={field.name}
+        value={field.state.value}
+        onChange={e => field.handleChange(e.target.value)}
+        onBlur={() => field.handleBlur()}
+      />
+    </div>
+  )}
+</Form.Field>
 ```
