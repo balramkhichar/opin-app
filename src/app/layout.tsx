@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Lato, Montserrat } from 'next/font/google';
-import './globals.scss';
+import './globals.css';
 import { AuthProvider } from '@/lib/auth-context';
 import { ThemeProvider } from '@/components/theme-provider';
 
