@@ -8,6 +8,7 @@ Disallow: /dashboard/
 Disallow: /auth/
 Disallow: /_next/
 Disallow: /static/
+Disallow: /cdn-cgi/
 
 # Allow only the landing page
 Allow: /$

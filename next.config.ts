@@ -20,6 +20,15 @@ const nextConfig: NextConfig = {
   compress: true,
   poweredByHeader: false,
   reactStrictMode: true,
+  async redirects() {
+    return [
+      {
+        source: '/cdn-cgi/:path*',
+        destination: 'https://app.getopin.com/cdn-cgi/:path*',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
