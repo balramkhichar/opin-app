@@ -1,7 +1,6 @@
 'use client';
 
-import Link from 'next/link';
-import { Button, Icon } from '@/components';
+import { Button, Icon, Link } from '@/components';
 import {
   Card,
   CardHeader,
@@ -14,10 +13,7 @@ export default function ForgotPasswordSuccessPage() {
   return (
     <Card>
       <CardHeader className="text-center">
-        <div
-          className="mx-auto flex h-12 w-12 items-center justify-center rounded-full"
-          style={{ backgroundColor: 'var(--color-accent)' }}
-        >
+        <div className="bg-accent mx-auto flex h-12 w-12 items-center justify-center rounded-full">
           <Icon name="mail" size="lg" />
         </div>
         <CardTitle>Check your email</CardTitle>
@@ -28,9 +24,9 @@ export default function ForgotPasswordSuccessPage() {
       </CardHeader>
 
       <CardFooter className="flex-col space-y-4">
-        <Button asChild className="w-full">
-          <Link href="/auth/sign-in">Back to sign in</Link>
-        </Button>
+        <Link href="/auth/sign-in" className="w-full">
+          <Button className="w-full">Back to sign in</Button>
+        </Link>
       </CardFooter>
     </Card>
   );

@@ -172,7 +172,7 @@ const NavigationSection = ({
 
 // Divider Component
 const Divider = ({ className = 'mx-4 border-t' }: { className?: string }) => (
-  <div className={className} style={{ borderColor: 'var(--color-border)' }} />
+  <div className={`${className} border-border`} />
 );
 
 // Logo Component

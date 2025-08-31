@@ -1,10 +1,9 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
-import { Button } from '@/components';
+import { Button, Link } from '@/components';
 
 export default function NotFound() {
   const { resolvedTheme } = useTheme();
@@ -55,9 +54,11 @@ export default function NotFound() {
             </p>
           </div>
           <div className="space-y-4">
-            <Button asChild variant="default" size="default" className="w-full">
-              <Link href="/">Return to Home</Link>
-            </Button>
+            <Link href="/" className="w-full">
+              <Button variant="default" size="default" className="w-full">
+                Return to Home
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
