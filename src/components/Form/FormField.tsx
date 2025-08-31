@@ -56,7 +56,11 @@ export function FormField({
         {children}
       </div>
       {hasError && (
-        <p id={errorId} className="text-destructive text-sm" role="alert">
+        <p
+          id={errorId}
+          className="text-destructive text-sm font-medium"
+          role="alert"
+        >
           {field.state.meta.errors.join(', ')}
         </p>
       )}

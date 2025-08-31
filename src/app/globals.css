@@ -116,7 +116,6 @@
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
@@ -221,7 +220,6 @@ h6 {
 p {
   margin: 0 0 1rem 0;
   line-height: var(--line-height-relaxed);
-  color: var(--foreground);
 }
 
 /* Responsive Typography for Mobile */
