@@ -6,7 +6,7 @@ import {
   SidebarInset,
   SidebarTrigger,
 } from '@/components/ui/sidebar';
-import { AppSidebar } from '@/components/Sidebar';
+import { Navigation } from './Navigation';
 import { Loading, BreadcrumbNav } from '@/components';
 
 export default async function DashboardLayout({
@@ -25,7 +25,7 @@ export default async function DashboardLayout({
 
   return (
     <SidebarProvider>
-      <AppSidebar />
+      <Navigation />
       <SidebarInset className="flex h-screen flex-col">
         <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
           <SidebarTrigger className="-ml-1" />

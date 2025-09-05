@@ -4,11 +4,8 @@ import { useTheme } from 'next-themes';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { createClient } from '@/lib/supabase';
-import { signOut } from '@/lib/auth';
 import {
-  Sidebar,
+  Sidebar as SidebarPrimitive,
   SidebarContent,
   SidebarFooter,
   SidebarGroup,
@@ -31,27 +28,23 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
-  HomeIcon,
   LogOutIcon,
-  BarChartIcon,
   ChevronSelectorVerticalIcon,
   UserIcon,
   SettingsIcon,
 } from '@/components/Icon';
 
-// Navigation items
-const navigationItems = [
-  {
-    title: 'Dashboard',
-    url: '/dashboard',
-    icon: HomeIcon,
-  },
-  {
-    title: 'Analytics',
-    url: '/analytics',
-    icon: BarChartIcon,
-  },
-];
+interface NavigationItem {
+  title: string;
+  url: string;
+  icon: React.ComponentType;
+}
+
+interface UserMenuItem {
+  title: string;
+  url: string;
+  icon: React.ComponentType;
+}
 
 interface User {
   id: string;
@@ -64,60 +57,24 @@ interface User {
   };
 }
 
-interface UserError {
-  message: string;
+interface SidebarProps {
+  navigationItems: NavigationItem[];
+  userMenuItems: UserMenuItem[];
+  user: User | null;
+  loading: boolean;
+  onSignOut: () => void;
 }
 
-export function AppSidebar() {
+export function Sidebar({
+  navigationItems,
+  userMenuItems,
+  user,
+  loading,
+  onSignOut,
+}: SidebarProps) {
   const { resolvedTheme } = useTheme();
   const pathname = usePathname();
   const { state } = useSidebar();
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [mounted, setMounted] = useState(false);
-  const [error, setError] = useState<UserError | null>(null);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    const getUser = async () => {
-      try {
-        setError(null);
-        const supabase = createClient();
-        const {
-          data: { user },
-          error: userError,
-        } = await supabase.auth.getUser();
-
-        if (userError) {
-          throw userError;
-        }
-
-        setUser(user);
-      } catch (error) {
-        console.error('Error fetching user:', error);
-        setError({
-          message:
-            error instanceof Error ? error.message : 'Failed to fetch user',
-        });
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    getUser();
-  }, []);
-
-  const handleSignOut = async () => {
-    try {
-      await signOut();
-      window.location.href = '/auth/sign-in';
-    } catch (error) {
-      console.error('Error signing out:', error);
-    }
-  };
 
   const getUserDisplayName = () => {
     if (!user) return 'User';
@@ -181,12 +138,8 @@ export function AppSidebar() {
     );
   };
 
-  if (!mounted) {
-    return null;
-  }
-
   return (
-    <Sidebar collapsible="icon">
+    <SidebarPrimitive collapsible="icon">
       <SidebarHeader>
         <div className="flex items-center gap-2 px-2 py-2 group-data-[collapsible=icon]:px-1">
           <Link href="/dashboard" className="flex items-center gap-2">
@@ -262,31 +215,27 @@ export function AppSidebar() {
                   <DropdownMenuSeparator />
 
                   <DropdownMenuGroup>
-                    <DropdownMenuItem asChild>
-                      <Link
-                        href="/profile"
-                        className="flex cursor-pointer items-center gap-2"
-                      >
-                        <UserIcon />
-                        Profile
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link
-                        href="/settings"
-                        className="flex cursor-pointer items-center gap-2"
-                      >
-                        <SettingsIcon />
-                        Settings
-                      </Link>
-                    </DropdownMenuItem>
+                    {userMenuItems.map(item => {
+                      const IconComponent = item.icon;
+                      return (
+                        <DropdownMenuItem key={item.url} asChild>
+                          <Link
+                            href={item.url}
+                            className="flex cursor-pointer items-center gap-2"
+                          >
+                            <IconComponent />
+                            {item.title}
+                          </Link>
+                        </DropdownMenuItem>
+                      );
+                    })}
                   </DropdownMenuGroup>
 
                   <DropdownMenuSeparator />
 
                   <DropdownMenuGroup>
                     <DropdownMenuItem
-                      onClick={handleSignOut}
+                      onClick={onSignOut}
                       className="flex cursor-pointer items-center gap-2"
                     >
                       <LogOutIcon />
@@ -300,6 +249,6 @@ export function AppSidebar() {
         ) : null}
       </SidebarFooter>
       <SidebarRail />
-    </Sidebar>
+    </SidebarPrimitive>
   );
 }

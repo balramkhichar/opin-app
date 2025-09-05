@@ -6,5 +6,5 @@ export { Link } from './Link';
 export { TurnstileCaptcha } from './Turnstile';
 export { Loading } from './Loading';
 export { Icon } from './Icon';
-export { AppSidebar } from './Sidebar';
+export { Sidebar } from './Sidebar';
 export { BreadcrumbNav } from './Breadcrumb';
