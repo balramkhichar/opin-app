@@ -4,12 +4,7 @@ import { useEffect, useState } from 'react';
 import { createClient } from '@/lib/supabase';
 import { signOut } from '@/lib/auth';
 import { Sidebar } from '@/components/Sidebar';
-import {
-  HomeIcon,
-  BarChartIcon,
-  UserIcon,
-  SettingsIcon,
-} from '@/components/Icon';
+import { Icon } from '@/components/Icon';
 
 interface User {
   id: string;
@@ -31,12 +26,7 @@ const navigationItems = [
   {
     title: 'Dashboard',
     url: '/dashboard',
-    icon: HomeIcon,
-  },
-  {
-    title: 'Analytics',
-    url: '/analytics',
-    icon: BarChartIcon,
+    icon: 'home',
   },
 ];
 
@@ -45,12 +35,12 @@ const userMenuItems = [
   {
     title: 'Profile',
     url: '/profile',
-    icon: UserIcon,
+    icon: 'user',
   },
   {
     title: 'Settings',
     url: '/settings',
-    icon: SettingsIcon,
+    icon: 'settings',
   },
 ];
 

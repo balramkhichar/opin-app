@@ -11,3 +11,4 @@ export { EyeOffIcon } from './EyeOffIcon';
 export { SettingsIcon } from './SettingsIcon';
 export { BarChartIcon } from './BarChartIcon';
 export { ChevronSelectorVerticalIcon } from './ChevronSelectorVerticalIcon';
+export { PlusIcon } from './PlusIcon';

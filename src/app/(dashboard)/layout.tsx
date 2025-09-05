@@ -7,7 +7,7 @@ import {
   SidebarTrigger,
 } from '@/components/ui/sidebar';
 import { Navigation } from './Navigation';
-import { Loading, BreadcrumbNav } from '@/components';
+import { Loading, BreadcrumbNav, Button, Icon } from '@/components';
 
 export default async function DashboardLayout({
   children,
@@ -32,6 +32,10 @@ export default async function DashboardLayout({
           <div className="flex-1">
             <BreadcrumbNav />
           </div>
+          <Button size="sm">
+            <Icon name="plus" size="sm" />
+            Create Project
+          </Button>
         </header>
         <div className="flex-1 overflow-auto p-4">
           <Suspense fallback={<Loading size="lg" className="min-h-full" />}>

@@ -27,23 +27,18 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import {
-  LogOutIcon,
-  ChevronSelectorVerticalIcon,
-  UserIcon,
-  SettingsIcon,
-} from '@/components/Icon';
+import { Icon } from '@/components/Icon';
 
 interface NavigationItem {
   title: string;
   url: string;
-  icon: React.ComponentType;
+  icon: string;
 }
 
 interface UserMenuItem {
   title: string;
   url: string;
-  icon: React.ComponentType;
+  icon: string;
 }
 
 interface User {
@@ -180,7 +175,7 @@ export function Sidebar({
                     tooltip={item.title}
                   >
                     <Link href={item.url}>
-                      <item.icon />
+                      <Icon name={item.icon} size="sm" />
                       <span>{item.title}</span>
                     </Link>
                   </SidebarMenuButton>
@@ -203,7 +198,11 @@ export function Sidebar({
                     tooltip={getUserDisplayName()}
                   >
                     <UserProfileDisplay className="flex-1 text-left" />
-                    <ChevronSelectorVerticalIcon className="ml-auto size-4" />
+                    <Icon
+                      name="chevronSelectorVertical"
+                      size="sm"
+                      className="ml-auto"
+                    />
                   </SidebarMenuButton>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" side="right" className="w-56">
@@ -216,14 +215,13 @@ export function Sidebar({
 
                   <DropdownMenuGroup>
                     {userMenuItems.map(item => {
-                      const IconComponent = item.icon;
                       return (
                         <DropdownMenuItem key={item.url} asChild>
                           <Link
                             href={item.url}
                             className="flex cursor-pointer items-center gap-2"
                           >
-                            <IconComponent />
+                            <Icon name={item.icon} size="sm" />
                             {item.title}
                           </Link>
                         </DropdownMenuItem>
@@ -238,7 +236,7 @@ export function Sidebar({
                       onClick={onSignOut}
                       className="flex cursor-pointer items-center gap-2"
                     >
-                      <LogOutIcon />
+                      <Icon name="logOut" size="sm" />
                       Logout
                     </DropdownMenuItem>
                   </DropdownMenuGroup>
