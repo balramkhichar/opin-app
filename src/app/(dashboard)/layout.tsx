@@ -1,6 +1,13 @@
 import { Suspense } from 'react';
 import { createServerSupabaseClient } from '@/lib/supabase-server';
 import { redirect } from 'next/navigation';
+import {
+  SidebarProvider,
+  SidebarInset,
+  SidebarTrigger,
+} from '@/components/ui/sidebar';
+import { AppSidebar } from '@/components/Sidebar';
+import { Loading } from '@/components';
 
 export default async function DashboardLayout({
   children,
@@ -16,16 +23,19 @@ export default async function DashboardLayout({
     redirect('/auth/sign-in');
   }
 
-  return <Suspense fallback={<Loading />}>{children}</Suspense>;
-}
-
-function Loading() {
   return (
-    <div className="flex min-h-screen items-center justify-center">
-      <div className="text-center">
-        <div className="border-foreground mx-auto h-12 w-12 animate-spin rounded-full border-b-2"></div>
-        <p className="text-muted-foreground mt-4">Loading...</p>
-      </div>
-    </div>
+    <SidebarProvider>
+      <AppSidebar />
+      <SidebarInset className="flex h-screen flex-col">
+        <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
+          <SidebarTrigger className="-ml-1" />
+        </header>
+        <div className="flex-1 overflow-auto p-4">
+          <Suspense fallback={<Loading size="lg" className="min-h-full" />}>
+            {children}
+          </Suspense>
+        </div>
+      </SidebarInset>
+    </SidebarProvider>
   );
 }
