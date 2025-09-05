@@ -7,7 +7,7 @@ import {
   SidebarTrigger,
 } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/Sidebar';
-import { Loading } from '@/components';
+import { Loading, BreadcrumbNav } from '@/components';
 
 export default async function DashboardLayout({
   children,
@@ -29,6 +29,9 @@ export default async function DashboardLayout({
       <SidebarInset className="flex h-screen flex-col">
         <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
           <SidebarTrigger className="-ml-1" />
+          <div className="flex-1">
+            <BreadcrumbNav />
+          </div>
         </header>
         <div className="flex-1 overflow-auto p-4">
           <Suspense fallback={<Loading size="lg" className="min-h-full" />}>

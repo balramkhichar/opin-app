@@ -7,3 +7,4 @@ export { TurnstileCaptcha } from './Turnstile';
 export { Loading } from './Loading';
 export { Icon } from './Icon';
 export { AppSidebar } from './Sidebar';
+export { BreadcrumbNav } from './Breadcrumb';
