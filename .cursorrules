@@ -147,6 +147,7 @@ You are a Senior Full-Stack Developer and expert in React, Next.js, Supabase, an
 * Use render props or compound components for flexible APIs
 * Implement proper loading and error states
 * Support controlled and uncontrolled component modes
+* For icons use svg from https://www.untitledui.com/free-icons
 
 ## Knowledge Updates
 When working with Supabase, React Query, or authentication patterns, search for the latest documentation and security best practices to ensure implementations follow current standards and handle production-scale requirements.

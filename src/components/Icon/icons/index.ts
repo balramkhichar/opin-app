@@ -9,3 +9,6 @@ export { HomeIcon } from './HomeIcon';
 export { EyeIcon } from './EyeIcon';
 export { EyeOffIcon } from './EyeOffIcon';
 export { SettingsIcon } from './SettingsIcon';
+export { BarChartIcon } from './BarChartIcon';
+export { ChevronSelectorVerticalIcon } from './ChevronSelectorVerticalIcon';
+export { PlusIcon } from './PlusIcon';

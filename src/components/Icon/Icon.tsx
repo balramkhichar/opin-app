@@ -13,6 +13,9 @@ import {
   EyeIcon,
   EyeOffIcon,
   SettingsIcon,
+  PlusIcon,
+  BarChartIcon,
+  ChevronSelectorVerticalIcon,
 } from './icons';
 
 interface IconProps {
@@ -41,6 +44,9 @@ const iconComponents = {
   eye: EyeIcon,
   eyeOff: EyeOffIcon,
   settings: SettingsIcon,
+  plus: PlusIcon,
+  barChart: BarChartIcon,
+  chevronSelectorVertical: ChevronSelectorVerticalIcon,
 };
 
 export function Icon({
