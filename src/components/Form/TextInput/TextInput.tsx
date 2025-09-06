@@ -12,6 +12,11 @@ interface TextInputProps {
   placeholder?: string;
   className?: string;
   autoComplete?: string;
+  tooltip?: {
+    content: React.ReactNode;
+    side?: 'top' | 'right' | 'bottom' | 'left';
+    align?: 'start' | 'center' | 'end';
+  };
   // Using any for validators because TanStack Form's validator types are complex
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   validators?: any;
@@ -24,6 +29,7 @@ export function TextInput({
   placeholder,
   className = '',
   autoComplete,
+  tooltip,
   validators,
 }: TextInputProps) {
   const form = useFormContext();
@@ -38,6 +44,7 @@ export function TextInput({
           placeholder={placeholder}
           className={className}
           autoComplete={autoComplete}
+          tooltip={tooltip}
         />
       )}
     </form.Field>

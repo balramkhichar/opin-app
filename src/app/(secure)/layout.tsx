@@ -1,6 +1,6 @@
+'use client';
+
 import { Suspense } from 'react';
-import { createServerSupabaseClient } from '@/lib/supabase-server';
-import { redirect } from 'next/navigation';
 import {
   SidebarProvider,
   SidebarInset,
@@ -8,19 +8,17 @@ import {
 } from '@/components/ui/sidebar';
 import { Navigation } from './Navigation';
 import { Loading, BreadcrumbNav, Button, Icon } from '@/components';
+import { useRequireAuth } from '@/hooks/use-require-auth';
 
-export default async function DashboardLayout({
+export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const supabase = await createServerSupabaseClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const { isLoading } = useRequireAuth();
 
-  if (!user) {
-    redirect('/auth/sign-in');
+  if (isLoading) {
+    return <Loading size="lg" className="min-h-screen" />;
   }
 
   return (

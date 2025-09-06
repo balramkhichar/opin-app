@@ -163,6 +163,7 @@ export default function SettingsPage() {
                   name="newPassword"
                   label="New Password"
                   placeholder="Enter your new password"
+                  helpTip={true}
                   validators={{
                     onChange: ({ value }: { value: string }) => {
                       if (!value || value.trim().length === 0) {
@@ -217,20 +218,6 @@ export default function SettingsPage() {
                     },
                   }}
                 />
-
-                {/* Password Requirements */}
-                <Alert>
-                  <Icon name="checkSquare" className="h-4 w-4 text-blue-600" />
-                  <AlertTitle>Password Requirements</AlertTitle>
-                  <AlertDescription>
-                    <ul className="text-muted-foreground mt-2 space-y-1 text-sm">
-                      <li>At least 8 characters long</li>
-                      <li>Contains uppercase and lowercase letters</li>
-                      <li>Contains at least one number</li>
-                      <li>Contains at least one special character</li>
-                    </ul>
-                  </AlertDescription>
-                </Alert>
 
                 {/* Captcha */}
                 <div className="space-y-2">

@@ -14,6 +14,7 @@ interface PasswordInputProps {
   label?: React.ReactNode;
   placeholder?: string;
   className?: string;
+  helpTip?: boolean;
   // Using any for validators because TanStack Form's validator types are complex
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   validators?: any;
@@ -57,6 +58,7 @@ export function PasswordInput({
   label,
   placeholder,
   className = '',
+  helpTip = false,
   validators,
 }: PasswordInputProps) {
   const form = useFormContext();
@@ -64,6 +66,22 @@ export function PasswordInput({
 
   // Use provided validators or default password validator
   const fieldValidators = validators || defaultPasswordValidator;
+
+  // Default password requirements tooltip
+  const defaultTooltip = {
+    content: (
+      <div>
+        <div className="font-semibold">Password Requirements</div>
+        <ul className="mt-2 space-y-1 text-xs">
+          <li>• At least 8 characters long</li>
+          <li>• Contains uppercase and lowercase letters</li>
+          <li>• Contains at least one number</li>
+          <li>• Contains at least one special character</li>
+        </ul>
+      </div>
+    ),
+    side: 'right' as const,
+  };
 
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
@@ -83,6 +101,7 @@ export function PasswordInput({
             placeholder={placeholder}
             className={className}
             autoComplete="current-password"
+            tooltip={helpTip ? defaultTooltip : undefined}
           >
             <Button
               type="button"

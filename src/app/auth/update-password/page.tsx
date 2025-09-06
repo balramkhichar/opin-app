@@ -105,6 +105,7 @@ function UpdatePasswordForm() {
             name="password"
             label="New Password"
             placeholder="Enter your new password"
+            helpTip={true}
           />
 
           {/* Confirm Password Field */}

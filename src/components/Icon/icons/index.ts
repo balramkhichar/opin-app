@@ -15,3 +15,4 @@ export { PlusIcon } from './PlusIcon';
 export { AlertSquareIcon } from './AlertSquareIcon';
 export { AlertTriangleIcon } from './AlertTriangleIcon';
 export { CheckSquareIcon } from './CheckSquareIcon';
+export { HelpSquareIcon } from './HelpSquareIcon';

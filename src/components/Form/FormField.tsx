@@ -4,6 +4,7 @@ import { AnyFieldApi } from '@tanstack/react-form';
 import { ReactNode, useEffect, useRef, useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Icon } from '@/components/Icon';
 import { cn } from '@/lib/utils';
 
 interface FormFieldProps {
@@ -14,6 +15,11 @@ interface FormFieldProps {
   children?: ReactNode;
   className?: string;
   autoComplete?: string;
+  tooltip?: {
+    content: ReactNode;
+    side?: 'top' | 'right' | 'bottom' | 'left';
+    align?: 'start' | 'center' | 'end';
+  };
 }
 
 export function FormField({
@@ -24,6 +30,7 @@ export function FormField({
   children,
   className = '',
   autoComplete,
+  tooltip,
 }: FormFieldProps) {
   const debounceDelay = 500; // Default debounce delay
   const [debouncedErrors, setDebouncedErrors] = useState<string[]>([]);
@@ -68,14 +75,25 @@ export function FormField({
 
   return (
     <div className={cn('space-y-2', className)}>
-      {label &&
-        (typeof label === 'string' ? (
-          <Label htmlFor={field.name} className="text-sm font-medium">
-            {label}
-          </Label>
-        ) : (
-          label
-        ))}
+      {label && (
+        <div className="flex items-center gap-2">
+          {typeof label === 'string' ? (
+            <Label htmlFor={field.name} className="text-sm font-medium">
+              {label}
+            </Label>
+          ) : (
+            label
+          )}
+          {tooltip && (
+            <Icon
+              name="helpSquare"
+              size="sm"
+              className="text-muted-foreground"
+              tooltip={tooltip}
+            />
+          )}
+        </div>
+      )}
       <div className="relative">
         <Input
           id={field.name}

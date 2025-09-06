@@ -146,6 +146,7 @@ function SetupForm() {
             name="password"
             label="Password"
             placeholder="Create a password"
+            helpTip={true}
           />
 
           {/* Confirm Password Field */}

@@ -19,13 +19,22 @@ import {
   AlertSquareIcon,
   AlertTriangleIcon,
   CheckSquareIcon,
+  HelpSquareIcon,
 } from './icons';
+import { Tooltip, TooltipTrigger, TooltipContent } from '../ui/tooltip';
+
+interface TooltipProps {
+  content: React.ReactNode;
+  side?: 'top' | 'right' | 'bottom' | 'left';
+  align?: 'start' | 'center' | 'end';
+}
 
 interface IconProps {
   name: string;
   size?: 'sm' | 'md' | 'lg' | 'xl';
   className?: string;
   color?: string;
+  tooltip?: TooltipProps;
 }
 
 const sizeMap = {
@@ -53,6 +62,7 @@ const iconComponents = {
   alertSquare: AlertSquareIcon,
   alertTriangle: AlertTriangleIcon,
   checkSquare: CheckSquareIcon,
+  helpSquare: HelpSquareIcon,
 };
 
 export function Icon({
@@ -60,6 +70,7 @@ export function Icon({
   size = 'md',
   className = '',
   color = 'currentColor',
+  tooltip,
 }: IconProps) {
   const IconComponent = iconComponents[name as keyof typeof iconComponents];
 
@@ -68,8 +79,25 @@ export function Icon({
     return null;
   }
 
-  // All icons now use the same standardized interface
-  return (
+  const iconElement = (
     <IconComponent className={className} size={sizeMap[size]} color={color} />
   );
+
+  // If tooltip is provided, wrap the icon with tooltip components
+  if (tooltip) {
+    return (
+      <Tooltip>
+        <TooltipTrigger>{iconElement}</TooltipTrigger>
+        <TooltipContent
+          side={tooltip.side || 'top'}
+          align={tooltip.align || 'center'}
+        >
+          {tooltip.content}
+        </TooltipContent>
+      </Tooltip>
+    );
+  }
+
+  // Return icon without tooltip
+  return iconElement;
 }
