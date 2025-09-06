@@ -62,7 +62,7 @@ If you prefer to use the migration file, you can run:
 supabase db push
 ```
 
-Or copy the contents of `supabase/migrations/20250109000000_create_avatars_bucket.sql` and run it in your Supabase SQL editor.
+Or copy the contents of `supabase/migrations/20250109000000_create_avatars_system.sql` and run it in your Supabase SQL editor.
 
 ## Features
 
@@ -117,10 +117,7 @@ src/
 │   └── ui/
 │       └── alert.tsx           # Alert UI component
 └── supabase/migrations/
-    ├── 20250109000000_create_avatars_bucket.sql      # Create avatars bucket
-    ├── 20250109000001_fix_avatars_rls_policies.sql   # Fix RLS policies
-    ├── 20250109000004_restore_secure_avatar_policies.sql # Restore secure policies
-    └── 20250109000006_fix_filename_validation.sql    # Fix filename validation
+    └── 20250109000000_create_avatars_system.sql      # Complete avatars system setup
 ```
 
 ## Dependencies
