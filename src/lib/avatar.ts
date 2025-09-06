@@ -176,7 +176,7 @@ export async function deleteAvatar(
       }
 
       filePath = fileName;
-    } catch (urlError) {
+    } catch {
       return {
         success: false,
         error: 'Invalid avatar URL format',
