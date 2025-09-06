@@ -22,16 +22,22 @@ export async function GET(request: NextRequest) {
         // For password recovery, redirect to update password page
         // The user is now logged in and can update their password
         redirect(`/auth/update-password?next=${next}`);
+      } else if (type === 'invite') {
+        // For invite flow, redirect to password setup page
+        // The user needs to set their password
+        redirect(`/auth/setup-password?next=${next}`);
       } else {
         // For other types (signup, email change, etc.), redirect to specified URL
         redirect(next);
       }
     } else {
       // redirect the user to an error page with some instructions
-      redirect(`/auth/error?error=${error?.message}`);
+      redirect(
+        `/auth/error?error=${encodeURIComponent(error?.message || 'Invalid or expired link')}`
+      );
     }
   }
 
   // redirect the user to an error page with some instructions
-  redirect(`/auth/error?error=No token hash or type`);
+  redirect(`/auth/error?error=${encodeURIComponent('No token hash or type')}`);
 }
