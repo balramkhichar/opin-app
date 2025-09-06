@@ -30,6 +30,7 @@ function SignUpForm() {
   const {
     captchaToken,
     captchaError,
+    setCaptchaError,
     turnstileRef,
     handleCaptchaVerify,
     handleCaptchaError,

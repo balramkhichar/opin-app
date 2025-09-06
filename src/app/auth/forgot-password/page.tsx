@@ -28,6 +28,7 @@ function ForgotPasswordForm() {
   const {
     captchaToken,
     captchaError,
+    setCaptchaError,
     turnstileRef,
     handleCaptchaVerify,
     handleCaptchaError,

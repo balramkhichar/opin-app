@@ -27,6 +27,7 @@ function UpdatePasswordForm() {
   const {
     captchaToken,
     captchaError,
+    setCaptchaError,
     turnstileRef,
     handleCaptchaVerify,
     handleCaptchaError,

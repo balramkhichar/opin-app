@@ -38,6 +38,7 @@ export function useCaptcha() {
   return {
     captchaToken,
     captchaError,
+    setCaptchaError,
     turnstileRef,
     handleCaptchaVerify,
     handleCaptchaError,

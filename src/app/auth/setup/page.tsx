@@ -29,6 +29,7 @@ function SetupForm() {
   const {
     captchaToken,
     captchaError,
+    setCaptchaError,
     turnstileRef,
     handleCaptchaVerify,
     handleCaptchaError,
