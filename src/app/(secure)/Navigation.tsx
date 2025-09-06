@@ -13,17 +13,36 @@ const navigationItems = [
   },
 ];
 
+const collapsibleItems = [
+  {
+    title: 'Settings',
+    icon: 'settings',
+    items: [
+      {
+        title: 'Team',
+        url: '/settings/team',
+        icon: 'users',
+      },
+      {
+        title: 'Organization',
+        url: '/settings/organization',
+        icon: 'building',
+      },
+    ],
+  },
+];
+
 // User menu items
 const userMenuItems = [
   {
     title: 'Profile',
-    url: '/profile',
+    url: '/user/profile',
     icon: 'user',
   },
   {
-    title: 'Settings',
-    url: '/settings',
-    icon: 'settings',
+    title: 'Security',
+    url: '/user/security',
+    icon: 'shield',
   },
 ];
 
@@ -42,6 +61,7 @@ export function Navigation() {
   return (
     <Sidebar
       navigationItems={navigationItems}
+      collapsibleItems={collapsibleItems}
       userMenuItems={userMenuItems}
       user={user}
       loading={loading}

@@ -2,15 +2,19 @@ import React from 'react';
 
 interface ChevronSelectorVerticalIconProps {
   className?: string;
+  size?: number;
+  color?: string;
 }
 
-export const ChevronSelectorVerticalIcon: React.FC<
-  ChevronSelectorVerticalIconProps
-> = ({ className = 'h-4 w-4' }) => {
+export function ChevronSelectorVerticalIcon({
+  className = '',
+  size = 24,
+  color = 'currentColor',
+}: ChevronSelectorVerticalIconProps) {
   return (
     <svg
-      width="100%"
-      height="100%"
+      width={size}
+      height={size}
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -18,11 +22,11 @@ export const ChevronSelectorVerticalIcon: React.FC<
     >
       <path
         d="M7 15L12 20L17 15M7 9L12 4L17 9"
-        stroke="currentColor"
+        stroke={color}
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
     </svg>
   );
-};
+}

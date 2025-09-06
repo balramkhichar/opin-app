@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -14,6 +15,9 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
   SidebarRail,
   useSidebar,
 } from '@/components/ui/sidebar';
@@ -36,6 +40,12 @@ interface NavigationItem {
   icon: string;
 }
 
+interface CollapsibleNavigationItem {
+  title: string;
+  icon: string;
+  items: NavigationItem[];
+}
+
 interface UserMenuItem {
   title: string;
   url: string;
@@ -55,6 +65,7 @@ interface User {
 
 interface SidebarProps {
   navigationItems: NavigationItem[];
+  collapsibleItems?: CollapsibleNavigationItem[];
   userMenuItems: UserMenuItem[];
   user: User | null;
   loading: boolean;
@@ -63,6 +74,7 @@ interface SidebarProps {
 
 export function Sidebar({
   navigationItems,
+  collapsibleItems,
   userMenuItems,
   user,
   loading,
@@ -71,6 +83,16 @@ export function Sidebar({
   const { resolvedTheme } = useTheme();
   const pathname = usePathname();
   const { state } = useSidebar();
+
+  // State for collapsible menu items
+  const [openItems, setOpenItems] = useState<Record<string, boolean>>({});
+
+  const toggleCollapsibleItem = (itemTitle: string) => {
+    setOpenItems(prev => ({
+      ...prev,
+      [itemTitle]: !prev[itemTitle],
+    }));
+  };
 
   const getUserDisplayName = () => {
     if (!user) return 'User';
@@ -177,26 +199,72 @@ export function Sidebar({
       </SidebarHeader>
 
       <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {navigationItems.map(item => (
-                <SidebarMenuItem key={item.title}>
+        {/* Main Navigation Items */}
+        {navigationItems.length > 0 && (
+          <SidebarGroup>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {navigationItems.map(item => (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton
+                      asChild
+                      isActive={pathname === item.url}
+                      tooltip={item.title}
+                    >
+                      <Link href={item.url}>
+                        <Icon name={item.icon} size="sm" />
+                        <span>{item.title}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        )}
+
+        {/* Collapsible Navigation Items */}
+        {collapsibleItems?.map(item => (
+          <SidebarGroup key={item.title}>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                <SidebarMenuItem>
                   <SidebarMenuButton
-                    asChild
-                    isActive={pathname === item.url}
+                    onClick={() => toggleCollapsibleItem(item.title)}
                     tooltip={item.title}
                   >
-                    <Link href={item.url}>
-                      <Icon name={item.icon} size="sm" />
-                      <span>{item.title}</span>
-                    </Link>
+                    <Icon name={item.icon} size="sm" />
+                    <span>{item.title}</span>
+                    <Icon
+                      name="chevronDown"
+                      size="sm"
+                      className={`ml-auto transition-transform duration-200 ${
+                        openItems[item.title] ? 'rotate-180' : ''
+                      }`}
+                    />
                   </SidebarMenuButton>
+                  {openItems[item.title] && (
+                    <SidebarMenuSub>
+                      {item.items.map(subItem => (
+                        <SidebarMenuSubItem key={subItem.title}>
+                          <SidebarMenuSubButton
+                            asChild
+                            isActive={pathname === subItem.url}
+                          >
+                            <Link href={subItem.url}>
+                              <Icon name={subItem.icon} size="sm" />
+                              <span>{subItem.title}</span>
+                            </Link>
+                          </SidebarMenuSubButton>
+                        </SidebarMenuSubItem>
+                      ))}
+                    </SidebarMenuSub>
+                  )}
                 </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        ))}
       </SidebarContent>
 
       <SidebarFooter>

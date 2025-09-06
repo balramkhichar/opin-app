@@ -149,6 +149,14 @@ You are a Senior Full-Stack Developer and expert in React, Next.js, Supabase, an
 * Support controlled and uncontrolled component modes
 * For icons use svg from https://www.untitledui.com/free-icons
 
+### Icon Usage Rules
+* **NEVER import individual icon components directly** (e.g., `import { UserIcon, ShieldIcon } from '@/components/Icon/icons'`)
+* **ALWAYS use the centralized Icon component** (e.g., `import { Icon } from '@/components/Icon'`)
+* **Use proper icon names**: `<Icon name="user" size="lg" />` instead of `<UserIcon size={24} />`
+* **Use size props**: `size="lg"` (24px) instead of hardcoded `size={24}`
+* **Available icon names**: user, shield, users, building, check, close, logOut, mail, home, eye, eyeOff, settings, plus, chevronSelectorVertical, alertSquare, alertTriangle, checkSquare, helpSquare, chevronDown
+* **Size mapping**: sm (16px), md (20px), lg (24px), xl (32px)
+
 ## Supabase MCP Integration
 * **MCP Server Available**: This project has Supabase MCP server configured with read-only access
 * **Project Reference**: kirxbivnduqjjgdqpuvn

@@ -2,11 +2,9 @@
 
 import React from 'react';
 import {
-  MenuIcon,
   UserIcon,
   CheckIcon,
   CloseIcon,
-  LogInIcon,
   LogOutIcon,
   MailIcon,
   HomeIcon,
@@ -14,12 +12,15 @@ import {
   EyeOffIcon,
   SettingsIcon,
   PlusIcon,
-  BarChartIcon,
   ChevronSelectorVerticalIcon,
   AlertSquareIcon,
   AlertTriangleIcon,
   CheckSquareIcon,
   HelpSquareIcon,
+  UsersIcon,
+  BuildingIcon,
+  ChevronDownIcon,
+  ShieldIcon,
 } from './icons';
 import { Tooltip, TooltipTrigger, TooltipContent } from '../ui/tooltip';
 
@@ -45,11 +46,9 @@ const sizeMap = {
 };
 
 const iconComponents = {
-  menu: MenuIcon,
   user: UserIcon,
   check: CheckIcon,
   close: CloseIcon,
-  logIn: LogInIcon,
   logOut: LogOutIcon,
   mail: MailIcon,
   home: HomeIcon,
@@ -57,12 +56,15 @@ const iconComponents = {
   eyeOff: EyeOffIcon,
   settings: SettingsIcon,
   plus: PlusIcon,
-  barChart: BarChartIcon,
   chevronSelectorVertical: ChevronSelectorVerticalIcon,
   alertSquare: AlertSquareIcon,
   alertTriangle: AlertTriangleIcon,
   checkSquare: CheckSquareIcon,
   helpSquare: HelpSquareIcon,
+  users: UsersIcon,
+  building: BuildingIcon,
+  chevronDown: ChevronDownIcon,
+  shield: ShieldIcon,
 };
 
 export function Icon({

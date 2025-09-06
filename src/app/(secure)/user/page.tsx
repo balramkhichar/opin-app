@@ -7,32 +7,36 @@ import {
 import { Icon } from '@/components/Icon';
 import Link from 'next/link';
 
-export default function SettingsPage() {
+export default function UserPage() {
   return (
     <div className="container py-2">
       <div className="flex justify-start gap-4">
-        {/* Team Card */}
-        <Link href="/settings/team">
+        {/* Profile Card */}
+        <Link href="/user/profile">
           <Card className="aspect-square w-48">
             <CardHeader className="flex h-full flex-col items-center justify-center text-center">
               <div className="bg-muted mb-4 rounded-lg p-2">
-                <Icon name="users" size="lg" />
+                <Icon name="user" size="lg" />
               </div>
-              <CardTitle>Team</CardTitle>
-              <CardDescription>Manage team & permissions</CardDescription>
+              <CardTitle>Profile</CardTitle>
+              <CardDescription>
+                View and edit your personal information
+              </CardDescription>
             </CardHeader>
           </Card>
         </Link>
 
-        {/* Organization Card */}
-        <Link href="/settings/organization">
+        {/* Security Card */}
+        <Link href="/user/security">
           <Card className="aspect-square w-48">
             <CardHeader className="flex h-full flex-col items-center justify-center text-center">
               <div className="bg-muted mb-4 rounded-lg p-2">
-                <Icon name="building" size="lg" />
+                <Icon name="shield" size="lg" />
               </div>
-              <CardTitle>Organization</CardTitle>
-              <CardDescription>Configure organization settings</CardDescription>
+              <CardTitle>Security</CardTitle>
+              <CardDescription>
+                Manage your account security & password
+              </CardDescription>
             </CardHeader>
           </Card>
         </Link>
