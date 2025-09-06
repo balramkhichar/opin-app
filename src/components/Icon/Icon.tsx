@@ -17,6 +17,7 @@ import {
   BarChartIcon,
   ChevronSelectorVerticalIcon,
   AlertSquareIcon,
+  AlertTriangleIcon,
   CheckSquareIcon,
 } from './icons';
 
@@ -50,6 +51,7 @@ const iconComponents = {
   barChart: BarChartIcon,
   chevronSelectorVertical: ChevronSelectorVerticalIcon,
   alertSquare: AlertSquareIcon,
+  alertTriangle: AlertTriangleIcon,
   checkSquare: CheckSquareIcon,
 };
 
@@ -89,7 +91,11 @@ export function Icon({
     name === 'chevronSelectorVertical'
   ) {
     iconProps.size = sizeMap[size];
-  } else if (name === 'alertSquare' || name === 'checkSquare') {
+  } else if (
+    name === 'alertSquare' ||
+    name === 'alertTriangle' ||
+    name === 'checkSquare'
+  ) {
     // These components expect size as string
     iconProps.size = size;
   }

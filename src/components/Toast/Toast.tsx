@@ -30,12 +30,12 @@ export function Toast({
         };
       case 'error':
         return {
-          icon: 'alertSquare' as const,
+          icon: 'alertTriangle' as const,
           iconClassName: 'text-destructive',
         };
       case 'info':
         return {
-          icon: 'checkSquare' as const, // You can change this to an info icon later
+          icon: 'alertSquare' as const, // You can change this to an info icon later
           iconClassName: 'text-blue-600',
         };
       default:
@@ -90,7 +90,7 @@ export const toast = {
       description,
       duration: options?.duration,
       action: options?.action,
-      icon: <Icon name="alertSquare" className="text-destructive h-4 w-4" />,
+      icon: <Icon name="alertTriangle" className="text-destructive h-4 w-4" />,
     });
   },
   info: (
@@ -105,7 +105,7 @@ export const toast = {
       description,
       duration: options?.duration,
       action: options?.action,
-      icon: <Icon name="checkSquare" className="h-4 w-4 text-blue-600" />,
+      icon: <Icon name="alertSquare" className="h-4 w-4 text-blue-600" />,
     });
   },
 };
