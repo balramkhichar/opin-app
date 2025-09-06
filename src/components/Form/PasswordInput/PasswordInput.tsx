@@ -22,7 +22,7 @@ interface PasswordInputProps {
 
 // Default password validator - matches Supabase requirements
 const defaultPasswordValidator = {
-  onChange: ({ value, fieldApi }: { value: string; fieldApi: AnyFieldApi }) => {
+  onChange: ({ value }: { value: string }) => {
     if (!value) return 'Password is required';
     if (value.length < 8) {
       return 'Password must be at least 8 characters';

@@ -19,14 +19,13 @@ import {
   CardContent,
   CardFooter,
 } from '@/components/ui/card';
-import type { TurnstileRef } from '@/components/Turnstile';
 import { useAuth } from '@/lib/auth-context';
 import { useCaptcha } from '@/hooks/use-captcha';
-import { useState, Suspense } from 'react';
+import { Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 function SignInForm() {
-  const { signIn, loading: authLoading, user } = useAuth();
+  const { signIn, loading: authLoading } = useAuth();
   const {
     captchaToken,
     captchaError,

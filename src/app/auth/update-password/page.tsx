@@ -17,7 +17,6 @@ import {
   CardContent,
   CardFooter,
 } from '@/components/ui/card';
-import type { TurnstileRef } from '@/components/Turnstile';
 import { createClient } from '@/lib/supabase';
 import { useCaptcha } from '@/hooks/use-captcha';
 import { useState, Suspense } from 'react';
