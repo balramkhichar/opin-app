@@ -51,13 +51,17 @@ function UpdatePasswordForm() {
   };
 
   const handleCaptchaError = () => {
-    setCaptchaError('CAPTCHA verification failed. Please try again.');
+    setCaptchaError(
+      'Security verification failed. Please complete the check again.'
+    );
     setCaptchaToken(null);
   };
 
   const handleCaptchaExpire = () => {
     setCaptchaToken(null);
-    setCaptchaError('CAPTCHA expired. Please verify again.');
+    setCaptchaError(
+      'The security check has expired. Please complete it again.'
+    );
   };
 
   const resetCaptcha = () => {
@@ -74,13 +78,15 @@ function UpdatePasswordForm() {
     setLoading(true);
 
     if (value.password !== value.confirmPassword) {
-      toast.error('Passwords do not match');
+      toast.error(
+        "Your passwords don't match. Please make sure they're identical."
+      );
       setLoading(false);
       return;
     }
 
     if (!captchaToken) {
-      setCaptchaError('Please complete the CAPTCHA verification.');
+      setCaptchaError('Please complete the security check to continue.');
       setLoading(false);
       return;
     }

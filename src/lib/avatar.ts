@@ -114,7 +114,7 @@ export async function uploadAvatar(
       console.error('Upload error:', uploadError);
       return {
         success: false,
-        error: `Failed to upload image: ${uploadError.message}`,
+        error: 'Unable to upload your photo. Please try again.',
       };
     }
 
@@ -198,7 +198,7 @@ export async function deleteAvatar(
       console.error('Delete error:', error);
       return {
         success: false,
-        error: `Failed to delete avatar: ${error.message}`,
+        error: 'Unable to delete your photo. Please try again.',
       };
     }
 
