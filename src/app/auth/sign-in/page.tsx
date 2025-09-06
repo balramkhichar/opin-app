@@ -9,6 +9,7 @@ import {
   Link,
   Alert,
 } from '@/components';
+import { toast } from '@/components/Toast';
 import { Button } from '@/components/ui/button';
 import {
   Card,
@@ -25,7 +26,6 @@ import { useRouter, useSearchParams } from 'next/navigation';
 
 function SignInForm() {
   const { signIn, loading: authLoading, user } = useAuth();
-  const [error, setError] = useState<string | null>(null);
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const [captchaError, setCaptchaError] = useState<string | null>(null);
   const turnstileRef = useRef<TurnstileRef>(null);
@@ -64,7 +64,6 @@ function SignInForm() {
     email: string;
     password: string;
   }) => {
-    setError(null);
     setCaptchaError(null);
 
     if (!captchaToken) {
@@ -74,7 +73,11 @@ function SignInForm() {
 
     const result = await signIn(value.email, value.password, captchaToken);
     if (!result.success) {
-      setError(result.error || 'Sign in failed');
+      toast.error(
+        'Sign-in failed',
+        result.error ||
+          "Sign-in didn't work. Double-check your details and retry."
+      );
       resetCaptcha();
     }
   };
@@ -145,16 +148,12 @@ function SignInForm() {
             />
           </div>
 
-          {/* Error Messages */}
-          {(error || captchaError) && (
+          {/* CAPTCHA Error Message */}
+          {captchaError && (
             <Alert
               variant="error"
-              title={error ? 'Sign-in failed' : 'Verification failed'}
-              description={
-                error
-                  ? `Sign-in didn't work. Double-check your details and retry.`
-                  : `We couldn't verify you're human. Try again.`
-              }
+              title="Verification failed"
+              description={captchaError}
             />
           )}
 
