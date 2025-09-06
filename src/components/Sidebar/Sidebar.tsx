@@ -27,6 +27,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Skeleton } from '@/components/ui/skeleton';
 import { Icon } from '@/components/Icon';
 
 interface NavigationItem {
@@ -133,6 +134,18 @@ export function Sidebar({
     );
   };
 
+  const ProfileSkeleton = ({ className = '' }: { className?: string }) => {
+    return (
+      <div className={`flex items-center gap-3 ${className}`}>
+        <Skeleton className="size-8 rounded-md" />
+        <div className="flex flex-col gap-1">
+          <Skeleton className="h-3 w-20" />
+          <Skeleton className="h-3 w-24" />
+        </div>
+      </div>
+    );
+  };
+
   return (
     <SidebarPrimitive collapsible="icon">
       <SidebarHeader>
@@ -187,7 +200,11 @@ export function Sidebar({
       </SidebarContent>
 
       <SidebarFooter>
-        {loading ? null : user ? (
+        {loading ? (
+          <div className="flex h-12 items-center gap-2 px-2 py-2">
+            <ProfileSkeleton className="flex-1 text-left" />
+          </div>
+        ) : user ? (
           <SidebarMenu>
             <SidebarMenuItem>
               <DropdownMenu>
