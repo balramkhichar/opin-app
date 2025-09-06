@@ -25,25 +25,28 @@ VALUES (
 Create the following RLS policies for the avatars bucket:
 
 ```sql
--- Create RLS policy for avatars bucket
--- File path: avatars/userId-timestamp.ext
--- We need to extract the userId from the filename
+-- Create RLS policies for avatars bucket
+-- File path format: userId-timestamp-random.ext (e.g., 6a674e40-7430-4632-b055-77ef9463cd08-1757147247758-oy9y7r.jpeg)
+-- Use LIKE pattern matching to handle UUIDs with hyphens properly
 CREATE POLICY "Users can upload their own avatars" ON storage.objects
 FOR INSERT WITH CHECK (
   bucket_id = 'avatars'
-  AND auth.uid()::text = split_part(name, '-', 1)
+  AND auth.uid() IS NOT NULL
+  AND name LIKE auth.uid()::text || '-%'
 );
 
 CREATE POLICY "Users can update their own avatars" ON storage.objects
 FOR UPDATE USING (
   bucket_id = 'avatars'
-  AND auth.uid()::text = split_part(name, '-', 1)
+  AND auth.uid() IS NOT NULL
+  AND name LIKE auth.uid()::text || '-%'
 );
 
 CREATE POLICY "Users can delete their own avatars" ON storage.objects
 FOR DELETE USING (
   bucket_id = 'avatars'
-  AND auth.uid()::text = split_part(name, '-', 1)
+  AND auth.uid() IS NOT NULL
+  AND name LIKE auth.uid()::text || '-%'
 );
 
 CREATE POLICY "Avatar images are publicly accessible" ON storage.objects
@@ -59,7 +62,7 @@ If you prefer to use the migration file, you can run:
 supabase db push
 ```
 
-Or copy the contents of `supabase/migrations/001_create_avatars_storage.sql` and run it in your Supabase SQL editor.
+Or copy the contents of `supabase/migrations/20250109000000_create_avatars_bucket.sql` and run it in your Supabase SQL editor.
 
 ## Features
 
@@ -75,7 +78,7 @@ The profile page includes the following features:
 
 - Upload profile photos
 - Image preview before saving
-- File type validation (JPEG, PNG only)
+- File type validation (JPEG, PNG, GIF, WebP)
 - File size validation (5MB limit)
 - Automatic avatar deletion when replaced
 - Fallback to user initials when no avatar is set
@@ -92,7 +95,7 @@ The profile page includes the following features:
 - Row Level Security (RLS) policies for avatar storage
 - User can only upload/update/delete their own avatars
 - Public read access for avatar images
-- File type validation (JPEG, PNG only) and size validation
+- File type validation (JPEG, PNG, GIF, WebP) and size validation
 
 ## Usage
 
@@ -109,8 +112,15 @@ src/
 │   └── page.tsx                 # Main profile page component
 ├── lib/
 │   └── avatar.ts               # Avatar upload utility functions
+├── components/
+│   ├── Alert/                  # Alert component for notifications
+│   └── ui/
+│       └── alert.tsx           # Alert UI component
 └── supabase/migrations/
-    └── 001_create_avatars_storage.sql  # Database migration
+    ├── 20250109000000_create_avatars_bucket.sql      # Create avatars bucket
+    ├── 20250109000001_fix_avatars_rls_policies.sql   # Fix RLS policies
+    ├── 20250109000004_restore_secure_avatar_policies.sql # Restore secure policies
+    └── 20250109000006_fix_filename_validation.sql    # Fix filename validation
 ```
 
 ## Dependencies
@@ -118,9 +128,11 @@ src/
 The profile page uses the following components and utilities:
 
 - `@/components/Form` - TanStack Form integration
+- `@/components/Alert` - Alert component for notifications
 - `@/components/ui/avatar` - shadcn/ui Avatar component
 - `@/components/ui/button` - shadcn/ui Button component
 - `@/components/ui/card` - shadcn/ui Card component
+- `@/components/ui/alert` - shadcn/ui Alert component
 - `@/lib/avatar` - Avatar upload utilities
 - `@/lib/supabase` - Supabase client
 

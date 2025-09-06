@@ -21,11 +21,11 @@ src/
 ├── app/                 # Next.js App Router
 │   ├── layout.tsx      # Root layout with AuthProvider
 │   ├── page.tsx        # Main page (redirects to auth or dashboard)
-│   ├── (dashboard)/    # Protected dashboard routes
-│   │   ├── layout.tsx  # Dashboard layout with navigation
+│   ├── (secure)/       # Protected routes
+│   │   ├── layout.tsx  # Secure layout with navigation
+│   │   ├── Navigation.tsx # Navigation component
 │   │   ├── dashboard/  # Dashboard home page
-│   │   ├── profile/    # User profile page
-│   │   └── projects/   # Projects page
+│   │   └── profile/    # User profile page
 │   ├── auth/           # Authentication pages
 │   │   ├── sign-in/    # Sign-in page
 │   │   ├── sign-up/    # Registration page
@@ -38,24 +38,35 @@ src/
 │   ├── globals.css     # Global styles (CSS)
 │   └── middleware.ts   # Authentication middleware
 ├── components/         # Reusable components
+│   ├── Alert/          # Alert component for notifications
+│   ├── Breadcrumb/     # Breadcrumb navigation
 │   ├── Form/           # Form components (TanStack Form)
 │   │   ├── Form.tsx    # Main form wrapper
 │   │   ├── FormField.tsx # Base form field
 │   │   ├── TextInput/  # Text input component
 │   │   └── PasswordInput/ # Password input component
-│   ├── ui/             # UI components
-│   │   └── button.tsx  # Button component
-│   ├── Icon/           # Icon component
-│   ├── Navigation/     # Navigation component
+│   ├── Icon/           # Icon component with SVG icons
+│   ├── Link/           # Link component
 │   ├── Loading/        # Loading components
+│   ├── Sidebar/        # Sidebar component
 │   ├── Turnstile/      # CAPTCHA component
+│   ├── ui/             # shadcn/ui components
+│   │   ├── alert.tsx   # Alert component
+│   │   ├── avatar.tsx  # Avatar component
+│   │   ├── button.tsx  # Button component
+│   │   ├── card.tsx    # Card component
+│   │   └── ...         # Other UI components
 │   └── index.ts        # Component exports
 ├── lib/               # Utility functions
 │   ├── supabase.ts    # Supabase client configuration
 │   ├── supabase-server.ts # Server-side Supabase client
 │   ├── auth.ts        # Authentication utilities
 │   ├── auth-context.tsx # React context for auth state
+│   ├── avatar.ts      # Avatar upload utilities
 │   └── utils.ts       # Utility functions
+├── hooks/             # Custom React hooks
+│   ├── use-breadcrumb.ts # Breadcrumb hook
+│   └── use-mobile.ts  # Mobile detection hook
 └── types/             # TypeScript type definitions
     └── form.ts        # Form-related types
 ```
@@ -101,6 +112,17 @@ The application includes Cloudflare Turnstile CAPTCHA protection:
 - **TurnstileCaptcha Component** (`src/components/Turnstile/Turnstile.tsx`): CAPTCHA widget wrapper
 - **Authentication Integration**: CAPTCHA tokens are passed to Supabase auth
 - **Error Handling**: Comprehensive error handling for CAPTCHA failures
+
+### Avatar System
+
+The application includes a comprehensive avatar upload and management system:
+
+- **Avatar Utilities** (`src/lib/avatar.ts`): Core avatar upload, delete, and validation functions
+- **Profile Page** (`src/app/(secure)/profile/page.tsx`): User profile management with avatar support
+- **Storage Integration**: Supabase Storage with Row Level Security (RLS) policies
+- **File Validation**: Comprehensive validation for file type, size, and security
+- **Automatic Cleanup**: Old avatars are automatically deleted when new ones are uploaded
+- **Security**: UUID-based filename generation with user isolation via RLS policies
 
 ### Component Architecture
 
