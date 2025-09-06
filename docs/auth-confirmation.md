@@ -17,7 +17,7 @@ The application now includes a complete auth flow with the following pages:
 - `/auth/forgot-password` - Password reset request page
 - `/auth/forgot-password-success` - Success page after password reset request
 - `/auth/update-password` - Password update page (after reset link)
-- `/auth/setup-password` - Password setup page (for invited users)
+- `/auth/setup` - Account setup page (for invited users)
 - `/auth/confirm` - Email confirmation handler
 - `/auth/error` - Error page for auth failures
 
@@ -197,11 +197,11 @@ The sign-in page (`/auth/sign-in`) includes:
    - `http://localhost:3000/auth/confirm` (development)
    - `http://localhost:3000/auth/forgot-password` (development)
    - `http://localhost:3000/auth/update-password` (development)
-   - `http://localhost:3000/auth/setup-password` (development)
+   - `http://localhost:3000/auth/setup` (development)
    - `https://yourdomain.com/auth/confirm` (production)
    - `https://yourdomain.com/auth/forgot-password` (production)
    - `https://yourdomain.com/auth/update-password` (production)
-   - `https://yourdomain.com/auth/setup-password` (production)
+   - `https://yourdomain.com/auth/setup` (production)
 
 ## Environment Variables
 
@@ -237,8 +237,8 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 1. **Admin invites user** via Supabase dashboard (Authentication → Users → Invite User)
 2. **User receives invitation email** with custom template
 3. **User clicks invitation link** - redirects to `/auth/confirm?token_hash=...&type=invite`
-4. **Confirm route processes invite** - redirects to `/auth/setup-password`
-5. **User sets password** with CAPTCHA verification
+4. **Confirm route processes invite** - redirects to `/auth/setup`
+5. **User completes account setup** (name + password) with CAPTCHA verification
 6. **User is redirected to dashboard** - account setup complete
 
 ## Troubleshooting

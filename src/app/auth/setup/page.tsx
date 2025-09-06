@@ -2,6 +2,7 @@
 
 import {
   Form,
+  TextInput,
   PasswordInput,
   Button,
   TurnstileCaptcha,
@@ -23,7 +24,7 @@ import { createClient } from '@/lib/supabase';
 import { useState, useEffect, useRef, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-function SetupPasswordForm() {
+function SetupForm() {
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const [captchaError, setCaptchaError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -72,6 +73,8 @@ function SetupPasswordForm() {
   };
 
   const handleFormSubmit = async (value: {
+    first_name: string;
+    last_name: string;
     password: string;
     confirmPassword: string;
   }) => {
@@ -96,13 +99,17 @@ function SetupPasswordForm() {
       const supabase = createClient();
       const { error } = await supabase.auth.updateUser({
         password: value.password,
+        data: {
+          first_name: value.first_name,
+          last_name: value.last_name,
+        },
       });
 
       if (error) {
-        toast.error('Password setup failed', error.message);
+        toast.error('Account setup failed', error.message);
         resetCaptcha();
       } else {
-        toast.success('Password set successfully! Welcome to Opin.');
+        toast.success('Account setup complete! Welcome to Opin.');
         resetCaptcha();
         setTimeout(() => {
           router.push(next);
@@ -126,12 +133,45 @@ function SetupPasswordForm() {
       <CardContent>
         <Form
           defaultValues={{
+            first_name: '',
+            last_name: '',
             password: '',
             confirmPassword: '',
           }}
           onSubmit={handleFormSubmit}
           className="space-y-6"
         >
+          {/* Name Fields Row */}
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            {/* First Name Field */}
+            <TextInput
+              name="first_name"
+              label="First Name"
+              placeholder="Enter your first name"
+              autoComplete="given-name"
+              validators={{
+                onChange: ({ value }: { value: string }) => {
+                  if (!value) return 'First name is required';
+                  return undefined;
+                },
+              }}
+            />
+
+            {/* Last Name Field */}
+            <TextInput
+              name="last_name"
+              label="Last Name"
+              placeholder="Enter your last name"
+              autoComplete="family-name"
+              validators={{
+                onChange: ({ value }: { value: string }) => {
+                  if (!value) return 'Last name is required';
+                  return undefined;
+                },
+              }}
+            />
+          </div>
+
           {/* Password Field */}
           <PasswordInput
             name="password"
@@ -198,10 +238,10 @@ function SetupPasswordForm() {
   );
 }
 
-export default function SetupPasswordPage() {
+export default function SetupPage() {
   return (
     <Suspense fallback={<Loading>Loading...</Loading>}>
-      <SetupPasswordForm />
+      <SetupForm />
     </Suspense>
   );
 }

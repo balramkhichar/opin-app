@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Opin | Setup Password',
+  title: 'Opin | Complete Setup',
 };
 
-export default function SetupPasswordLayout({
+export default function SetupLayout({
   children,
 }: {
   children: React.ReactNode;

@@ -7,7 +7,7 @@ The Opin application uses Supabase for authentication, providing a secure and sc
 - **User Sign-in**: Secure email/password authentication
 - **User Registration**: Email/password sign-up with email confirmation
 - **Email Invitations**: Admin can invite users via Supabase dashboard
-- **Password Setup**: Invited users can set their password via email link
+- **Account Setup**: Invited users can complete their profile and set password via email link
 - **Password Reset**: Secure password recovery via email
 - **Session Management**: Automatic session handling with middleware
 - **Protected Routes**: Dashboard access requires authentication
@@ -26,7 +26,7 @@ The Opin application uses Supabase for authentication, providing a secure and sc
 
 1. **Admin Invites**: Admin invites user via Supabase dashboard
 2. **Invitation Email**: User receives invitation email
-3. **Password Setup**: User clicks link to set password at `/auth/setup-password`
+3. **Account Setup**: User clicks link to complete setup at `/auth/setup`
 4. **Account Complete**: User is redirected to dashboard
 
 ### Password Reset Flow

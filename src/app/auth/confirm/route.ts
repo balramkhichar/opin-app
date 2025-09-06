@@ -23,9 +23,9 @@ export async function GET(request: NextRequest) {
         // The user is now logged in and can update their password
         redirect(`/auth/update-password?next=${next}`);
       } else if (type === 'invite') {
-        // For invite flow, redirect to password setup page
-        // The user needs to set their password
-        redirect(`/auth/setup-password?next=${next}`);
+        // For invite flow, redirect to setup page
+        // The user needs to complete their account setup
+        redirect(`/auth/setup?next=${next}`);
       } else {
         // For other types (signup, email change, etc.), redirect to specified URL
         redirect(next);
