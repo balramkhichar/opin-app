@@ -20,11 +20,16 @@ Overview of the application architecture, tech stack, project structure, and key
 
 Step-by-step guide for deploying the application to Vercel, including environment configuration and troubleshooting.
 
+### 👤 [Profile Setup](./profile-setup.md)
+
+Complete guide for setting up the profile page functionality, including avatar storage system and user management features.
+
 ## Quick Start
 
 1. **Setup**: Follow the [Setup Guide](./setup.md) to get the application running locally
 2. **Authentication**: Configure Supabase using the [Authentication Guide](./authentication.md)
-3. **Deploy**: Use the [Deployment Guide](./deployment.md) to deploy to production
+3. **Profile**: Set up profile functionality using the [Profile Setup Guide](./profile-setup.md)
+4. **Deploy**: Use the [Deployment Guide](./deployment.md) to deploy to production
 
 ## Getting Help
 

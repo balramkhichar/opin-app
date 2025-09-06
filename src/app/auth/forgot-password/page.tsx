@@ -7,6 +7,7 @@ import {
   TurnstileCaptcha,
   Loading,
   Link,
+  Alert,
 } from '@/components';
 import {
   Card,
@@ -133,17 +134,15 @@ function ForgotPasswordForm() {
 
           {/* Error Messages */}
           {(error || captchaError) && (
-            <div className="bg-destructive rounded-md p-4">
-              <div className="mt-0 flex">
-                <div className="text-primary-foreground text-sm">
-                  <p>
-                    {error
-                      ? `Password reset didn't work. ${error}`
-                      : `We couldn't verify you're human. Try again.`}
-                  </p>
-                </div>
-              </div>
-            </div>
+            <Alert
+              variant="error"
+              title={error ? 'Password reset failed' : 'Verification failed'}
+              description={
+                error
+                  ? `Password reset didn't work. ${error}`
+                  : `We couldn't verify you're human. Try again.`
+              }
+            />
           )}
 
           {/* Submit Button */}
