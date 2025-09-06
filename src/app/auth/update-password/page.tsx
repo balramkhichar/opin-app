@@ -7,6 +7,7 @@ import {
   TurnstileCaptcha,
   Loading,
   Link,
+  Alert,
 } from '@/components';
 import {
   Card,
@@ -170,28 +171,20 @@ function UpdatePasswordForm() {
 
           {/* Success Message */}
           {success && (
-            <div className="rounded-md bg-green-50 p-4">
-              <div className="mt-0 flex">
-                <div className="text-sm text-green-700">
-                  <p>{success}</p>
-                </div>
-              </div>
-            </div>
+            <Alert variant="success" title="Success" description={success} />
           )}
 
           {/* Error Messages */}
           {(error || captchaError) && (
-            <div className="bg-destructive rounded-md p-4">
-              <div className="mt-0 flex">
-                <div className="text-primary-foreground text-sm">
-                  <p>
-                    {error
-                      ? `Password update didn't work. ${error}`
-                      : `We couldn't verify you're human. Try again.`}
-                  </p>
-                </div>
-              </div>
-            </div>
+            <Alert
+              variant="error"
+              title={error ? 'Password update failed' : 'Verification failed'}
+              description={
+                error
+                  ? `Password update didn't work. ${error}`
+                  : `We couldn't verify you're human. Try again.`
+              }
+            />
           )}
 
           {/* Submit Button */}

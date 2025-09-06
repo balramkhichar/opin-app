@@ -16,6 +16,8 @@ import {
   PlusIcon,
   BarChartIcon,
   ChevronSelectorVerticalIcon,
+  AlertSquareIcon,
+  CheckSquareIcon,
 } from './icons';
 
 interface IconProps {
@@ -47,6 +49,8 @@ const iconComponents = {
   plus: PlusIcon,
   barChart: BarChartIcon,
   chevronSelectorVertical: ChevronSelectorVerticalIcon,
+  alertSquare: AlertSquareIcon,
+  checkSquare: CheckSquareIcon,
 };
 
 export function Icon({
@@ -62,7 +66,34 @@ export function Icon({
     return null;
   }
 
-  return (
-    <IconComponent size={sizeMap[size]} className={className} color={color} />
-  );
+  // Handle different icon prop interfaces
+  const iconProps: Record<string, unknown> = {
+    className,
+    color,
+  };
+
+  // Only add size prop if the component accepts it
+  // We'll pass the numeric size for components that expect it
+  if (
+    name === 'user' ||
+    name === 'check' ||
+    name === 'close' ||
+    name === 'logIn' ||
+    name === 'logOut' ||
+    name === 'mail' ||
+    name === 'home' ||
+    name === 'eye' ||
+    name === 'eyeOff' ||
+    name === 'settings' ||
+    name === 'barChart' ||
+    name === 'chevronSelectorVertical'
+  ) {
+    iconProps.size = sizeMap[size];
+  } else if (name === 'alertSquare' || name === 'checkSquare') {
+    // These components expect size as string
+    iconProps.size = size;
+  }
+  // For other icons (like plus, menu), we don't pass size prop
+
+  return <IconComponent {...iconProps} />;
 }

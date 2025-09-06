@@ -7,6 +7,7 @@ import {
   TurnstileCaptcha,
   Loading,
   Link,
+  Alert,
 } from '@/components';
 import { Button } from '@/components/ui/button';
 import {
@@ -146,17 +147,15 @@ function SignInForm() {
 
           {/* Error Messages */}
           {(error || captchaError) && (
-            <div className="bg-destructive rounded-md p-4">
-              <div className="mt-0 flex">
-                <div className="text-primary-foreground text-sm">
-                  <p>
-                    {error
-                      ? `Sign-in didn't work. Double-check your details and retry.`
-                      : `We couldn't verify you're human. Try again.`}
-                  </p>
-                </div>
-              </div>
-            </div>
+            <Alert
+              variant="error"
+              title={error ? 'Sign-in failed' : 'Verification failed'}
+              description={
+                error
+                  ? `Sign-in didn't work. Double-check your details and retry.`
+                  : `We couldn't verify you're human. Try again.`
+              }
+            />
           )}
 
           {/* Submit Button */}

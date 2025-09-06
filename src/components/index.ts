@@ -8,3 +8,4 @@ export { Loading } from './Loading';
 export { Icon } from './Icon';
 export { Sidebar } from './Sidebar';
 export { BreadcrumbNav } from './Breadcrumb';
+export { Alert } from './Alert';

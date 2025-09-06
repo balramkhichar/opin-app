@@ -12,3 +12,5 @@ export { SettingsIcon } from './SettingsIcon';
 export { BarChartIcon } from './BarChartIcon';
 export { ChevronSelectorVerticalIcon } from './ChevronSelectorVerticalIcon';
 export { PlusIcon } from './PlusIcon';
+export { AlertSquareIcon } from './AlertSquareIcon';
+export { CheckSquareIcon } from './CheckSquareIcon';

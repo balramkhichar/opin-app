@@ -8,6 +8,7 @@ import {
   TurnstileCaptcha,
   Loading,
   Link,
+  Alert,
 } from '@/components';
 import {
   Card,
@@ -204,17 +205,15 @@ function SignUpForm() {
 
           {/* Error Messages */}
           {(error || captchaError) && (
-            <div className="bg-destructive rounded-md p-4">
-              <div className="mt-0 flex">
-                <div className="text-primary-foreground text-sm">
-                  <p>
-                    {error
-                      ? `Sign-up didn't work. ${error}`
-                      : `We couldn't verify you're human. Try again.`}
-                  </p>
-                </div>
-              </div>
-            </div>
+            <Alert
+              variant="error"
+              title={error ? 'Sign-up failed' : 'Verification failed'}
+              description={
+                error
+                  ? `Sign-up didn't work. ${error}`
+                  : `We couldn't verify you're human. Try again.`
+              }
+            />
           )}
 
           {/* Submit Button */}
