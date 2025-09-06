@@ -149,5 +149,13 @@ You are a Senior Full-Stack Developer and expert in React, Next.js, Supabase, an
 * Support controlled and uncontrolled component modes
 * For icons use svg from https://www.untitledui.com/free-icons
 
+## Supabase MCP Integration
+* **MCP Server Available**: This project has Supabase MCP server configured with read-only access
+* **Project Reference**: kirxbivnduqjjgdqpuvn
+* **Available Tools**: Database operations, migrations, security advisors, logs, edge functions, development branches
+* **Use MCP Tools**: When working with Supabase, prefer using MCP tools for database operations, migrations, and project management
+* **Security First**: Always check security advisors and apply recommended security policies
+* **Type Generation**: Use MCP to generate TypeScript types for database schema changes
+
 ## Knowledge Updates
-When working with Supabase, React Query, or authentication patterns, search for the latest documentation and security best practices to ensure implementations follow current standards and handle production-scale requirements.
+When working with Supabase, React Query, or authentication patterns, search for the latest documentation and security best practices to ensure implementations follow current standards and handle production-scale requirements. Use the available MCP Supabase tools for database operations, migrations, and project management tasks.

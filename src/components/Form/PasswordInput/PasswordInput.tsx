@@ -19,18 +19,35 @@ interface PasswordInputProps {
   validators?: any;
 }
 
-// Default password validator
+// Default password validator - matches Supabase requirements
 const defaultPasswordValidator = {
   onChange: ({ value }: { value: string }) => {
     if (!value) return 'Password is required';
     if (value.length < 8) {
       return 'Password must be at least 8 characters';
     }
-    // Check for at least 1 special character
+
+    // Check for lowercase letter
+    if (!/[a-z]/.test(value)) {
+      return 'Password must contain at least one lowercase letter';
+    }
+
+    // Check for uppercase letter
+    if (!/[A-Z]/.test(value)) {
+      return 'Password must contain at least one uppercase letter';
+    }
+
+    // Check for digit
+    if (!/\d/.test(value)) {
+      return 'Password must contain at least one digit';
+    }
+
+    // Check for special character
     const specialCharRegex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
     if (!specialCharRegex.test(value)) {
-      return 'Password must contain at least 1 special character';
+      return 'Password must contain at least one special character';
     }
+
     return undefined;
   },
 };

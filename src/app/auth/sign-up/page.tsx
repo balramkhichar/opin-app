@@ -176,15 +176,6 @@ function SignUpForm() {
             name="password"
             label="Password"
             placeholder="Create a password"
-            validators={{
-              onChange: ({ value }: { value: string }) => {
-                if (!value) return 'Password is required';
-                if (value.length < 8) {
-                  return 'Password must be at least 8 characters long';
-                }
-                return undefined;
-              },
-            }}
           />
 
           {/* Confirm Password Field */}
