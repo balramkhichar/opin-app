@@ -7,8 +7,8 @@ import {
   TurnstileCaptcha,
   Loading,
   Link,
-  Alert,
 } from '@/components';
+import { toast } from '@/components/Toast';
 import {
   Card,
   CardHeader,
@@ -23,8 +23,6 @@ import { useState, useEffect, useRef, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 function UpdatePasswordForm() {
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const [captchaError, setCaptchaError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -72,13 +70,11 @@ function UpdatePasswordForm() {
     password: string;
     confirmPassword: string;
   }) => {
-    setError(null);
-    setSuccess(null);
     setCaptchaError(null);
     setLoading(true);
 
     if (value.password !== value.confirmPassword) {
-      setError('Passwords do not match');
+      toast.error('Passwords do not match');
       setLoading(false);
       return;
     }
@@ -96,17 +92,17 @@ function UpdatePasswordForm() {
       });
 
       if (error) {
-        setError(error.message);
+        toast.error('Password update failed', error.message);
         resetCaptcha();
       } else {
-        setSuccess('Password updated successfully! Redirecting...');
+        toast.success('Password updated successfully! Redirecting...');
         resetCaptcha();
         setTimeout(() => {
           router.push(next);
         }, 2000);
       }
     } catch {
-      setError('An unexpected error occurred');
+      toast.error('An unexpected error occurred');
       resetCaptcha();
     } finally {
       setLoading(false);
@@ -169,22 +165,9 @@ function UpdatePasswordForm() {
             />
           </div>
 
-          {/* Success Message */}
-          {success && (
-            <Alert variant="success" title="Success" description={success} />
-          )}
-
-          {/* Error Messages */}
-          {(error || captchaError) && (
-            <Alert
-              variant="error"
-              title={error ? 'Password update failed' : 'Verification failed'}
-              description={
-                error
-                  ? `Password update didn't work. ${error}`
-                  : `We couldn't verify you're human. Try again.`
-              }
-            />
+          {/* CAPTCHA Error Message */}
+          {captchaError && (
+            <div className="text-destructive text-sm">{captchaError}</div>
           )}
 
           {/* Submit Button */}

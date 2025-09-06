@@ -9,3 +9,4 @@ export { Icon } from './Icon';
 export { Sidebar } from './Sidebar';
 export { BreadcrumbNav } from './Breadcrumb';
 export { Alert } from './Alert';
+export { Toast, toast } from './Toast';

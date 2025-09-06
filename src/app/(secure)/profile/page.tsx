@@ -15,7 +15,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Alert } from '@/components/Alert';
+import { toast } from '@/components/Toast';
 import { Icon } from '@/components/Icon';
 import type { AnyFieldApi } from '@tanstack/react-form';
 
@@ -28,8 +28,6 @@ interface ProfileData {
 export default function ProfilePage() {
   const { user, loading } = useAuth();
   const [saving, setSaving] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
 
@@ -48,7 +46,6 @@ export default function ProfilePage() {
         setAvatarPreview(e.target?.result as string);
       };
       reader.readAsDataURL(file);
-      setError(null);
     }
   };
 
@@ -56,8 +53,6 @@ export default function ProfilePage() {
     if (!user) return;
 
     setSaving(true);
-    setError(null);
-    setSuccess(null);
 
     try {
       const supabase = createClient();
@@ -97,12 +92,13 @@ export default function ProfilePage() {
         throw updateError;
       }
 
-      setSuccess('Profile updated successfully!');
+      toast.success('Profile updated successfully!');
       setAvatarFile(null);
     } catch (error) {
       console.error('Error updating profile:', error);
-      setError(
-        error instanceof Error ? error.message : 'Failed to update profile'
+      toast.error(
+        'Failed to update profile',
+        error instanceof Error ? error.message : 'An unexpected error occurred'
       );
     } finally {
       setSaving(false);
@@ -144,12 +140,6 @@ export default function ProfilePage() {
   return (
     <div className="container mx-auto py-8">
       <div className="mx-auto max-w-2xl space-y-6">
-        {error && <Alert variant="error" title="Error" description={error} />}
-
-        {success && (
-          <Alert variant="success" title="Success" description={success} />
-        )}
-
         <Card>
           <CardHeader>
             <CardTitle>Profile</CardTitle>
