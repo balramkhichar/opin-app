@@ -68,38 +68,8 @@ export function Icon({
     return null;
   }
 
-  // Handle different icon prop interfaces
-  const iconProps: Record<string, unknown> = {
-    className,
-    color,
-  };
-
-  // Only add size prop if the component accepts it
-  // We'll pass the numeric size for components that expect it
-  if (
-    name === 'user' ||
-    name === 'check' ||
-    name === 'close' ||
-    name === 'logIn' ||
-    name === 'logOut' ||
-    name === 'mail' ||
-    name === 'home' ||
-    name === 'eye' ||
-    name === 'eyeOff' ||
-    name === 'settings' ||
-    name === 'barChart' ||
-    name === 'chevronSelectorVertical'
-  ) {
-    iconProps.size = sizeMap[size];
-  } else if (
-    name === 'alertSquare' ||
-    name === 'alertTriangle' ||
-    name === 'checkSquare'
-  ) {
-    // These components expect size as string
-    iconProps.size = size;
-  }
-  // For other icons (like plus, menu), we don't pass size prop
-
-  return <IconComponent {...iconProps} />;
+  // All icons now use the same standardized interface
+  return (
+    <IconComponent className={className} size={sizeMap[size]} color={color} />
+  );
 }
