@@ -3,6 +3,10 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { createClient } from './supabase';
 import type { User, Session } from '@supabase/supabase-js';
+import {
+  getUserFriendlyErrorMessage,
+  getGenericErrorMessage,
+} from './error-messages';
 
 interface AuthContextType {
   user: User | null;
@@ -69,12 +73,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       });
 
       if (error) {
-        return { success: false, error: error.message };
+        return { success: false, error: getUserFriendlyErrorMessage(error) };
       }
 
       return { success: true };
     } catch {
-      return { success: false, error: 'An unexpected error occurred' };
+      return { success: false, error: getGenericErrorMessage() };
     }
   };
 
@@ -109,12 +113,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       });
 
       if (error) {
-        return { success: false, error: error.message };
+        return { success: false, error: getUserFriendlyErrorMessage(error) };
       }
 
       return { success: true };
     } catch {
-      return { success: false, error: 'An unexpected error occurred' };
+      return { success: false, error: getGenericErrorMessage() };
     }
   };
 
@@ -123,12 +127,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const { error } = await supabase.auth.signOut();
 
       if (error) {
-        return { success: false, error: error.message };
+        return { success: false, error: getUserFriendlyErrorMessage(error) };
       }
 
       return { success: true };
     } catch {
-      return { success: false, error: 'An unexpected error occurred' };
+      return { success: false, error: getGenericErrorMessage() };
     }
   };
 

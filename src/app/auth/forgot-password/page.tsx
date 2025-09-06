@@ -9,6 +9,7 @@ import {
   Link,
   Alert,
 } from '@/components';
+import { toast } from '@/components/Toast';
 import {
   Card,
   CardHeader,
@@ -23,7 +24,6 @@ import { useState, useRef, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 function ForgotPasswordForm() {
-  const [error, setError] = useState<string | null>(null);
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const [captchaError, setCaptchaError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -38,13 +38,17 @@ function ForgotPasswordForm() {
   };
 
   const handleCaptchaError = () => {
-    setCaptchaError('CAPTCHA verification failed. Please try again.');
+    setCaptchaError(
+      'Security verification failed. Please complete the check again.'
+    );
     setCaptchaToken(null);
   };
 
   const handleCaptchaExpire = () => {
     setCaptchaToken(null);
-    setCaptchaError('CAPTCHA expired. Please verify again.');
+    setCaptchaError(
+      'The security check has expired. Please complete it again.'
+    );
   };
 
   const resetCaptcha = () => {
@@ -54,12 +58,11 @@ function ForgotPasswordForm() {
   };
 
   const handleFormSubmit = async (value: { email: string }) => {
-    setError(null);
     setCaptchaError(null);
     setLoading(true);
 
     if (!captchaToken) {
-      setCaptchaError('Please complete the CAPTCHA verification.');
+      setCaptchaError('Please complete the security check to continue.');
       setLoading(false);
       return;
     }
@@ -72,13 +75,13 @@ function ForgotPasswordForm() {
       });
 
       if (error) {
-        setError(error.message);
+        toast.error('Password reset failed', error.message);
         resetCaptcha();
       } else {
         router.push('/auth/forgot-password-success');
       }
     } catch {
-      setError('An unexpected error occurred');
+      toast.error('An unexpected error occurred');
       resetCaptcha();
     } finally {
       setLoading(false);
@@ -132,16 +135,12 @@ function ForgotPasswordForm() {
             />
           </div>
 
-          {/* Error Messages */}
-          {(error || captchaError) && (
+          {/* CAPTCHA Error Message */}
+          {captchaError && (
             <Alert
               variant="error"
-              title={error ? 'Password reset failed' : 'Verification failed'}
-              description={
-                error
-                  ? `Password reset didn't work. ${error}`
-                  : `We couldn't verify you're human. Try again.`
-              }
+              title="Verification failed"
+              description={captchaError}
             />
           )}
 

@@ -28,7 +28,7 @@ export function Alert({ variant, title, description, className }: AlertProps) {
       case 'error':
         return {
           alertVariant: 'destructive' as const,
-          icon: 'alertSquare' as const,
+          icon: 'alertTriangle' as const,
           iconClassName: 'text-destructive',
         };
       case 'info':

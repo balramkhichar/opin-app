@@ -10,6 +10,7 @@ import {
   Link,
   Alert,
 } from '@/components';
+import { toast } from '@/components/Toast';
 import {
   Card,
   CardHeader,
@@ -25,7 +26,6 @@ import { useRouter, useSearchParams } from 'next/navigation';
 
 function SignUpForm() {
   const { signUp, loading: authLoading, user } = useAuth();
-  const [error, setError] = useState<string | null>(null);
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const [captchaError, setCaptchaError] = useState<string | null>(null);
   const turnstileRef = useRef<TurnstileRef>(null);
@@ -45,13 +45,17 @@ function SignUpForm() {
   };
 
   const handleCaptchaError = () => {
-    setCaptchaError('CAPTCHA verification failed. Please try again.');
+    setCaptchaError(
+      'Security verification failed. Please complete the check again.'
+    );
     setCaptchaToken(null);
   };
 
   const handleCaptchaExpire = () => {
     setCaptchaToken(null);
-    setCaptchaError('CAPTCHA expired. Please verify again.');
+    setCaptchaError(
+      'The security check has expired. Please complete it again.'
+    );
   };
 
   const resetCaptcha = () => {
@@ -67,16 +71,17 @@ function SignUpForm() {
     password: string;
     confirmPassword: string;
   }) => {
-    setError(null);
     setCaptchaError(null);
 
     if (value.password !== value.confirmPassword) {
-      setError('Passwords do not match');
+      toast.error(
+        "Your passwords don't match. Please make sure they're identical."
+      );
       return;
     }
 
     if (!captchaToken) {
-      setCaptchaError('Please complete the CAPTCHA verification.');
+      setCaptchaError('Please complete the security check to continue.');
       return;
     }
 
@@ -90,7 +95,10 @@ function SignUpForm() {
     if (result.success) {
       router.push('/auth/sign-up-success');
     } else {
-      setError(result.error || 'Sign up failed');
+      toast.error(
+        'Sign-up failed',
+        result.error || "Sign-up didn't work. Please try again."
+      );
       resetCaptcha();
     }
   };
@@ -203,16 +211,12 @@ function SignUpForm() {
             />
           </div>
 
-          {/* Error Messages */}
-          {(error || captchaError) && (
+          {/* CAPTCHA Error Message */}
+          {captchaError && (
             <Alert
               variant="error"
-              title={error ? 'Sign-up failed' : 'Verification failed'}
-              description={
-                error
-                  ? `Sign-up didn't work. ${error}`
-                  : `We couldn't verify you're human. Try again.`
-              }
+              title="Verification failed"
+              description={captchaError}
             />
           )}
 
