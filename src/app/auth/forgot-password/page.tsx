@@ -70,7 +70,7 @@ function ForgotPasswordForm() {
     try {
       const supabase = createClient();
       const { error } = await supabase.auth.resetPasswordForEmail(value.email, {
-        redirectTo: `${window.location.origin}/auth/update-password?next=${next}`,
+        redirectTo: `${window.location.origin}/auth/confirm?next=${next}`,
         captchaToken,
       });
 

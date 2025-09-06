@@ -17,8 +17,15 @@ export async function GET(request: NextRequest) {
       token_hash,
     });
     if (!error) {
-      // redirect user to specified redirect URL or root of app
-      redirect(next);
+      // Handle different OTP types appropriately
+      if (type === 'recovery') {
+        // For password recovery, redirect to update password page
+        // The user is now logged in and can update their password
+        redirect(`/auth/update-password?next=${next}`);
+      } else {
+        // For other types (signup, email change, etc.), redirect to specified URL
+        redirect(next);
+      }
     } else {
       // redirect the user to an error page with some instructions
       redirect(`/auth/error?error=${error?.message}`);
