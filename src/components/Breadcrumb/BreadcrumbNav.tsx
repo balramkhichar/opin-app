@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import Link from 'next/link';
 import {
   Breadcrumb,
@@ -22,7 +23,7 @@ export function BreadcrumbNav() {
     <Breadcrumb>
       <BreadcrumbList>
         {breadcrumbs.map((item, index) => (
-          <div key={item.href || item.label} className="flex items-center">
+          <React.Fragment key={item.href || item.label}>
             <BreadcrumbItem>
               {item.isLast ? (
                 <BreadcrumbPage className="font-medium">
@@ -35,7 +36,7 @@ export function BreadcrumbNav() {
               )}
             </BreadcrumbItem>
             {index < breadcrumbs.length - 1 && <BreadcrumbSeparator />}
-          </div>
+          </React.Fragment>
         ))}
       </BreadcrumbList>
     </Breadcrumb>
