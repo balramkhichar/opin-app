@@ -21,42 +21,24 @@ import {
 } from '@/components/ui/card';
 import type { TurnstileRef } from '@/components/Turnstile';
 import { useAuth } from '@/lib/auth-context';
-import { useState, useRef, Suspense } from 'react';
+import { useCaptcha } from '@/hooks/use-captcha';
+import { useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 function SignUpForm() {
   const { signUp, loading: authLoading, user } = useAuth();
-  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
-  const [captchaError, setCaptchaError] = useState<string | null>(null);
-  const turnstileRef = useRef<TurnstileRef>(null);
+  const {
+    captchaToken,
+    captchaError,
+    turnstileRef,
+    handleCaptchaVerify,
+    handleCaptchaError,
+    handleCaptchaExpire,
+    resetCaptcha,
+  } = useCaptcha();
   const router = useRouter();
   const searchParams = useSearchParams();
   const next = searchParams.get('next') ?? '/dashboard';
-
-  const handleCaptchaVerify = (token: string) => {
-    setCaptchaToken(token);
-    setCaptchaError(null);
-  };
-
-  const handleCaptchaError = () => {
-    setCaptchaError(
-      'Security verification failed. Please complete the check again.'
-    );
-    setCaptchaToken(null);
-  };
-
-  const handleCaptchaExpire = () => {
-    setCaptchaToken(null);
-    setCaptchaError(
-      'The security check has expired. Please complete it again.'
-    );
-  };
-
-  const resetCaptcha = () => {
-    turnstileRef.current?.reset();
-    setCaptchaToken(null);
-    setCaptchaError(null);
-  };
 
   const handleFormSubmit = async (value: {
     first_name: string;

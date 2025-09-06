@@ -65,7 +65,9 @@ src/
 │   ├── avatar.ts      # Avatar upload utilities
 │   └── utils.ts       # Utility functions
 ├── hooks/             # Custom React hooks
+│   ├── use-auth-redirect.ts # Auth redirect logic
 │   ├── use-breadcrumb.ts # Breadcrumb hook
+│   ├── use-captcha.ts # CAPTCHA state management
 │   └── use-mobile.ts  # Mobile detection hook
 └── types/             # TypeScript type definitions
     └── form.ts        # Form-related types
@@ -82,6 +84,15 @@ The authentication system is built around Supabase and consists of:
 - **Auth Utilities** (`src/lib/auth.ts`): Core authentication functions
 - **Auth Context** (`src/lib/auth-context.tsx`): React context for global auth state
 - **Middleware** (`src/middleware.ts`): Route protection and session management
+
+### Custom Hooks
+
+The application includes several custom hooks for common functionality:
+
+- **useAuthRedirect** (`src/hooks/use-auth-redirect.ts`): Centralized auth redirect logic for auth pages
+- **useCaptcha** (`src/hooks/use-captcha.ts`): CAPTCHA state management and handlers
+- **useBreadcrumb** (`src/hooks/use-breadcrumb.ts`): Breadcrumb navigation state
+- **useMobile** (`src/hooks/use-mobile.ts`): Mobile device detection
 
 ### Form System
 
