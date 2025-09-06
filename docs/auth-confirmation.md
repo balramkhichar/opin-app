@@ -17,6 +17,7 @@ The application now includes a complete auth flow with the following pages:
 - `/auth/forgot-password` - Password reset request page
 - `/auth/forgot-password-success` - Success page after password reset request
 - `/auth/update-password` - Password update page (after reset link)
+- `/auth/setup-password` - Password setup page (for invited users)
 - `/auth/confirm` - Email confirmation handler
 - `/auth/error` - Error page for auth failures
 
@@ -107,7 +108,9 @@ The sign-in page (`/auth/sign-in`) includes:
 2. Navigate to **Authentication** → **Settings**
 3. Under **User Registration**, ensure "Enable email confirmations" is checked
 
-### 2. Configure Email Template
+### 2. Configure Email Templates
+
+#### Confirm Signup Template
 
 1. Go to **Authentication** → **Email Templates**
 2. Select the **Confirm signup** template
@@ -125,6 +128,43 @@ The sign-in page (`/auth/sign-in`) includes:
 {{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=email
 ```
 
+#### Invite User Template
+
+1. Go to **Authentication** → **Email Templates**
+2. Select the **Invite user** template
+3. Update the invitation URL to use the server-side flow:
+
+**Replace this:**
+
+```
+{{ .ConfirmationURL }}
+```
+
+**With this:**
+
+```
+{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=invite
+```
+
+**Customize the email content:**
+
+```html
+<h2>You have been invited to join Opin</h2>
+<p>Hi there,</p>
+<p>
+  You have been invited to join <strong>Opin</strong> — AI-powered survey
+  platform for fast, actionable feedback.
+</p>
+<p>Click below to accept your invitation and get started:</p>
+<p>
+  <a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=invite"
+    >Accept Invite</a
+  >
+</p>
+<p>If the button doesn't work, copy and paste this link into your browser:</p>
+<p>{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=invite</p>
+```
+
 ### 3. Configure Password Reset Template
 
 1. Go to **Authentication** → **Email Templates**
@@ -140,7 +180,7 @@ The sign-in page (`/auth/sign-in`) includes:
 **With this:**
 
 ```
-{{ .SiteURL }}/auth/update-password?next={{ .RedirectTo }}
+{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&type=recovery
 ```
 
 ### 4. Set Site URL
@@ -157,9 +197,11 @@ The sign-in page (`/auth/sign-in`) includes:
    - `http://localhost:3000/auth/confirm` (development)
    - `http://localhost:3000/auth/forgot-password` (development)
    - `http://localhost:3000/auth/update-password` (development)
+   - `http://localhost:3000/auth/setup-password` (development)
    - `https://yourdomain.com/auth/confirm` (production)
    - `https://yourdomain.com/auth/forgot-password` (production)
    - `https://yourdomain.com/auth/update-password` (production)
+   - `https://yourdomain.com/auth/setup-password` (production)
 
 ## Environment Variables
 
@@ -189,6 +231,15 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 5. **Click the reset link** - it should redirect to `/auth/update-password`
 6. **Enter new password** and confirm
 7. **Verify you're redirected** to the dashboard
+
+### Email Invitation Flow
+
+1. **Admin invites user** via Supabase dashboard (Authentication → Users → Invite User)
+2. **User receives invitation email** with custom template
+3. **User clicks invitation link** - redirects to `/auth/confirm?token_hash=...&type=invite`
+4. **Confirm route processes invite** - redirects to `/auth/setup-password`
+5. **User sets password** with CAPTCHA verification
+6. **User is redirected to dashboard** - account setup complete
 
 ## Troubleshooting
 

@@ -5,15 +5,41 @@ The Opin application uses Supabase for authentication, providing a secure and sc
 ## Features
 
 - **User Sign-in**: Secure email/password authentication
+- **User Registration**: Email/password sign-up with email confirmation
+- **Email Invitations**: Admin can invite users via Supabase dashboard
+- **Password Setup**: Invited users can set their password via email link
+- **Password Reset**: Secure password recovery via email
 - **Session Management**: Automatic session handling with middleware
 - **Protected Routes**: Dashboard access requires authentication
 - **Logout**: Secure session termination
 
-## Authentication Flow
+## Authentication Flows
 
-1. **Sign In**: Users authenticate at the main page `/`
-2. **Dashboard Access**: Authenticated users are redirected to `/dashboard`
-3. **Session Persistence**: Sessions are maintained across browser sessions
+### Standard Sign-up Flow
+
+1. **Sign Up**: Users register at `/auth/sign-up`
+2. **Email Confirmation**: Users receive confirmation email
+3. **Account Activation**: Click email link to activate account
+4. **Dashboard Access**: Authenticated users are redirected to `/dashboard`
+
+### Email Invitation Flow
+
+1. **Admin Invites**: Admin invites user via Supabase dashboard
+2. **Invitation Email**: User receives invitation email
+3. **Password Setup**: User clicks link to set password at `/auth/setup-password`
+4. **Account Complete**: User is redirected to dashboard
+
+### Password Reset Flow
+
+1. **Forgot Password**: User requests reset at `/auth/forgot-password`
+2. **Reset Email**: User receives password reset email
+3. **Update Password**: User clicks link to update password at `/auth/update-password`
+4. **Login**: User can now sign in with new password
+
+### Session Management
+
+- **Session Persistence**: Sessions are maintained across browser sessions
+- **Auto-refresh**: Tokens are automatically refreshed via middleware
 
 ## Implementation
 
