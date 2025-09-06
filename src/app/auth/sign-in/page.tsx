@@ -53,7 +53,9 @@ function SignInForm() {
     }
 
     const result = await signIn(value.email, value.password, captchaToken);
-    if (!result.success) {
+    if (result.success) {
+      router.push(next);
+    } else {
       toast.error(
         'Sign-in failed',
         result.error ||
