@@ -3,6 +3,8 @@
 import Image from 'next/image';
 import { ReactNode, useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
+import { useAuthRedirect } from '@/hooks/use-auth-redirect';
+import { Loading } from '@/components';
 
 interface AuthLayoutProps {
   children: ReactNode;
@@ -11,6 +13,7 @@ interface AuthLayoutProps {
 export default function AuthLayout({ children }: AuthLayoutProps) {
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const { isLoading } = useAuthRedirect();
 
   useEffect(() => {
     setMounted(true);
@@ -32,7 +35,9 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
           </div>
         </div>
 
-        <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">{children}</div>
+        <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+          {isLoading ? <Loading /> : children}
+        </div>
       </div>
     </div>
   );

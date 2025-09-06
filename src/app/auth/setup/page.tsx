@@ -21,7 +21,7 @@ import {
 } from '@/components/ui/card';
 import type { TurnstileRef } from '@/components/Turnstile';
 import { createClient } from '@/lib/supabase';
-import { useState, useEffect, useRef, Suspense } from 'react';
+import { useState, useRef, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 function SetupForm() {
@@ -32,20 +32,6 @@ function SetupForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const next = searchParams.get('next') ?? '/dashboard';
-
-  useEffect(() => {
-    // Check if user is authenticated
-    const checkAuth = async () => {
-      const supabase = createClient();
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      if (!user) {
-        router.push(`/auth/sign-in?next=${next}`);
-      }
-    };
-    // checkAuth();
-  }, [router, next]);
 
   const handleCaptchaVerify = (token: string) => {
     setCaptchaToken(token);
@@ -232,31 +218,33 @@ function SetupForm() {
               </Button>
             )}
           </Form.Subscribe>
-
-          {/* Terms and Privacy Policy */}
-          <div className="text-center text-sm">
-            By completing setup, you agree to the
-            <Link
-              href="https://www.getopin.com/terms"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-semibold"
-            >
-              Terms of use
-            </Link>{' '}
-            and
-            <Link
-              href="https://www.getopin.com/privacy"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-semibold"
-            >
-              Privacy Policy
-            </Link>
-            .
-          </div>
         </Form>
       </CardContent>
+
+      <CardFooter className="flex-col space-y-4">
+        {/* Terms and Privacy Policy */}
+        <div className="text-center text-sm">
+          By completing setup, you agree to the
+          <Link
+            href="https://www.getopin.com/terms"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold"
+          >
+            Terms of use
+          </Link>{' '}
+          and
+          <Link
+            href="https://www.getopin.com/privacy"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold"
+          >
+            Privacy Policy
+          </Link>
+          .
+        </div>
+      </CardFooter>
     </Card>
   );
 }

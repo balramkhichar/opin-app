@@ -8,7 +8,6 @@ import {
   CardDescription,
   CardFooter,
 } from '@/components/ui/card';
-
 export default function SignUpSuccessPage() {
   return (
     <Card>

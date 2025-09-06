@@ -19,7 +19,7 @@ import {
 } from '@/components/ui/card';
 import type { TurnstileRef } from '@/components/Turnstile';
 import { createClient } from '@/lib/supabase';
-import { useState, useEffect, useRef, Suspense } from 'react';
+import { useState, useRef, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 function UpdatePasswordForm() {
@@ -30,20 +30,6 @@ function UpdatePasswordForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const next = searchParams.get('next') ?? '/dashboard';
-
-  useEffect(() => {
-    // Check if user is authenticated
-    const checkAuth = async () => {
-      const supabase = createClient();
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      if (!user) {
-        router.push(`/auth/sign-in?next=${next}`);
-      }
-    };
-    checkAuth();
-  }, [router, next]);
 
   const handleCaptchaVerify = (token: string) => {
     setCaptchaToken(token);
