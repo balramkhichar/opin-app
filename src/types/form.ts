@@ -5,6 +5,8 @@ export interface FormValues {
   email: string;
   password: string;
   confirmPassword: string;
+  currentPassword: string;
+  newPassword: string;
   [key: string]: string | number | boolean | undefined;
 }
 

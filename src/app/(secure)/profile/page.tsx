@@ -17,6 +17,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { toast } from '@/components/Toast';
 import { Icon } from '@/components/Icon';
+import { Loading } from '@/components/Loading';
 import type { AnyFieldApi } from '@tanstack/react-form';
 
 interface ProfileData {
@@ -109,10 +110,7 @@ export default function ProfilePage() {
     return (
       <div className="container mx-auto py-8">
         <div className="mx-auto max-w-2xl">
-          <div className="animate-pulse">
-            <div className="mb-6 h-8 w-1/4 rounded bg-gray-200"></div>
-            <div className="h-64 rounded bg-gray-200"></div>
-          </div>
+          <Loading size="lg" className="min-h-[400px]" />
         </div>
       </div>
     );
