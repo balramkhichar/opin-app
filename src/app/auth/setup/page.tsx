@@ -44,7 +44,7 @@ function SetupForm() {
         router.push(`/auth/sign-in?next=${next}`);
       }
     };
-    checkAuth();
+    // checkAuth();
   }, [router, next]);
 
   const handleCaptchaVerify = (token: string) => {
@@ -175,15 +175,15 @@ function SetupForm() {
           {/* Password Field */}
           <PasswordInput
             name="password"
-            label="New Password"
-            placeholder="Enter your new password"
+            label="Password"
+            placeholder="Create a password"
           />
 
           {/* Confirm Password Field */}
           <PasswordInput
             name="confirmPassword"
-            label="Confirm New Password"
-            placeholder="Confirm your new password"
+            label="Confirm Password"
+            placeholder="Confirm your password"
             validators={{
               onChange: ({ value }: { value: string }) => {
                 if (!value) return 'Please confirm your password';
@@ -232,6 +232,29 @@ function SetupForm() {
               </Button>
             )}
           </Form.Subscribe>
+
+          {/* Terms and Privacy Policy */}
+          <div className="text-center text-sm">
+            By completing setup, you agree to the
+            <Link
+              href="https://www.getopin.com/terms"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold"
+            >
+              Terms of use
+            </Link>{' '}
+            and
+            <Link
+              href="https://www.getopin.com/privacy"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold"
+            >
+              Privacy Policy
+            </Link>
+            .
+          </div>
         </Form>
       </CardContent>
     </Card>
